@@ -814,17 +814,20 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "findMCP.pyx",
+  "findMCP.pxd",
+  "stringsource",
   "graph.pxd",
 };
 
 /*--- Type declarations ---*/
 struct __pyx_obj_5graph_Graph;
 struct __pyx_obj_5graph_GraphMCP;
+struct __pyx_obj_7findMCP_MCSWithHeuristic;
 
 /* "graph.pxd":1
  * cdef class Graph:             # <<<<<<<<<<<<<<
- *     cdef public int cnt_vertex
- *     cdef public list adj
+ *     cdef public int cnt_vertex      #number of vertices in a graph
+ *     cdef public list adj        #graph adjacency list
  */
 struct __pyx_obj_5graph_Graph {
   PyObject_HEAD
@@ -833,17 +836,61 @@ struct __pyx_obj_5graph_Graph {
 };
 
 
-/* "graph.pxd":7
+/* "graph.pxd":6
  * 
  * 
  * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
- *     cdef public max_clique
+ *     cdef public max_clique      #vertices belonging to maximum clique
  */
 struct __pyx_obj_5graph_GraphMCP {
   struct __pyx_obj_5graph_Graph __pyx_base;
   PyObject *max_clique;
 };
 
+
+/* "findMCP.pxd":1
+ * cdef class MCSWithHeuristic:             # <<<<<<<<<<<<<<
+ *     cdef public list vertex
+ *     cdef public int num_vertices
+ */
+struct __pyx_obj_7findMCP_MCSWithHeuristic {
+  PyObject_HEAD
+  struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *__pyx_vtab;
+  PyObject *vertex;
+  int num_vertices;
+  PyObject *adj;
+  PyObject *adj_complementary;
+  PyObject *adj_matrix;
+  PyObject *candidates;
+  PyObject *candidates_init;
+  PyObject *candidates_init_copy;
+  PyObject *current_cligue;
+  PyObject *largest_clique;
+  PyObject *vertices_every_color;
+  PyObject *neighbors_among_candidates;
+  PyObject *degrees;
+  PyObject *degrees_of_neighbors;
+};
+
+
+
+/* "findMCP.pyx":8
+ * 
+ * 
+ * cdef class MCSWithHeuristic:             # <<<<<<<<<<<<<<
+ *     def __init__(self):
+ *         self.vertex = None
+ */
+
+struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic {
+  PyObject *(*mcs_with_heuristic)(struct __pyx_obj_7findMCP_MCSWithHeuristic *);
+  PyObject *(*process_branch)(struct __pyx_obj_7findMCP_MCSWithHeuristic *, int);
+  PyObject *(*upper_bound)(struct __pyx_obj_7findMCP_MCSWithHeuristic *, int);
+  PyObject *(*initial_ordering_and_coloring)(struct __pyx_obj_7findMCP_MCSWithHeuristic *);
+  PyObject *(*heuristic_solution)(struct __pyx_obj_7findMCP_MCSWithHeuristic *);
+  PyObject *(*ILS)(struct __pyx_obj_7findMCP_MCSWithHeuristic *);
+};
+static struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *__pyx_vtabptr_7findMCP_MCSWithHeuristic;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -909,18 +956,21 @@ struct __pyx_obj_5graph_GraphMCP {
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
 /* PyObjectGetAttrStr.proto */
 #if CYTHON_USE_TYPE_SLOTS
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
 #else
 #define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#endif
+
+/* GetBuiltinName.proto */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
+
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
 /* PyThreadStateGet.proto */
@@ -964,16 +1014,82 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
 
-/* TypeImport.proto */
-#ifndef __PYX_HAVE_RT_ImportType_proto
-#define __PYX_HAVE_RT_ImportType_proto
-enum __Pyx_ImportType_CheckSize {
-   __Pyx_ImportType_CheckSize_Error = 0,
-   __Pyx_ImportType_CheckSize_Warn = 1,
-   __Pyx_ImportType_CheckSize_Ignore = 2
-};
-static PyTypeObject *__Pyx_ImportType(PyObject* module, const char *module_name, const char *class_name, size_t size, enum __Pyx_ImportType_CheckSize check_size);
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
+/* KeywordStringCheck.proto */
+static int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
+
+/* ListCompAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len)) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
 #endif
+
+/* SetItemInt.proto */
+#define __Pyx_SetItemInt(o, i, v, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_SetItemInt_Fast(o, (Py_ssize_t)i, v, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list assignment index out of range"), -1) :\
+               __Pyx_SetItemInt_Generic(o, to_py_func(i), v)))
+static int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v);
+static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObject *v,
+                                               int is_list, int wraparound, int boundscheck);
+
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
+
+/* ObjectGetItem.proto */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key);
+#else
+#define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
+#endif
+
+/* PyErrExceptionMatches.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err);
+#else
+#define __Pyx_PyErr_ExceptionMatches(err)  PyErr_ExceptionMatches(err)
+#endif
+
+/* GetAttr.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *, PyObject *);
+
+/* GetAttr3.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *, PyObject *, PyObject *);
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -999,6 +1115,119 @@ static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UIN
 #define __PYX_GET_DICT_VERSION(dict)  (0)
 #define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)
 #define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
+#endif
+
+/* GetModuleGlobalName.proto */
+#if CYTHON_USE_DICT_VERSIONS
+#define __Pyx_GetModuleGlobalName(var, name)  {\
+    static PY_UINT64_T __pyx_dict_version = 0;\
+    static PyObject *__pyx_dict_cached_value = NULL;\
+    (var) = (likely(__pyx_dict_version == __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+        (likely(__pyx_dict_cached_value) ? __Pyx_NewRef(__pyx_dict_cached_value) : __Pyx_GetBuiltinName(name)) :\
+        __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
+}
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  {\
+    PY_UINT64_T __pyx_dict_version;\
+    PyObject *__pyx_dict_cached_value;\
+    (var) = __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
+}
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value);
+#else
+#define __Pyx_GetModuleGlobalName(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
+#endif
+
+/* RaiseDoubleKeywords.proto */
+static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
+
+/* ParseKeywords.proto */
+static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
+    PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
+    const char* function_name);
+
+/* Import.proto */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
+
+/* ImportFrom.proto */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
+
+/* PyCFunctionFastCall.proto */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
+#else
+#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
+#endif
+
+/* PyFunctionFastCall.proto */
+#if CYTHON_FAST_PYCALL
+#define __Pyx_PyFunction_FastCall(func, args, nargs)\
+    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs);
+#else
+#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
+#endif
+#define __Pyx_BUILD_ASSERT_EXPR(cond)\
+    (sizeof(char [1 - 2*!(cond)]) - 1)
+#ifndef Py_MEMBER_SIZE
+#define Py_MEMBER_SIZE(type, member) sizeof(((type *)0)->member)
+#endif
+  static size_t __pyx_pyframe_localsplus_offset = 0;
+  #include "frameobject.h"
+  #define __Pxy_PyFrame_Initialize_Offsets()\
+    ((void)__Pyx_BUILD_ASSERT_EXPR(sizeof(PyFrameObject) == offsetof(PyFrameObject, f_localsplus) + Py_MEMBER_SIZE(PyFrameObject, f_localsplus)),\
+     (void)(__pyx_pyframe_localsplus_offset = ((size_t)PyFrame_Type.tp_basicsize) - Py_MEMBER_SIZE(PyFrameObject, f_localsplus)))
+  #define __Pyx_PyFrame_GetLocalsplus(frame)\
+    (assert(__pyx_pyframe_localsplus_offset), (PyObject **)(((char *)(frame)) + __pyx_pyframe_localsplus_offset))
+#endif
+
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
+
+/* RaiseException.proto */
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* HasAttr.proto */
+static CYTHON_INLINE int __Pyx_HasAttr(PyObject *, PyObject *);
+
+/* PyObject_GenericGetAttrNoDict.proto */
+#if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name);
+#else
+#define __Pyx_PyObject_GenericGetAttrNoDict PyObject_GenericGetAttr
+#endif
+
+/* PyObject_GenericGetAttr.proto */
+#if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+static PyObject* __Pyx_PyObject_GenericGetAttr(PyObject* obj, PyObject* attr_name);
+#else
+#define __Pyx_PyObject_GenericGetAttr PyObject_GenericGetAttr
+#endif
+
+/* SetVTable.proto */
+static int __Pyx_SetVtable(PyObject *dict, void *vtable);
+
+/* SetupReduce.proto */
+static int __Pyx_setup_reduce(PyObject* type_obj);
+
+/* TypeImport.proto */
+#ifndef __PYX_HAVE_RT_ImportType_proto
+#define __PYX_HAVE_RT_ImportType_proto
+enum __Pyx_ImportType_CheckSize {
+   __Pyx_ImportType_CheckSize_Error = 0,
+   __Pyx_ImportType_CheckSize_Warn = 1,
+   __Pyx_ImportType_CheckSize_Ignore = 2
+};
+static PyTypeObject *__Pyx_ImportType(PyObject* module, const char *module_name, const char *class_name, size_t size, enum __Pyx_ImportType_CheckSize check_size);
 #endif
 
 /* CLineInTraceback.proto */
@@ -1027,6 +1256,9 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
+
 /* Print.proto */
 static int __Pyx_Print(PyObject*, PyObject *, int);
 #if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
@@ -1034,17 +1266,17 @@ static PyObject* __pyx_print = 0;
 static PyObject* __pyx_print_kwargs = 0;
 #endif
 
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* CIntFromPy.proto */
-static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* CIntFromPy.proto */
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
+static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
+
+/* PrintOne.proto */
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* FastTypeChecks.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -1065,45 +1297,152 @@ static int __Pyx_check_binary_version(void);
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_ILS(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_heuristic_solution(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_initial_ordering_and_coloring(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_upper_bound(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, CYTHON_UNUSED int __pyx_v_v); /* proto*/
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_process_branch(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, CYTHON_UNUSED int __pyx_v_v); /* proto*/
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_mcs_with_heuristic(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto*/
 
 /* Module declarations from 'graph' */
 static PyTypeObject *__pyx_ptype_5graph_Graph = 0;
 static PyTypeObject *__pyx_ptype_5graph_GraphMCP = 0;
 
 /* Module declarations from 'findMCP' */
+static PyTypeObject *__pyx_ptype_7findMCP_MCSWithHeuristic = 0;
 static void __pyx_f_7findMCP_print_graph(int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_7findMCP___pyx_unpickle_MCSWithHeuristic__set_state(struct __pyx_obj_7findMCP_MCSWithHeuristic *, PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "findMCP"
 extern int __pyx_module_is_main_findMCP;
 int __pyx_module_is_main_findMCP = 0;
 
 /* Implementation of 'findMCP' */
+static PyObject *__pyx_builtin_range;
 static const char __pyx_k_adj[] = "adj";
 static const char __pyx_k_end[] = "end";
+static const char __pyx_k_new[] = "__new__";
+static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_print[] = "print";
+static const char __pyx_k_range[] = "range";
+static const char __pyx_k_import[] = "__import__";
+static const char __pyx_k_pickle[] = "pickle";
+static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_update[] = "update";
+static const char __pyx_k_findMCP[] = "findMCP";
+static const char __pyx_k_getstate[] = "__getstate__";
+static const char __pyx_k_pyx_type[] = "__pyx_type";
+static const char __pyx_k_setstate[] = "__setstate__";
+static const char __pyx_k_pyx_state[] = "__pyx_state";
+static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_cnt_vertex[] = "cnt_vertex";
 static const char __pyx_k_max_clique[] = "max_clique";
+static const char __pyx_k_pyx_result[] = "__pyx_result";
+static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
+static const char __pyx_k_PickleError[] = "PickleError";
+static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
+static const char __pyx_k_stringsource[] = "stringsource";
+static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
+static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
+static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_MCSWithHeuristic[] = "MCSWithHeuristic";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_pyx_unpickle_MCSWithHeuristic[] = "__pyx_unpickle_MCSWithHeuristic";
+static const char __pyx_k_Incompatible_checksums_s_vs_0x01[] = "Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))";
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x01;
+static PyObject *__pyx_n_s_MCSWithHeuristic;
+static PyObject *__pyx_n_s_PickleError;
 static PyObject *__pyx_n_s_adj;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_cnt_vertex;
+static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_file;
+static PyObject *__pyx_n_s_findMCP;
+static PyObject *__pyx_n_s_getstate;
+static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max_clique;
 static PyObject *__pyx_n_s_name;
+static PyObject *__pyx_n_s_new;
+static PyObject *__pyx_n_s_pickle;
 static PyObject *__pyx_n_s_print;
+static PyObject *__pyx_n_s_pyx_PickleError;
+static PyObject *__pyx_n_s_pyx_checksum;
+static PyObject *__pyx_n_s_pyx_result;
+static PyObject *__pyx_n_s_pyx_state;
+static PyObject *__pyx_n_s_pyx_type;
+static PyObject *__pyx_n_s_pyx_unpickle_MCSWithHeuristic;
+static PyObject *__pyx_n_s_pyx_vtable;
+static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_reduce;
+static PyObject *__pyx_n_s_reduce_cython;
+static PyObject *__pyx_n_s_reduce_ex;
+static PyObject *__pyx_n_s_setstate;
+static PyObject *__pyx_n_s_setstate_cython;
+static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_pf_7findMCP_print_graph(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_6vertex___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_3adj___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_10candidates___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_7degrees___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_2__reduce_cython__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_4__setstate_cython__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_7findMCP_2__pyx_unpickle_MCSWithHeuristic(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_7findMCP_MCSWithHeuristic(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
 static PyObject *__pyx_int_3;
 static PyObject *__pyx_int_4;
 static PyObject *__pyx_int_5;
 static PyObject *__pyx_int_10;
+static PyObject *__pyx_int_1214952;
+static PyObject *__pyx_tuple_;
+static PyObject *__pyx_codeobj__2;
 /* Late includes */
 
 /* "findMCP.pyx":3
@@ -1129,6 +1468,7 @@ static void __pyx_f_7findMCP_print_graph(CYTHON_UNUSED int __pyx_skip_dispatch) 
  * cpdef void print_graph():
  *     g = graph.GraphMCP(10, [3, 4, 5], [1, 2])             # <<<<<<<<<<<<<<
  *     print(g.cnt_vertex, g.adj, g.max_clique)
+ * 
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1170,6 +1510,8 @@ static void __pyx_f_7findMCP_print_graph(CYTHON_UNUSED int __pyx_skip_dispatch) 
  * cpdef void print_graph():
  *     g = graph.GraphMCP(10, [3, 4, 5], [1, 2])
  *     print(g.cnt_vertex, g.adj, g.max_clique)             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_g, __pyx_n_s_cnt_vertex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1248,6 +1590,3557 @@ static PyObject *__pyx_pf_7findMCP_print_graph(CYTHON_UNUSED PyObject *__pyx_sel
   return __pyx_r;
 }
 
+/* "findMCP.pyx":9
+ * 
+ * cdef class MCSWithHeuristic:
+ *     def __init__(self):             # <<<<<<<<<<<<<<
+ *         self.vertex = None
+ *         self.num_vertices = 0
+ */
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
+  if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
+    __Pyx_RaiseArgtupleInvalid("__init__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
+  if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__init__", 0))) return -1;
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic___init__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__init__", 0);
+
+  /* "findMCP.pyx":10
+ * cdef class MCSWithHeuristic:
+ *     def __init__(self):
+ *         self.vertex = None             # <<<<<<<<<<<<<<
+ *         self.num_vertices = 0
+ *         self.adj = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->vertex);
+  __Pyx_DECREF(__pyx_v_self->vertex);
+  __pyx_v_self->vertex = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":11
+ *     def __init__(self):
+ *         self.vertex = None
+ *         self.num_vertices = 0             # <<<<<<<<<<<<<<
+ *         self.adj = None
+ *         self.adj_complementary = None
+ */
+  __pyx_v_self->num_vertices = 0;
+
+  /* "findMCP.pyx":12
+ *         self.vertex = None
+ *         self.num_vertices = 0
+ *         self.adj = None             # <<<<<<<<<<<<<<
+ *         self.adj_complementary = None
+ *         self.adj_matrix = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj);
+  __Pyx_DECREF(__pyx_v_self->adj);
+  __pyx_v_self->adj = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":13
+ *         self.num_vertices = 0
+ *         self.adj = None
+ *         self.adj_complementary = None             # <<<<<<<<<<<<<<
+ *         self.adj_matrix = None
+ *         self.candidates = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj_complementary);
+  __Pyx_DECREF(__pyx_v_self->adj_complementary);
+  __pyx_v_self->adj_complementary = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":14
+ *         self.adj = None
+ *         self.adj_complementary = None
+ *         self.adj_matrix = None             # <<<<<<<<<<<<<<
+ *         self.candidates = None
+ *         self.candidates_init = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj_matrix);
+  __Pyx_DECREF(__pyx_v_self->adj_matrix);
+  __pyx_v_self->adj_matrix = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":15
+ *         self.adj_complementary = None
+ *         self.adj_matrix = None
+ *         self.candidates = None             # <<<<<<<<<<<<<<
+ *         self.candidates_init = None
+ *         self.candidates_init_copy = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates);
+  __Pyx_DECREF(__pyx_v_self->candidates);
+  __pyx_v_self->candidates = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":16
+ *         self.adj_matrix = None
+ *         self.candidates = None
+ *         self.candidates_init = None             # <<<<<<<<<<<<<<
+ *         self.candidates_init_copy = None
+ *         self.current_cligue = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init);
+  __Pyx_DECREF(__pyx_v_self->candidates_init);
+  __pyx_v_self->candidates_init = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":17
+ *         self.candidates = None
+ *         self.candidates_init = None
+ *         self.candidates_init_copy = None             # <<<<<<<<<<<<<<
+ *         self.current_cligue = None
+ *         self.largest_clique = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init_copy);
+  __Pyx_DECREF(__pyx_v_self->candidates_init_copy);
+  __pyx_v_self->candidates_init_copy = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":18
+ *         self.candidates_init = None
+ *         self.candidates_init_copy = None
+ *         self.current_cligue = None             # <<<<<<<<<<<<<<
+ *         self.largest_clique = None
+ *         self.vertices_every_color = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->current_cligue);
+  __Pyx_DECREF(__pyx_v_self->current_cligue);
+  __pyx_v_self->current_cligue = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":19
+ *         self.candidates_init_copy = None
+ *         self.current_cligue = None
+ *         self.largest_clique = None             # <<<<<<<<<<<<<<
+ *         self.vertices_every_color = None
+ *         self.neighbors_among_candidates = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->largest_clique);
+  __Pyx_DECREF(__pyx_v_self->largest_clique);
+  __pyx_v_self->largest_clique = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":20
+ *         self.current_cligue = None
+ *         self.largest_clique = None
+ *         self.vertices_every_color = None             # <<<<<<<<<<<<<<
+ *         self.neighbors_among_candidates = None
+ *         self.degrees = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->vertices_every_color);
+  __Pyx_DECREF(__pyx_v_self->vertices_every_color);
+  __pyx_v_self->vertices_every_color = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":21
+ *         self.largest_clique = None
+ *         self.vertices_every_color = None
+ *         self.neighbors_among_candidates = None             # <<<<<<<<<<<<<<
+ *         self.degrees = None
+ *         self.degrees_of_neighbors = None
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->neighbors_among_candidates);
+  __Pyx_DECREF(__pyx_v_self->neighbors_among_candidates);
+  __pyx_v_self->neighbors_among_candidates = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":22
+ *         self.vertices_every_color = None
+ *         self.neighbors_among_candidates = None
+ *         self.degrees = None             # <<<<<<<<<<<<<<
+ *         self.degrees_of_neighbors = None
+ * 
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->degrees);
+  __Pyx_DECREF(__pyx_v_self->degrees);
+  __pyx_v_self->degrees = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":23
+ *         self.neighbors_among_candidates = None
+ *         self.degrees = None
+ *         self.degrees_of_neighbors = None             # <<<<<<<<<<<<<<
+ * 
+ *     cdef ILS(self):
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->degrees_of_neighbors);
+  __Pyx_DECREF(__pyx_v_self->degrees_of_neighbors);
+  __pyx_v_self->degrees_of_neighbors = ((PyObject*)Py_None);
+
+  /* "findMCP.pyx":9
+ * 
+ * cdef class MCSWithHeuristic:
+ *     def __init__(self):             # <<<<<<<<<<<<<<
+ *         self.vertex = None
+ *         self.num_vertices = 0
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":25
+ *         self.degrees_of_neighbors = None
+ * 
+ *     cdef ILS(self):             # <<<<<<<<<<<<<<
+ *         pass
+ * 
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_ILS(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("ILS", 0);
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":28
+ *         pass
+ * 
+ *     cdef heuristic_solution(self):             # <<<<<<<<<<<<<<
+ *         self.largest_clique = self.ILS()
+ * 
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_heuristic_solution(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("heuristic_solution", 0);
+
+  /* "findMCP.pyx":29
+ * 
+ *     cdef heuristic_solution(self):
+ *         self.largest_clique = self.ILS()             # <<<<<<<<<<<<<<
+ * 
+ *     cdef initial_ordering_and_coloring(self):
+ */
+  __pyx_t_1 = ((struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *)__pyx_v_self->__pyx_vtab)->ILS(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->largest_clique);
+  __Pyx_DECREF(__pyx_v_self->largest_clique);
+  __pyx_v_self->largest_clique = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":28
+ *         pass
+ * 
+ *     cdef heuristic_solution(self):             # <<<<<<<<<<<<<<
+ *         self.largest_clique = self.ILS()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.heuristic_solution", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":31
+ *         self.largest_clique = self.ILS()
+ * 
+ *     cdef initial_ordering_and_coloring(self):             # <<<<<<<<<<<<<<
+ *         self.degrees = [0 for _ in range(self.num_vertices)]
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_initial_ordering_and_coloring(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_v_v;
+  PyObject *__pyx_v_to = NULL;
+  CYTHON_UNUSED int __pyx_v__;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  Py_ssize_t __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_t_9;
+  PyObject *__pyx_t_10 = NULL;
+  PyObject *__pyx_t_11 = NULL;
+  __Pyx_RefNannySetupContext("initial_ordering_and_coloring", 0);
+
+  /* "findMCP.pyx":32
+ * 
+ *     cdef initial_ordering_and_coloring(self):
+ *         self.degrees = [0 for _ in range(self.num_vertices)]             # <<<<<<<<<<<<<<
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]
+ *         for v in range(self.num_vertices):
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_self->num_vertices;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v__ = __pyx_t_4;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_int_0))) __PYX_ERR(0, 32, __pyx_L1_error)
+  }
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->degrees);
+  __Pyx_DECREF(__pyx_v_self->degrees);
+  __pyx_v_self->degrees = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":33
+ *     cdef initial_ordering_and_coloring(self):
+ *         self.degrees = [0 for _ in range(self.num_vertices)]
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]             # <<<<<<<<<<<<<<
+ *         for v in range(self.num_vertices):
+ *             self.degrees[v] = len(self.adj)
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_self->num_vertices;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v__ = __pyx_t_4;
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_int_0))) __PYX_ERR(0, 33, __pyx_L1_error)
+  }
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->degrees_of_neighbors);
+  __Pyx_DECREF(__pyx_v_self->degrees_of_neighbors);
+  __pyx_v_self->degrees_of_neighbors = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":34
+ *         self.degrees = [0 for _ in range(self.num_vertices)]
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]
+ *         for v in range(self.num_vertices):             # <<<<<<<<<<<<<<
+ *             self.degrees[v] = len(self.adj)
+ *         for v in range(self.num_vertices):
+ */
+  __pyx_t_2 = __pyx_v_self->num_vertices;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_v = __pyx_t_4;
+
+    /* "findMCP.pyx":35
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]
+ *         for v in range(self.num_vertices):
+ *             self.degrees[v] = len(self.adj)             # <<<<<<<<<<<<<<
+ *         for v in range(self.num_vertices):
+ *             for to in self.adj[v]:
+ */
+    __pyx_t_1 = __pyx_v_self->adj;
+    __Pyx_INCREF(__pyx_t_1);
+    if (unlikely(__pyx_t_1 == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+      __PYX_ERR(0, 35, __pyx_L1_error)
+    }
+    __pyx_t_5 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 35, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(__pyx_v_self->degrees == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 35, __pyx_L1_error)
+    }
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_self->degrees, __pyx_v_v, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+
+  /* "findMCP.pyx":36
+ *         for v in range(self.num_vertices):
+ *             self.degrees[v] = len(self.adj)
+ *         for v in range(self.num_vertices):             # <<<<<<<<<<<<<<
+ *             for to in self.adj[v]:
+ *                 self.degrees_of_neighbors[v] += self.degrees[to]
+ */
+  __pyx_t_2 = __pyx_v_self->num_vertices;
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_v = __pyx_t_4;
+
+    /* "findMCP.pyx":37
+ *             self.degrees[v] = len(self.adj)
+ *         for v in range(self.num_vertices):
+ *             for to in self.adj[v]:             # <<<<<<<<<<<<<<
+ *                 self.degrees_of_neighbors[v] += self.degrees[to]
+ *         pass
+ */
+    if (unlikely(__pyx_v_self->adj == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 37, __pyx_L1_error)
+    }
+    __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_self->adj, __pyx_v_v, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+      __pyx_t_6 = __pyx_t_1; __Pyx_INCREF(__pyx_t_6); __pyx_t_5 = 0;
+      __pyx_t_7 = NULL;
+    } else {
+      __pyx_t_5 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_7 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    for (;;) {
+      if (likely(!__pyx_t_7)) {
+        if (likely(PyList_CheckExact(__pyx_t_6))) {
+          if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_6)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
+          #else
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        } else {
+          if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
+          #else
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_6, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        }
+      } else {
+        __pyx_t_1 = __pyx_t_7(__pyx_t_6);
+        if (unlikely(!__pyx_t_1)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else __PYX_ERR(0, 37, __pyx_L1_error)
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_1);
+      }
+      __Pyx_XDECREF_SET(__pyx_v_to, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "findMCP.pyx":38
+ *         for v in range(self.num_vertices):
+ *             for to in self.adj[v]:
+ *                 self.degrees_of_neighbors[v] += self.degrees[to]             # <<<<<<<<<<<<<<
+ *         pass
+ * 
+ */
+      if (unlikely(__pyx_v_self->degrees_of_neighbors == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 38, __pyx_L1_error)
+      }
+      __Pyx_INCREF(__pyx_v_self->degrees_of_neighbors);
+      __pyx_t_8 = __pyx_v_self->degrees_of_neighbors;
+      __pyx_t_9 = __pyx_v_v;
+      if (unlikely(__pyx_t_8 == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 38, __pyx_L1_error)
+      }
+      __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_t_8, __pyx_t_9, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(__pyx_v_self->degrees == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 38, __pyx_L1_error)
+      }
+      __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_v_self->degrees, __pyx_v_to); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __pyx_t_11 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_11);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      if (unlikely(__pyx_t_8 == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 38, __pyx_L1_error)
+      }
+      if (unlikely(__Pyx_SetItemInt(__pyx_t_8, __pyx_t_9, __pyx_t_11, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+      /* "findMCP.pyx":37
+ *             self.degrees[v] = len(self.adj)
+ *         for v in range(self.num_vertices):
+ *             for to in self.adj[v]:             # <<<<<<<<<<<<<<
+ *                 self.degrees_of_neighbors[v] += self.degrees[to]
+ *         pass
+ */
+    }
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+
+  /* "findMCP.pyx":31
+ *         self.largest_clique = self.ILS()
+ * 
+ *     cdef initial_ordering_and_coloring(self):             # <<<<<<<<<<<<<<
+ *         self.degrees = [0 for _ in range(self.num_vertices)]
+ *         self.degrees_of_neighbors = [0 for _ in range(self.num_vertices)]
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.initial_ordering_and_coloring", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_to);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":41
+ *         pass
+ * 
+ *     cdef upper_bound(self, int v):             # <<<<<<<<<<<<<<
+ *         pass
+ * 
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_upper_bound(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, CYTHON_UNUSED int __pyx_v_v) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("upper_bound", 0);
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":44
+ *         pass
+ * 
+ *     cdef process_branch(self, int v):             # <<<<<<<<<<<<<<
+ *         pass
+ * 
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_process_branch(CYTHON_UNUSED struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, CYTHON_UNUSED int __pyx_v_v) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("process_branch", 0);
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pyx":47
+ *         pass
+ * 
+ *     cdef mcs_with_heuristic(self):             # <<<<<<<<<<<<<<
+ *         self.heuristic_solution()
+ *         self.initial_ordering_and_coloring()
+ */
+
+static PyObject *__pyx_f_7findMCP_16MCSWithHeuristic_mcs_with_heuristic(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  Py_ssize_t __pyx_v_i;
+  PyObject *__pyx_v_v = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  Py_ssize_t __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  int __pyx_t_8;
+  __Pyx_RefNannySetupContext("mcs_with_heuristic", 0);
+
+  /* "findMCP.pyx":48
+ * 
+ *     cdef mcs_with_heuristic(self):
+ *         self.heuristic_solution()             # <<<<<<<<<<<<<<
+ *         self.initial_ordering_and_coloring()
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):
+ */
+  __pyx_t_1 = ((struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *)__pyx_v_self->__pyx_vtab)->heuristic_solution(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":49
+ *     cdef mcs_with_heuristic(self):
+ *         self.heuristic_solution()
+ *         self.initial_ordering_and_coloring()             # <<<<<<<<<<<<<<
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):
+ *             v = int(self.candidates_init[i])
+ */
+  __pyx_t_1 = ((struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *)__pyx_v_self->__pyx_vtab)->initial_ordering_and_coloring(__pyx_v_self); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":50
+ *         self.heuristic_solution()
+ *         self.initial_ordering_and_coloring()
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):             # <<<<<<<<<<<<<<
+ *             v = int(self.candidates_init[i])
+ *             if self.upper_bound(int(v)) > len(self.largest_clique):
+ */
+  __pyx_t_1 = __pyx_v_self->candidates_init;
+  __Pyx_INCREF(__pyx_t_1);
+  if (unlikely(__pyx_t_1 == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(0, 50, __pyx_L1_error)
+  }
+  __pyx_t_2 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  for (__pyx_t_3 = (__pyx_t_2 - 1); __pyx_t_3 > -1L; __pyx_t_3-=1) {
+    __pyx_v_i = __pyx_t_3;
+
+    /* "findMCP.pyx":51
+ *         self.initial_ordering_and_coloring()
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):
+ *             v = int(self.candidates_init[i])             # <<<<<<<<<<<<<<
+ *             if self.upper_bound(int(v)) > len(self.largest_clique):
+ *                 self.process_branch(int(v))
+ */
+    if (unlikely(__pyx_v_self->candidates_init == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(0, 51, __pyx_L1_error)
+    }
+    __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_self->candidates_init, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_4);
+    __pyx_t_4 = 0;
+
+    /* "findMCP.pyx":52
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):
+ *             v = int(self.candidates_init[i])
+ *             if self.upper_bound(int(v)) > len(self.largest_clique):             # <<<<<<<<<<<<<<
+ *                 self.process_branch(int(v))
+ * 
+ */
+    __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = ((struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *)__pyx_v_self->__pyx_vtab)->upper_bound(__pyx_v_self, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_1 = __pyx_v_self->largest_clique;
+    __Pyx_INCREF(__pyx_t_1);
+    if (unlikely(__pyx_t_1 == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+      __PYX_ERR(0, 52, __pyx_L1_error)
+    }
+    __pyx_t_6 = PyList_GET_SIZE(__pyx_t_1); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = PyObject_RichCompare(__pyx_t_4, __pyx_t_1, Py_GT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (__pyx_t_8) {
+
+      /* "findMCP.pyx":53
+ *             v = int(self.candidates_init[i])
+ *             if self.upper_bound(int(v)) > len(self.largest_clique):
+ *                 self.process_branch(int(v))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+      __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 53, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __pyx_t_7 = ((struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic *)__pyx_v_self->__pyx_vtab)->process_branch(__pyx_v_self, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+
+      /* "findMCP.pyx":52
+ *         for i in range(len(self.candidates_init) - 1, -1, -1):
+ *             v = int(self.candidates_init[i])
+ *             if self.upper_bound(int(v)) > len(self.largest_clique):             # <<<<<<<<<<<<<<
+ *                 self.process_branch(int(v))
+ * 
+ */
+    }
+  }
+
+  /* "findMCP.pyx":47
+ *         pass
+ * 
+ *     cdef mcs_with_heuristic(self):             # <<<<<<<<<<<<<<
+ *         self.heuristic_solution()
+ *         self.initial_ordering_and_coloring()
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.mcs_with_heuristic", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_v);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":2
+ * cdef class MCSWithHeuristic:
+ *     cdef public list vertex             # <<<<<<<<<<<<<<
+ *     cdef public int num_vertices
+ *     cdef public list adj
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_6vertex___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->vertex);
+  __pyx_r = __pyx_v_self->vertex;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 2, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->vertex);
+  __Pyx_DECREF(__pyx_v_self->vertex);
+  __pyx_v_self->vertex = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.vertex.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_6vertex_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->vertex);
+  __Pyx_DECREF(__pyx_v_self->vertex);
+  __pyx_v_self->vertex = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":3
+ * cdef class MCSWithHeuristic:
+ *     cdef public list vertex
+ *     cdef public int num_vertices             # <<<<<<<<<<<<<<
+ *     cdef public list adj
+ *     cdef public list adj_complementary
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->num_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.num_vertices.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_12num_vertices_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 3, __pyx_L1_error)
+  __pyx_v_self->num_vertices = __pyx_t_1;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.num_vertices.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":4
+ *     cdef public list vertex
+ *     cdef public int num_vertices
+ *     cdef public list adj             # <<<<<<<<<<<<<<
+ *     cdef public list adj_complementary
+ *     cdef public list adj_matrix
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_3adj_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_3adj_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_3adj___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_3adj___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->adj);
+  __pyx_r = __pyx_v_self->adj;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->adj);
+  __Pyx_DECREF(__pyx_v_self->adj);
+  __pyx_v_self->adj = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.adj.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_3adj_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj);
+  __Pyx_DECREF(__pyx_v_self->adj);
+  __pyx_v_self->adj = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":5
+ *     cdef public int num_vertices
+ *     cdef public list adj
+ *     cdef public list adj_complementary             # <<<<<<<<<<<<<<
+ *     cdef public list adj_matrix
+ *     cdef public list candidates
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->adj_complementary);
+  __pyx_r = __pyx_v_self->adj_complementary;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->adj_complementary);
+  __Pyx_DECREF(__pyx_v_self->adj_complementary);
+  __pyx_v_self->adj_complementary = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.adj_complementary.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_17adj_complementary_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj_complementary);
+  __Pyx_DECREF(__pyx_v_self->adj_complementary);
+  __pyx_v_self->adj_complementary = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":6
+ *     cdef public list adj
+ *     cdef public list adj_complementary
+ *     cdef public list adj_matrix             # <<<<<<<<<<<<<<
+ *     cdef public list candidates
+ *     cdef public list candidates_init
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->adj_matrix);
+  __pyx_r = __pyx_v_self->adj_matrix;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 6, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->adj_matrix);
+  __Pyx_DECREF(__pyx_v_self->adj_matrix);
+  __pyx_v_self->adj_matrix = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.adj_matrix.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10adj_matrix_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->adj_matrix);
+  __Pyx_DECREF(__pyx_v_self->adj_matrix);
+  __pyx_v_self->adj_matrix = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":7
+ *     cdef public list adj_complementary
+ *     cdef public list adj_matrix
+ *     cdef public list candidates             # <<<<<<<<<<<<<<
+ *     cdef public list candidates_init
+ *     cdef public list candidates_init_copy
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_10candidates___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->candidates);
+  __pyx_r = __pyx_v_self->candidates;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->candidates);
+  __Pyx_DECREF(__pyx_v_self->candidates);
+  __pyx_v_self->candidates = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.candidates.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_10candidates_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates);
+  __Pyx_DECREF(__pyx_v_self->candidates);
+  __pyx_v_self->candidates = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":8
+ *     cdef public list adj_matrix
+ *     cdef public list candidates
+ *     cdef public list candidates_init             # <<<<<<<<<<<<<<
+ *     cdef public list candidates_init_copy
+ *     cdef public list current_cligue
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->candidates_init);
+  __pyx_r = __pyx_v_self->candidates_init;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 8, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init);
+  __Pyx_DECREF(__pyx_v_self->candidates_init);
+  __pyx_v_self->candidates_init = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.candidates_init.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_15candidates_init_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init);
+  __Pyx_DECREF(__pyx_v_self->candidates_init);
+  __pyx_v_self->candidates_init = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":9
+ *     cdef public list candidates
+ *     cdef public list candidates_init
+ *     cdef public list candidates_init_copy             # <<<<<<<<<<<<<<
+ *     cdef public list current_cligue
+ *     cdef public list largest_clique
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->candidates_init_copy);
+  __pyx_r = __pyx_v_self->candidates_init_copy;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 9, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init_copy);
+  __Pyx_DECREF(__pyx_v_self->candidates_init_copy);
+  __pyx_v_self->candidates_init_copy = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.candidates_init_copy.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20candidates_init_copy_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->candidates_init_copy);
+  __Pyx_DECREF(__pyx_v_self->candidates_init_copy);
+  __pyx_v_self->candidates_init_copy = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":10
+ *     cdef public list candidates_init
+ *     cdef public list candidates_init_copy
+ *     cdef public list current_cligue             # <<<<<<<<<<<<<<
+ *     cdef public list largest_clique
+ *     cdef public list vertices_every_color
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->current_cligue);
+  __pyx_r = __pyx_v_self->current_cligue;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 10, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->current_cligue);
+  __Pyx_DECREF(__pyx_v_self->current_cligue);
+  __pyx_v_self->current_cligue = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.current_cligue.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14current_cligue_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->current_cligue);
+  __Pyx_DECREF(__pyx_v_self->current_cligue);
+  __pyx_v_self->current_cligue = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":11
+ *     cdef public list candidates_init_copy
+ *     cdef public list current_cligue
+ *     cdef public list largest_clique             # <<<<<<<<<<<<<<
+ *     cdef public list vertices_every_color
+ *     cdef public list neighbors_among_candidates
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->largest_clique);
+  __pyx_r = __pyx_v_self->largest_clique;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 11, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->largest_clique);
+  __Pyx_DECREF(__pyx_v_self->largest_clique);
+  __pyx_v_self->largest_clique = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.largest_clique.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_14largest_clique_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->largest_clique);
+  __Pyx_DECREF(__pyx_v_self->largest_clique);
+  __pyx_v_self->largest_clique = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":12
+ *     cdef public list current_cligue
+ *     cdef public list largest_clique
+ *     cdef public list vertices_every_color             # <<<<<<<<<<<<<<
+ *     cdef public list neighbors_among_candidates
+ *     cdef public list degrees
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->vertices_every_color);
+  __pyx_r = __pyx_v_self->vertices_every_color;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->vertices_every_color);
+  __Pyx_DECREF(__pyx_v_self->vertices_every_color);
+  __pyx_v_self->vertices_every_color = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.vertices_every_color.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20vertices_every_color_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->vertices_every_color);
+  __Pyx_DECREF(__pyx_v_self->vertices_every_color);
+  __pyx_v_self->vertices_every_color = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":13
+ *     cdef public list largest_clique
+ *     cdef public list vertices_every_color
+ *     cdef public list neighbors_among_candidates             # <<<<<<<<<<<<<<
+ *     cdef public list degrees
+ *     cdef public list degrees_of_neighbors
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->neighbors_among_candidates);
+  __pyx_r = __pyx_v_self->neighbors_among_candidates;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->neighbors_among_candidates);
+  __Pyx_DECREF(__pyx_v_self->neighbors_among_candidates);
+  __pyx_v_self->neighbors_among_candidates = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.neighbors_among_candidates.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->neighbors_among_candidates);
+  __Pyx_DECREF(__pyx_v_self->neighbors_among_candidates);
+  __pyx_v_self->neighbors_among_candidates = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":14
+ *     cdef public list vertices_every_color
+ *     cdef public list neighbors_among_candidates
+ *     cdef public list degrees             # <<<<<<<<<<<<<<
+ *     cdef public list degrees_of_neighbors
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_7degrees___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->degrees);
+  __pyx_r = __pyx_v_self->degrees;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 14, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->degrees);
+  __Pyx_DECREF(__pyx_v_self->degrees);
+  __pyx_v_self->degrees = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.degrees.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_7degrees_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->degrees);
+  __Pyx_DECREF(__pyx_v_self->degrees);
+  __pyx_v_self->degrees = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "findMCP.pxd":15
+ *     cdef public list neighbors_among_candidates
+ *     cdef public list degrees
+ *     cdef public list degrees_of_neighbors             # <<<<<<<<<<<<<<
+ * 
+ *     cdef mcs_with_heuristic(self)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors___get__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors___get__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->degrees_of_neighbors);
+  __pyx_r = __pyx_v_self->degrees_of_neighbors;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_2__set__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_2__set__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 15, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->degrees_of_neighbors);
+  __Pyx_DECREF(__pyx_v_self->degrees_of_neighbors);
+  __pyx_v_self->degrees_of_neighbors = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.degrees_of_neighbors.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_4__del__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_4__del__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->degrees_of_neighbors);
+  __Pyx_DECREF(__pyx_v_self->degrees_of_neighbors);
+  __pyx_v_self->degrees_of_neighbors = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_3__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_2__reduce_cython__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_2__reduce_cython__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self) {
+  PyObject *__pyx_v_state = 0;
+  PyObject *__pyx_v__dict = 0;
+  int __pyx_v_use_setstate;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":5
+ *     cdef object _dict
+ *     cdef bint use_setstate
+ *     state = (self.adj, self.adj_complementary, self.adj_matrix, self.candidates, self.candidates_init, self.candidates_init_copy, self.current_cligue, self.degrees, self.degrees_of_neighbors, self.largest_clique, self.neighbors_among_candidates, self.num_vertices, self.vertex, self.vertices_every_color)             # <<<<<<<<<<<<<<
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ */
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->num_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(14); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_v_self->adj);
+  __Pyx_GIVEREF(__pyx_v_self->adj);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->adj);
+  __Pyx_INCREF(__pyx_v_self->adj_complementary);
+  __Pyx_GIVEREF(__pyx_v_self->adj_complementary);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_self->adj_complementary);
+  __Pyx_INCREF(__pyx_v_self->adj_matrix);
+  __Pyx_GIVEREF(__pyx_v_self->adj_matrix);
+  PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_self->adj_matrix);
+  __Pyx_INCREF(__pyx_v_self->candidates);
+  __Pyx_GIVEREF(__pyx_v_self->candidates);
+  PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_v_self->candidates);
+  __Pyx_INCREF(__pyx_v_self->candidates_init);
+  __Pyx_GIVEREF(__pyx_v_self->candidates_init);
+  PyTuple_SET_ITEM(__pyx_t_2, 4, __pyx_v_self->candidates_init);
+  __Pyx_INCREF(__pyx_v_self->candidates_init_copy);
+  __Pyx_GIVEREF(__pyx_v_self->candidates_init_copy);
+  PyTuple_SET_ITEM(__pyx_t_2, 5, __pyx_v_self->candidates_init_copy);
+  __Pyx_INCREF(__pyx_v_self->current_cligue);
+  __Pyx_GIVEREF(__pyx_v_self->current_cligue);
+  PyTuple_SET_ITEM(__pyx_t_2, 6, __pyx_v_self->current_cligue);
+  __Pyx_INCREF(__pyx_v_self->degrees);
+  __Pyx_GIVEREF(__pyx_v_self->degrees);
+  PyTuple_SET_ITEM(__pyx_t_2, 7, __pyx_v_self->degrees);
+  __Pyx_INCREF(__pyx_v_self->degrees_of_neighbors);
+  __Pyx_GIVEREF(__pyx_v_self->degrees_of_neighbors);
+  PyTuple_SET_ITEM(__pyx_t_2, 8, __pyx_v_self->degrees_of_neighbors);
+  __Pyx_INCREF(__pyx_v_self->largest_clique);
+  __Pyx_GIVEREF(__pyx_v_self->largest_clique);
+  PyTuple_SET_ITEM(__pyx_t_2, 9, __pyx_v_self->largest_clique);
+  __Pyx_INCREF(__pyx_v_self->neighbors_among_candidates);
+  __Pyx_GIVEREF(__pyx_v_self->neighbors_among_candidates);
+  PyTuple_SET_ITEM(__pyx_t_2, 10, __pyx_v_self->neighbors_among_candidates);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_2, 11, __pyx_t_1);
+  __Pyx_INCREF(__pyx_v_self->vertex);
+  __Pyx_GIVEREF(__pyx_v_self->vertex);
+  PyTuple_SET_ITEM(__pyx_t_2, 12, __pyx_v_self->vertex);
+  __Pyx_INCREF(__pyx_v_self->vertices_every_color);
+  __Pyx_GIVEREF(__pyx_v_self->vertices_every_color);
+  PyTuple_SET_ITEM(__pyx_t_2, 13, __pyx_v_self->vertices_every_color);
+  __pyx_t_1 = 0;
+  __pyx_v_state = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "(tree fragment)":6
+ *     cdef bint use_setstate
+ *     state = (self.adj, self.adj_complementary, self.adj_matrix, self.candidates, self.candidates_init, self.candidates_init_copy, self.current_cligue, self.degrees, self.degrees_of_neighbors, self.largest_clique, self.neighbors_among_candidates, self.num_vertices, self.vertex, self.vertices_every_color)
+ *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
+ *     if _dict is not None:
+ *         state += (_dict,)
+ */
+  __pyx_t_2 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v__dict = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "(tree fragment)":7
+ *     state = (self.adj, self.adj_complementary, self.adj_matrix, self.candidates, self.candidates_init, self.candidates_init_copy, self.current_cligue, self.degrees, self.degrees_of_neighbors, self.largest_clique, self.neighbors_among_candidates, self.num_vertices, self.vertex, self.vertices_every_color)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+  __pyx_t_3 = (__pyx_v__dict != Py_None);
+  __pyx_t_4 = (__pyx_t_3 != 0);
+  if (__pyx_t_4) {
+
+    /* "(tree fragment)":8
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ *         state += (_dict,)             # <<<<<<<<<<<<<<
+ *         use_setstate = True
+ *     else:
+ */
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_v__dict);
+    __Pyx_GIVEREF(__pyx_v__dict);
+    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v__dict);
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
+
+    /* "(tree fragment)":9
+ *     if _dict is not None:
+ *         state += (_dict,)
+ *         use_setstate = True             # <<<<<<<<<<<<<<
+ *     else:
+ *         use_setstate = self.adj is not None or self.adj_complementary is not None or self.adj_matrix is not None or self.candidates is not None or self.candidates_init is not None or self.candidates_init_copy is not None or self.current_cligue is not None or self.degrees is not None or self.degrees_of_neighbors is not None or self.largest_clique is not None or self.neighbors_among_candidates is not None or self.vertex is not None or self.vertices_every_color is not None
+ */
+    __pyx_v_use_setstate = 1;
+
+    /* "(tree fragment)":7
+ *     state = (self.adj, self.adj_complementary, self.adj_matrix, self.candidates, self.candidates_init, self.candidates_init_copy, self.current_cligue, self.degrees, self.degrees_of_neighbors, self.largest_clique, self.neighbors_among_candidates, self.num_vertices, self.vertex, self.vertices_every_color)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+    goto __pyx_L3;
+  }
+
+  /* "(tree fragment)":11
+ *         use_setstate = True
+ *     else:
+ *         use_setstate = self.adj is not None or self.adj_complementary is not None or self.adj_matrix is not None or self.candidates is not None or self.candidates_init is not None or self.candidates_init_copy is not None or self.current_cligue is not None or self.degrees is not None or self.degrees_of_neighbors is not None or self.largest_clique is not None or self.neighbors_among_candidates is not None or self.vertex is not None or self.vertices_every_color is not None             # <<<<<<<<<<<<<<
+ *     if use_setstate:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, None), state
+ */
+  /*else*/ {
+    __pyx_t_3 = (__pyx_v_self->adj != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->adj_complementary != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->adj_matrix != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->candidates != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->candidates_init != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->candidates_init_copy != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->current_cligue != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->degrees != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->degrees_of_neighbors != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->largest_clique != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->neighbors_among_candidates != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->vertex != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (!__pyx_t_3) {
+    } else {
+      __pyx_t_4 = __pyx_t_3;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_3 = (__pyx_v_self->vertices_every_color != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    __pyx_t_4 = __pyx_t_5;
+    __pyx_L4_bool_binop_done:;
+    __pyx_v_use_setstate = __pyx_t_4;
+  }
+  __pyx_L3:;
+
+  /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = self.adj is not None or self.adj_complementary is not None or self.adj_matrix is not None or self.candidates is not None or self.candidates_init is not None or self.candidates_init_copy is not None or self.current_cligue is not None or self.degrees is not None or self.degrees_of_neighbors is not None or self.largest_clique is not None or self.neighbors_among_candidates is not None or self.vertex is not None or self.vertices_every_color is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, None), state
+ *     else:
+ */
+  __pyx_t_4 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_4) {
+
+    /* "(tree fragment)":13
+ *         use_setstate = self.adj is not None or self.adj_complementary is not None or self.adj_matrix is not None or self.candidates is not None or self.candidates_init is not None or self.candidates_init_copy is not None or self.current_cligue is not None or self.degrees is not None or self.degrees_of_neighbors is not None or self.largest_clique is not None or self.neighbors_among_candidates is not None or self.vertex is not None or self.vertices_every_color is not None
+ *     if use_setstate:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, None), state             # <<<<<<<<<<<<<<
+ *     else:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, state)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pyx_unpickle_MCSWithHeuristic); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_1214952);
+    __Pyx_GIVEREF(__pyx_int_1214952);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_1214952);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_2, 2, Py_None);
+    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_v_state);
+    __pyx_t_1 = 0;
+    __pyx_t_2 = 0;
+    __pyx_r = __pyx_t_6;
+    __pyx_t_6 = 0;
+    goto __pyx_L0;
+
+    /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = self.adj is not None or self.adj_complementary is not None or self.adj_matrix is not None or self.candidates is not None or self.candidates_init is not None or self.candidates_init_copy is not None or self.current_cligue is not None or self.degrees is not None or self.degrees_of_neighbors is not None or self.largest_clique is not None or self.neighbors_among_candidates is not None or self.vertex is not None or self.vertices_every_color is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, None), state
+ *     else:
+ */
+  }
+
+  /* "(tree fragment)":15
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, None), state
+ *     else:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, state)             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_MCSWithHeuristic__set_state(self, __pyx_state)
+ */
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pyx_unpickle_MCSWithHeuristic); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_1214952);
+    __Pyx_GIVEREF(__pyx_int_1214952);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_1214952);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_state);
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
+    __pyx_t_6 = 0;
+    __pyx_t_2 = 0;
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+  }
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v__dict);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_MCSWithHeuristic__set_state(self, __pyx_state)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_7findMCP_16MCSWithHeuristic_5__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7findMCP_16MCSWithHeuristic_4__setstate_cython__(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_16MCSWithHeuristic_4__setstate_cython__(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":17
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, state)
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_MCSWithHeuristic__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ */
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_7findMCP___pyx_unpickle_MCSWithHeuristic__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_MCSWithHeuristic, (type(self), 0x01289e8, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_MCSWithHeuristic__set_state(self, __pyx_state)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __pyx_unpickle_MCSWithHeuristic(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_7findMCP_3__pyx_unpickle_MCSWithHeuristic(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7findMCP_3__pyx_unpickle_MCSWithHeuristic = {"__pyx_unpickle_MCSWithHeuristic", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_7findMCP_3__pyx_unpickle_MCSWithHeuristic, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7findMCP_3__pyx_unpickle_MCSWithHeuristic(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v___pyx_type = 0;
+  long __pyx_v___pyx_checksum;
+  PyObject *__pyx_v___pyx_state = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__pyx_unpickle_MCSWithHeuristic (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_type)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_MCSWithHeuristic", 1, 3, 3, 1); __PYX_ERR(2, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_MCSWithHeuristic", 1, 3, 3, 2); __PYX_ERR(2, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_MCSWithHeuristic") < 0)) __PYX_ERR(2, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v___pyx_type = values[0];
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(2, 1, __pyx_L3_error)
+    __pyx_v___pyx_state = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_MCSWithHeuristic", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("findMCP.__pyx_unpickle_MCSWithHeuristic", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_7findMCP_2__pyx_unpickle_MCSWithHeuristic(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_7findMCP_2__pyx_unpickle_MCSWithHeuristic(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_v___pyx_PickleError = 0;
+  PyObject *__pyx_v___pyx_result = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_MCSWithHeuristic", 0);
+
+  /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x01289e8:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ */
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x01289e8) != 0);
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":5
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x01289e8:
+ *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)
+ */
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_n_s_PickleError);
+    __Pyx_GIVEREF(__pyx_n_s_PickleError);
+    PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_v___pyx_PickleError = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":6
+ *     if __pyx_checksum != 0x01289e8:
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x01, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_INCREF(__pyx_v___pyx_PickleError);
+    __pyx_t_2 = __pyx_v___pyx_PickleError; __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(2, 6, __pyx_L1_error)
+
+    /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x01289e8:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ */
+  }
+
+  /* "(tree fragment)":7
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_7findMCP_MCSWithHeuristic), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v___pyx_result = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
+  __pyx_t_6 = (__pyx_t_1 != 0);
+  if (__pyx_t_6) {
+
+    /* "(tree fragment)":9
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *     return __pyx_result
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):
+ */
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_7findMCP___pyx_unpickle_MCSWithHeuristic__set_state(((struct __pyx_obj_7findMCP_MCSWithHeuristic *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x01289e8 = (adj, adj_complementary, adj_matrix, candidates, candidates_init, candidates_init_copy, current_cligue, degrees, degrees_of_neighbors, largest_clique, neighbors_among_candidates, num_vertices, vertex, vertices_every_color))" % __pyx_checksum)
+ *     __pyx_result = MCSWithHeuristic.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  }
+
+  /* "(tree fragment)":10
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ *     return __pyx_result             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v___pyx_result);
+  __pyx_r = __pyx_v___pyx_result;
+  goto __pyx_L0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_MCSWithHeuristic(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("findMCP.__pyx_unpickle_MCSWithHeuristic", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v___pyx_PickleError);
+  __Pyx_XDECREF(__pyx_v___pyx_result);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":11
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):
+ */
+
+static PyObject *__pyx_f_7findMCP___pyx_unpickle_MCSWithHeuristic__set_state(struct __pyx_obj_7findMCP_MCSWithHeuristic *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_MCSWithHeuristic__set_state", 0);
+
+  /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[14])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->adj);
+  __Pyx_DECREF(__pyx_v___pyx_result->adj);
+  __pyx_v___pyx_result->adj = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->adj_complementary);
+  __Pyx_DECREF(__pyx_v___pyx_result->adj_complementary);
+  __pyx_v___pyx_result->adj_complementary = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->adj_matrix);
+  __Pyx_DECREF(__pyx_v___pyx_result->adj_matrix);
+  __pyx_v___pyx_result->adj_matrix = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->candidates);
+  __Pyx_DECREF(__pyx_v___pyx_result->candidates);
+  __pyx_v___pyx_result->candidates = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->candidates_init);
+  __Pyx_DECREF(__pyx_v___pyx_result->candidates_init);
+  __pyx_v___pyx_result->candidates_init = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->candidates_init_copy);
+  __Pyx_DECREF(__pyx_v___pyx_result->candidates_init_copy);
+  __pyx_v___pyx_result->candidates_init_copy = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->current_cligue);
+  __Pyx_DECREF(__pyx_v___pyx_result->current_cligue);
+  __pyx_v___pyx_result->current_cligue = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->degrees);
+  __Pyx_DECREF(__pyx_v___pyx_result->degrees);
+  __pyx_v___pyx_result->degrees = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->degrees_of_neighbors);
+  __Pyx_DECREF(__pyx_v___pyx_result->degrees_of_neighbors);
+  __pyx_v___pyx_result->degrees_of_neighbors = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->largest_clique);
+  __Pyx_DECREF(__pyx_v___pyx_result->largest_clique);
+  __pyx_v___pyx_result->largest_clique = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->neighbors_among_candidates);
+  __Pyx_DECREF(__pyx_v___pyx_result->neighbors_among_candidates);
+  __pyx_v___pyx_result->neighbors_among_candidates = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v___pyx_result->num_vertices = __pyx_t_2;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->vertex);
+  __Pyx_DECREF(__pyx_v___pyx_result->vertex);
+  __pyx_v___pyx_result->vertex = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 13, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->vertices_every_color);
+  __Pyx_DECREF(__pyx_v___pyx_result->vertices_every_color);
+  __pyx_v___pyx_result->vertices_every_color = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "(tree fragment)":13
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[14])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(2, 13, __pyx_L1_error)
+  }
+  __pyx_t_4 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(2, 13, __pyx_L1_error)
+  __pyx_t_5 = ((__pyx_t_4 > 14) != 0);
+  if (__pyx_t_5) {
+  } else {
+    __pyx_t_3 = __pyx_t_5;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_5 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(2, 13, __pyx_L1_error)
+  __pyx_t_6 = (__pyx_t_5 != 0);
+  __pyx_t_3 = __pyx_t_6;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":14
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[14])             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_update); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(__pyx_v___pyx_state == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(2, 14, __pyx_L1_error)
+    }
+    __pyx_t_7 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 14, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_9 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+      __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_9)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_9);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_8, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_9, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7);
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "(tree fragment)":13
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[14])
+ */
+  }
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_MCSWithHeuristic__set_state(<MCSWithHeuristic> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_MCSWithHeuristic__set_state(MCSWithHeuristic __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.adj = __pyx_state[0]; __pyx_result.adj_complementary = __pyx_state[1]; __pyx_result.adj_matrix = __pyx_state[2]; __pyx_result.candidates = __pyx_state[3]; __pyx_result.candidates_init = __pyx_state[4]; __pyx_result.candidates_init_copy = __pyx_state[5]; __pyx_result.current_cligue = __pyx_state[6]; __pyx_result.degrees = __pyx_state[7]; __pyx_result.degrees_of_neighbors = __pyx_state[8]; __pyx_result.largest_clique = __pyx_state[9]; __pyx_result.neighbors_among_candidates = __pyx_state[10]; __pyx_result.num_vertices = __pyx_state[11]; __pyx_result.vertex = __pyx_state[12]; __pyx_result.vertices_every_color = __pyx_state[13]
+ *     if len(__pyx_state) > 14 and hasattr(__pyx_result, '__dict__'):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_AddTraceback("findMCP.__pyx_unpickle_MCSWithHeuristic__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static struct __pyx_vtabstruct_7findMCP_MCSWithHeuristic __pyx_vtable_7findMCP_MCSWithHeuristic;
+
+static PyObject *__pyx_tp_new_7findMCP_MCSWithHeuristic(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_7findMCP_MCSWithHeuristic *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_7findMCP_MCSWithHeuristic *)o);
+  p->__pyx_vtab = __pyx_vtabptr_7findMCP_MCSWithHeuristic;
+  p->vertex = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->adj = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->adj_complementary = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->adj_matrix = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->candidates = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->candidates_init = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->candidates_init_copy = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->current_cligue = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->largest_clique = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->vertices_every_color = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->neighbors_among_candidates = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->degrees = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->degrees_of_neighbors = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  return o;
+}
+
+static void __pyx_tp_dealloc_7findMCP_MCSWithHeuristic(PyObject *o) {
+  struct __pyx_obj_7findMCP_MCSWithHeuristic *p = (struct __pyx_obj_7findMCP_MCSWithHeuristic *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->vertex);
+  Py_CLEAR(p->adj);
+  Py_CLEAR(p->adj_complementary);
+  Py_CLEAR(p->adj_matrix);
+  Py_CLEAR(p->candidates);
+  Py_CLEAR(p->candidates_init);
+  Py_CLEAR(p->candidates_init_copy);
+  Py_CLEAR(p->current_cligue);
+  Py_CLEAR(p->largest_clique);
+  Py_CLEAR(p->vertices_every_color);
+  Py_CLEAR(p->neighbors_among_candidates);
+  Py_CLEAR(p->degrees);
+  Py_CLEAR(p->degrees_of_neighbors);
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_7findMCP_MCSWithHeuristic(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_7findMCP_MCSWithHeuristic *p = (struct __pyx_obj_7findMCP_MCSWithHeuristic *)o;
+  if (p->vertex) {
+    e = (*v)(p->vertex, a); if (e) return e;
+  }
+  if (p->adj) {
+    e = (*v)(p->adj, a); if (e) return e;
+  }
+  if (p->adj_complementary) {
+    e = (*v)(p->adj_complementary, a); if (e) return e;
+  }
+  if (p->adj_matrix) {
+    e = (*v)(p->adj_matrix, a); if (e) return e;
+  }
+  if (p->candidates) {
+    e = (*v)(p->candidates, a); if (e) return e;
+  }
+  if (p->candidates_init) {
+    e = (*v)(p->candidates_init, a); if (e) return e;
+  }
+  if (p->candidates_init_copy) {
+    e = (*v)(p->candidates_init_copy, a); if (e) return e;
+  }
+  if (p->current_cligue) {
+    e = (*v)(p->current_cligue, a); if (e) return e;
+  }
+  if (p->largest_clique) {
+    e = (*v)(p->largest_clique, a); if (e) return e;
+  }
+  if (p->vertices_every_color) {
+    e = (*v)(p->vertices_every_color, a); if (e) return e;
+  }
+  if (p->neighbors_among_candidates) {
+    e = (*v)(p->neighbors_among_candidates, a); if (e) return e;
+  }
+  if (p->degrees) {
+    e = (*v)(p->degrees, a); if (e) return e;
+  }
+  if (p->degrees_of_neighbors) {
+    e = (*v)(p->degrees_of_neighbors, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_7findMCP_MCSWithHeuristic(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_7findMCP_MCSWithHeuristic *p = (struct __pyx_obj_7findMCP_MCSWithHeuristic *)o;
+  tmp = ((PyObject*)p->vertex);
+  p->vertex = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->adj);
+  p->adj = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->adj_complementary);
+  p->adj_complementary = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->adj_matrix);
+  p->adj_matrix = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->candidates);
+  p->candidates = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->candidates_init);
+  p->candidates_init = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->candidates_init_copy);
+  p->candidates_init_copy = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->current_cligue);
+  p->current_cligue = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->largest_clique);
+  p->largest_clique = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->vertices_every_color);
+  p->vertices_every_color = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->neighbors_among_candidates);
+  p->neighbors_among_candidates = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->degrees);
+  p->degrees = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->degrees_of_neighbors);
+  p->degrees_of_neighbors = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_vertex(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_vertex(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_6vertex_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_num_vertices(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_num_vertices(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_12num_vertices_3__set__(o, v);
+  }
+  else {
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_adj(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_adj(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_3adj_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_adj_complementary(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_adj_complementary(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_17adj_complementary_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_adj_matrix(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_adj_matrix(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_10adj_matrix_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_candidates(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_10candidates_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_candidates_init(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates_init(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_15candidates_init_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_candidates_init_copy(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates_init_copy(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20candidates_init_copy_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_current_cligue(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_current_cligue(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_14current_cligue_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_largest_clique(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_largest_clique(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_14largest_clique_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_vertices_every_color(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_vertices_every_color(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20vertices_every_color_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_neighbors_among_candidates(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_neighbors_among_candidates(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_26neighbors_among_candidates_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_degrees(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_degrees(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_7degrees_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_7findMCP_16MCSWithHeuristic_degrees_of_neighbors(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_1__get__(o);
+}
+
+static int __pyx_setprop_7findMCP_16MCSWithHeuristic_degrees_of_neighbors(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_7findMCP_16MCSWithHeuristic_20degrees_of_neighbors_5__del__(o);
+  }
+}
+
+static PyMethodDef __pyx_methods_7findMCP_MCSWithHeuristic[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_7findMCP_16MCSWithHeuristic_3__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_7findMCP_16MCSWithHeuristic_5__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static struct PyGetSetDef __pyx_getsets_7findMCP_MCSWithHeuristic[] = {
+  {(char *)"vertex", __pyx_getprop_7findMCP_16MCSWithHeuristic_vertex, __pyx_setprop_7findMCP_16MCSWithHeuristic_vertex, (char *)0, 0},
+  {(char *)"num_vertices", __pyx_getprop_7findMCP_16MCSWithHeuristic_num_vertices, __pyx_setprop_7findMCP_16MCSWithHeuristic_num_vertices, (char *)0, 0},
+  {(char *)"adj", __pyx_getprop_7findMCP_16MCSWithHeuristic_adj, __pyx_setprop_7findMCP_16MCSWithHeuristic_adj, (char *)0, 0},
+  {(char *)"adj_complementary", __pyx_getprop_7findMCP_16MCSWithHeuristic_adj_complementary, __pyx_setprop_7findMCP_16MCSWithHeuristic_adj_complementary, (char *)0, 0},
+  {(char *)"adj_matrix", __pyx_getprop_7findMCP_16MCSWithHeuristic_adj_matrix, __pyx_setprop_7findMCP_16MCSWithHeuristic_adj_matrix, (char *)0, 0},
+  {(char *)"candidates", __pyx_getprop_7findMCP_16MCSWithHeuristic_candidates, __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates, (char *)0, 0},
+  {(char *)"candidates_init", __pyx_getprop_7findMCP_16MCSWithHeuristic_candidates_init, __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates_init, (char *)0, 0},
+  {(char *)"candidates_init_copy", __pyx_getprop_7findMCP_16MCSWithHeuristic_candidates_init_copy, __pyx_setprop_7findMCP_16MCSWithHeuristic_candidates_init_copy, (char *)0, 0},
+  {(char *)"current_cligue", __pyx_getprop_7findMCP_16MCSWithHeuristic_current_cligue, __pyx_setprop_7findMCP_16MCSWithHeuristic_current_cligue, (char *)0, 0},
+  {(char *)"largest_clique", __pyx_getprop_7findMCP_16MCSWithHeuristic_largest_clique, __pyx_setprop_7findMCP_16MCSWithHeuristic_largest_clique, (char *)0, 0},
+  {(char *)"vertices_every_color", __pyx_getprop_7findMCP_16MCSWithHeuristic_vertices_every_color, __pyx_setprop_7findMCP_16MCSWithHeuristic_vertices_every_color, (char *)0, 0},
+  {(char *)"neighbors_among_candidates", __pyx_getprop_7findMCP_16MCSWithHeuristic_neighbors_among_candidates, __pyx_setprop_7findMCP_16MCSWithHeuristic_neighbors_among_candidates, (char *)0, 0},
+  {(char *)"degrees", __pyx_getprop_7findMCP_16MCSWithHeuristic_degrees, __pyx_setprop_7findMCP_16MCSWithHeuristic_degrees, (char *)0, 0},
+  {(char *)"degrees_of_neighbors", __pyx_getprop_7findMCP_16MCSWithHeuristic_degrees_of_neighbors, __pyx_setprop_7findMCP_16MCSWithHeuristic_degrees_of_neighbors, (char *)0, 0},
+  {0, 0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_7findMCP_MCSWithHeuristic = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "findMCP.MCSWithHeuristic", /*tp_name*/
+  sizeof(struct __pyx_obj_7findMCP_MCSWithHeuristic), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_7findMCP_MCSWithHeuristic, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_7findMCP_MCSWithHeuristic, /*tp_traverse*/
+  __pyx_tp_clear_7findMCP_MCSWithHeuristic, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_7findMCP_MCSWithHeuristic, /*tp_methods*/
+  0, /*tp_members*/
+  __pyx_getsets_7findMCP_MCSWithHeuristic, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  __pyx_pw_7findMCP_16MCSWithHeuristic_1__init__, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_7findMCP_MCSWithHeuristic, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {"print_graph", (PyCFunction)__pyx_pw_7findMCP_1print_graph, METH_NOARGS, 0},
   {0, 0, 0, 0}
@@ -1295,37 +5188,79 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x01, __pyx_k_Incompatible_checksums_s_vs_0x01, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x01), 0, 0, 1, 0},
+  {&__pyx_n_s_MCSWithHeuristic, __pyx_k_MCSWithHeuristic, sizeof(__pyx_k_MCSWithHeuristic), 0, 0, 1, 1},
+  {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_adj, __pyx_k_adj, sizeof(__pyx_k_adj), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_cnt_vertex, __pyx_k_cnt_vertex, sizeof(__pyx_k_cnt_vertex), 0, 0, 1, 1},
+  {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
+  {&__pyx_n_s_findMCP, __pyx_k_findMCP, sizeof(__pyx_k_findMCP), 0, 0, 1, 1},
+  {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
+  {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max_clique, __pyx_k_max_clique, sizeof(__pyx_k_max_clique), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
+  {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
+  {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_PickleError, __pyx_k_pyx_PickleError, sizeof(__pyx_k_pyx_PickleError), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_checksum, __pyx_k_pyx_checksum, sizeof(__pyx_k_pyx_checksum), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_result, __pyx_k_pyx_result, sizeof(__pyx_k_pyx_result), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_MCSWithHeuristic, __pyx_k_pyx_unpickle_MCSWithHeuristic, sizeof(__pyx_k_pyx_unpickle_MCSWithHeuristic), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
+  {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
+  {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
+  {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
+  {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
+  {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
+  {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 32, __pyx_L1_error)
   return 0;
+  __pyx_L1_error:;
+  return -1;
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_MCSWithHeuristic(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+  __pyx_tuple_ = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple_)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_MCSWithHeuristic, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_4 = PyInt_FromLong(4); if (unlikely(!__pyx_int_4)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_10 = PyInt_FromLong(10); if (unlikely(!__pyx_int_10)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_1214952 = PyInt_FromLong(1214952L); if (unlikely(!__pyx_int_1214952)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1367,8 +5302,29 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
+  __pyx_vtabptr_7findMCP_MCSWithHeuristic = &__pyx_vtable_7findMCP_MCSWithHeuristic;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.mcs_with_heuristic = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *))__pyx_f_7findMCP_16MCSWithHeuristic_mcs_with_heuristic;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.process_branch = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *, int))__pyx_f_7findMCP_16MCSWithHeuristic_process_branch;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.upper_bound = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *, int))__pyx_f_7findMCP_16MCSWithHeuristic_upper_bound;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.initial_ordering_and_coloring = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *))__pyx_f_7findMCP_16MCSWithHeuristic_initial_ordering_and_coloring;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.heuristic_solution = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *))__pyx_f_7findMCP_16MCSWithHeuristic_heuristic_solution;
+  __pyx_vtable_7findMCP_MCSWithHeuristic.ILS = (PyObject *(*)(struct __pyx_obj_7findMCP_MCSWithHeuristic *))__pyx_f_7findMCP_16MCSWithHeuristic_ILS;
+  if (PyType_Ready(&__pyx_type_7findMCP_MCSWithHeuristic) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_7findMCP_MCSWithHeuristic.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_7findMCP_MCSWithHeuristic.tp_dictoffset && __pyx_type_7findMCP_MCSWithHeuristic.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_7findMCP_MCSWithHeuristic.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_7findMCP_MCSWithHeuristic.tp_dict, __pyx_vtabptr_7findMCP_MCSWithHeuristic) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_MCSWithHeuristic, (PyObject *)&__pyx_type_7findMCP_MCSWithHeuristic) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_7findMCP_MCSWithHeuristic) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_ptype_7findMCP_MCSWithHeuristic = &__pyx_type_7findMCP_MCSWithHeuristic;
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static int __Pyx_modinit_type_import_code(void) {
@@ -1376,12 +5332,12 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("graph"); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("graph"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_5graph_Graph = __Pyx_ImportType(__pyx_t_1, "graph", "Graph", sizeof(struct __pyx_obj_5graph_Graph), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_Graph) __PYX_ERR(1, 1, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_Graph) __PYX_ERR(3, 1, __pyx_L1_error)
   __pyx_ptype_5graph_GraphMCP = __Pyx_ImportType(__pyx_t_1, "graph", "GraphMCP", sizeof(struct __pyx_obj_5graph_GraphMCP), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(1, 7, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -1595,7 +5551,7 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_global_init_code();
   (void)__Pyx_modinit_variable_export_code();
   (void)__Pyx_modinit_function_export_code();
-  (void)__Pyx_modinit_type_init_code();
+  if (unlikely(__Pyx_modinit_type_init_code() != 0)) goto __pyx_L1_error;
   if (unlikely(__Pyx_modinit_type_import_code() != 0)) goto __pyx_L1_error;
   (void)__Pyx_modinit_variable_import_code();
   (void)__Pyx_modinit_function_import_code();
@@ -1603,6 +5559,16 @@ if (!__Pyx_RefNanny) {
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_MCSWithHeuristic(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7findMCP_3__pyx_unpickle_MCSWithHeuristic, NULL, __pyx_n_s_findMCP); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_MCSWithHeuristic, __pyx_t_1) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "findMCP.pyx":1
  * cimport graph             # <<<<<<<<<<<<<<
@@ -1656,6 +5622,34 @@ end:
 }
 #endif
 
+/* PyObjectGetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_getattro))
+        return tp->tp_getattro(obj, attr_name);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_getattr))
+        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
+#endif
+    return PyObject_GetAttr(obj, attr_name);
+}
+#endif
+
+/* GetBuiltinName */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
+}
+
 /* PyObjectCall */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
@@ -1673,20 +5667,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
             "NULL result without error in PyObject_Call");
     }
     return result;
-}
-#endif
-
-/* PyObjectGetAttrStr */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_getattro))
-        return tp->tp_getattro(obj, attr_name);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_getattr))
-        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
-#endif
-    return PyObject_GetAttr(obj, attr_name);
 }
 #endif
 
@@ -1756,6 +5736,1098 @@ static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
 #endif
 }
 
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
+
+/* KeywordStringCheck */
+static int __Pyx_CheckKeywordStrings(
+    PyObject *kwdict,
+    const char* function_name,
+    int kw_allowed)
+{
+    PyObject* key = 0;
+    Py_ssize_t pos = 0;
+#if CYTHON_COMPILING_IN_PYPY
+    if (!kw_allowed && PyDict_Next(kwdict, &pos, &key, 0))
+        goto invalid_keyword;
+    return 1;
+#else
+    while (PyDict_Next(kwdict, &pos, &key, 0)) {
+        #if PY_MAJOR_VERSION < 3
+        if (unlikely(!PyString_Check(key)))
+        #endif
+            if (unlikely(!PyUnicode_Check(key)))
+                goto invalid_keyword_type;
+    }
+    if ((!kw_allowed) && unlikely(key))
+        goto invalid_keyword;
+    return 1;
+invalid_keyword_type:
+    PyErr_Format(PyExc_TypeError,
+        "%.200s() keywords must be strings", function_name);
+    return 0;
+#endif
+invalid_keyword:
+    PyErr_Format(PyExc_TypeError,
+    #if PY_MAJOR_VERSION < 3
+        "%.200s() got an unexpected keyword argument '%.200s'",
+        function_name, PyString_AsString(key));
+    #else
+        "%s() got an unexpected keyword argument '%U'",
+        function_name, key);
+    #endif
+    return 0;
+}
+
+/* SetItemInt */
+static int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v) {
+    int r;
+    if (!j) return -1;
+    r = PyObject_SetItem(o, j, v);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObject *v, int is_list,
+                                               CYTHON_NCP_UNUSED int wraparound, CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = (!wraparound) ? i : ((likely(i >= 0)) ? i : i + PyList_GET_SIZE(o));
+        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o)))) {
+            PyObject* old = PyList_GET_ITEM(o, n);
+            Py_INCREF(v);
+            PyList_SET_ITEM(o, n, v);
+            Py_DECREF(old);
+            return 1;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_ass_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return -1;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_ass_item(o, i, v);
+        }
+    }
+#else
+#if CYTHON_COMPILING_IN_PYPY
+    if (is_list || (PySequence_Check(o) && !PyDict_Check(o)))
+#else
+    if (is_list || PySequence_Check(o))
+#endif
+    {
+        return PySequence_SetItem(o, i, v);
+    }
+#endif
+    return __Pyx_SetItemInt_Generic(o, PyInt_FromSsize_t(i), v);
+}
+
+/* GetItemInt */
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyList_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyTuple_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
+/* ObjectGetItem */
+#if CYTHON_USE_TYPE_SLOTS
+static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject* index) {
+    PyObject *runerr;
+    Py_ssize_t key_value;
+    PySequenceMethods *m = Py_TYPE(obj)->tp_as_sequence;
+    if (unlikely(!(m && m->sq_item))) {
+        PyErr_Format(PyExc_TypeError, "'%.200s' object is not subscriptable", Py_TYPE(obj)->tp_name);
+        return NULL;
+    }
+    key_value = __Pyx_PyIndex_AsSsize_t(index);
+    if (likely(key_value != -1 || !(runerr = PyErr_Occurred()))) {
+        return __Pyx_GetItemInt_Fast(obj, key_value, 0, 1, 1);
+    }
+    if (PyErr_GivenExceptionMatches(runerr, PyExc_OverflowError)) {
+        PyErr_Clear();
+        PyErr_Format(PyExc_IndexError, "cannot fit '%.200s' into an index-sized integer", Py_TYPE(index)->tp_name);
+    }
+    return NULL;
+}
+static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
+    PyMappingMethods *m = Py_TYPE(obj)->tp_as_mapping;
+    if (likely(m && m->mp_subscript)) {
+        return m->mp_subscript(obj, key);
+    }
+    return __Pyx_PyObject_GetIndex(obj, key);
+}
+#endif
+
+/* PyErrExceptionMatches */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
+    Py_ssize_t i, n;
+    n = PyTuple_GET_SIZE(tuple);
+#if PY_MAJOR_VERSION >= 3
+    for (i=0; i<n; i++) {
+        if (exc_type == PyTuple_GET_ITEM(tuple, i)) return 1;
+    }
+#endif
+    for (i=0; i<n; i++) {
+        if (__Pyx_PyErr_GivenExceptionMatches(exc_type, PyTuple_GET_ITEM(tuple, i))) return 1;
+    }
+    return 0;
+}
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
+    PyObject *exc_type = tstate->curexc_type;
+    if (exc_type == err) return 1;
+    if (unlikely(!exc_type)) return 0;
+    if (unlikely(PyTuple_Check(err)))
+        return __Pyx_PyErr_ExceptionMatchesTuple(exc_type, err);
+    return __Pyx_PyErr_GivenExceptionMatches(exc_type, err);
+}
+#endif
+
+/* GetAttr */
+static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *o, PyObject *n) {
+#if CYTHON_USE_TYPE_SLOTS
+#if PY_MAJOR_VERSION >= 3
+    if (likely(PyUnicode_Check(n)))
+#else
+    if (likely(PyString_Check(n)))
+#endif
+        return __Pyx_PyObject_GetAttrStr(o, n);
+#endif
+    return PyObject_GetAttr(o, n);
+}
+
+/* GetAttr3 */
+static PyObject *__Pyx_GetAttr3Default(PyObject *d) {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    if (unlikely(!__Pyx_PyErr_ExceptionMatches(PyExc_AttributeError)))
+        return NULL;
+    __Pyx_PyErr_Clear();
+    Py_INCREF(d);
+    return d;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *o, PyObject *n, PyObject *d) {
+    PyObject *r = __Pyx_GetAttr(o, n);
+    return (likely(r)) ? r : __Pyx_GetAttr3Default(d);
+}
+
+/* PyDictVersioning */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
+}
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
+    PyObject **dictptr = NULL;
+    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
+    if (offset) {
+#if CYTHON_COMPILING_IN_CPYTHON
+        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
+#else
+        dictptr = _PyObject_GetDictPtr(obj);
+#endif
+    }
+    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
+}
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
+        return 0;
+    return obj_dict_version == __Pyx_get_object_dict_version(obj);
+}
+#endif
+
+/* GetModuleGlobalName */
+#if CYTHON_USE_DICT_VERSIONS
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
+#else
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
+#endif
+{
+    PyObject *result;
+#if !CYTHON_AVOID_BORROWED_REFS
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    } else if (unlikely(PyErr_Occurred())) {
+        return NULL;
+    }
+#else
+    result = PyDict_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+#endif
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+    PyErr_Clear();
+#endif
+    return __Pyx_GetBuiltinName(name);
+}
+
+/* RaiseDoubleKeywords */
+static void __Pyx_RaiseDoubleKeywordsError(
+    const char* func_name,
+    PyObject* kw_name)
+{
+    PyErr_Format(PyExc_TypeError,
+        #if PY_MAJOR_VERSION >= 3
+        "%s() got multiple values for keyword argument '%U'", func_name, kw_name);
+        #else
+        "%s() got multiple values for keyword argument '%s'", func_name,
+        PyString_AsString(kw_name));
+        #endif
+}
+
+/* ParseKeywords */
+static int __Pyx_ParseOptionalKeywords(
+    PyObject *kwds,
+    PyObject **argnames[],
+    PyObject *kwds2,
+    PyObject *values[],
+    Py_ssize_t num_pos_args,
+    const char* function_name)
+{
+    PyObject *key = 0, *value = 0;
+    Py_ssize_t pos = 0;
+    PyObject*** name;
+    PyObject*** first_kw_arg = argnames + num_pos_args;
+    while (PyDict_Next(kwds, &pos, &key, &value)) {
+        name = first_kw_arg;
+        while (*name && (**name != key)) name++;
+        if (*name) {
+            values[name-argnames] = value;
+            continue;
+        }
+        name = first_kw_arg;
+        #if PY_MAJOR_VERSION < 3
+        if (likely(PyString_CheckExact(key)) || likely(PyString_Check(key))) {
+            while (*name) {
+                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
+                        && _PyString_Eq(**name, key)) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    if ((**argname == key) || (
+                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
+                             && _PyString_Eq(**argname, key))) {
+                        goto arg_passed_twice;
+                    }
+                    argname++;
+                }
+            }
+        } else
+        #endif
+        if (likely(PyUnicode_Check(key))) {
+            while (*name) {
+                int cmp = (**name == key) ? 0 :
+                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                    (PyUnicode_GET_SIZE(**name) != PyUnicode_GET_SIZE(key)) ? 1 :
+                #endif
+                    PyUnicode_Compare(**name, key);
+                if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                if (cmp == 0) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    int cmp = (**argname == key) ? 0 :
+                    #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                        (PyUnicode_GET_SIZE(**argname) != PyUnicode_GET_SIZE(key)) ? 1 :
+                    #endif
+                        PyUnicode_Compare(**argname, key);
+                    if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                    if (cmp == 0) goto arg_passed_twice;
+                    argname++;
+                }
+            }
+        } else
+            goto invalid_keyword_type;
+        if (kwds2) {
+            if (unlikely(PyDict_SetItem(kwds2, key, value))) goto bad;
+        } else {
+            goto invalid_keyword;
+        }
+    }
+    return 0;
+arg_passed_twice:
+    __Pyx_RaiseDoubleKeywordsError(function_name, key);
+    goto bad;
+invalid_keyword_type:
+    PyErr_Format(PyExc_TypeError,
+        "%.200s() keywords must be strings", function_name);
+    goto bad;
+invalid_keyword:
+    PyErr_Format(PyExc_TypeError,
+    #if PY_MAJOR_VERSION < 3
+        "%.200s() got an unexpected keyword argument '%.200s'",
+        function_name, PyString_AsString(key));
+    #else
+        "%s() got an unexpected keyword argument '%U'",
+        function_name, key);
+    #endif
+bad:
+    return -1;
+}
+
+/* Import */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_MAJOR_VERSION < 3
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
+    }
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_MAJOR_VERSION < 3
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
+}
+
+/* ImportFrom */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+    PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
+    if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
+        PyErr_Format(PyExc_ImportError,
+        #if PY_MAJOR_VERSION < 3
+            "cannot import name %.230s", PyString_AS_STRING(name));
+        #else
+            "cannot import name %S", name);
+        #endif
+    }
+    return value;
+}
+
+/* PyCFunctionFastCall */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
+    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
+    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
+    PyObject *self = PyCFunction_GET_SELF(func);
+    int flags = PyCFunction_GET_FLAGS(func);
+    assert(PyCFunction_Check(func));
+    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS | METH_STACKLESS)));
+    assert(nargs >= 0);
+    assert(nargs == 0 || args != NULL);
+    /* _PyCFunction_FastCallDict() must not be called with an exception set,
+       because it may clear it (directly or indirectly) and so the
+       caller loses its exception */
+    assert(!PyErr_Occurred());
+    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
+        return (*((__Pyx_PyCFunctionFastWithKeywords)(void*)meth)) (self, args, nargs, NULL);
+    } else {
+        return (*((__Pyx_PyCFunctionFast)(void*)meth)) (self, args, nargs);
+    }
+}
+#endif
+
+/* PyFunctionFastCall */
+#if CYTHON_FAST_PYCALL
+static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
+                                               PyObject *globals) {
+    PyFrameObject *f;
+    PyThreadState *tstate = __Pyx_PyThreadState_Current;
+    PyObject **fastlocals;
+    Py_ssize_t i;
+    PyObject *result;
+    assert(globals != NULL);
+    /* XXX Perhaps we should create a specialized
+       PyFrame_New() that doesn't take locals, but does
+       take builtins without sanity checking them.
+       */
+    assert(tstate != NULL);
+    f = PyFrame_New(tstate, co, globals, NULL);
+    if (f == NULL) {
+        return NULL;
+    }
+    fastlocals = __Pyx_PyFrame_GetLocalsplus(f);
+    for (i = 0; i < na; i++) {
+        Py_INCREF(*args);
+        fastlocals[i] = *args++;
+    }
+    result = PyEval_EvalFrameEx(f,0);
+    ++tstate->recursion_depth;
+    Py_DECREF(f);
+    --tstate->recursion_depth;
+    return result;
+}
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs) {
+    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
+    PyObject *globals = PyFunction_GET_GLOBALS(func);
+    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
+    PyObject *closure;
+#if PY_MAJOR_VERSION >= 3
+    PyObject *kwdefs;
+#endif
+    PyObject *kwtuple, **k;
+    PyObject **d;
+    Py_ssize_t nd;
+    Py_ssize_t nk;
+    PyObject *result;
+    assert(kwargs == NULL || PyDict_Check(kwargs));
+    nk = kwargs ? PyDict_Size(kwargs) : 0;
+    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
+        return NULL;
+    }
+    if (
+#if PY_MAJOR_VERSION >= 3
+            co->co_kwonlyargcount == 0 &&
+#endif
+            likely(kwargs == NULL || nk == 0) &&
+            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
+        if (argdefs == NULL && co->co_argcount == nargs) {
+            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
+            goto done;
+        }
+        else if (nargs == 0 && argdefs != NULL
+                 && co->co_argcount == Py_SIZE(argdefs)) {
+            /* function called with no arguments, but all parameters have
+               a default value: use default values as arguments .*/
+            args = &PyTuple_GET_ITEM(argdefs, 0);
+            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
+            goto done;
+        }
+    }
+    if (kwargs != NULL) {
+        Py_ssize_t pos, i;
+        kwtuple = PyTuple_New(2 * nk);
+        if (kwtuple == NULL) {
+            result = NULL;
+            goto done;
+        }
+        k = &PyTuple_GET_ITEM(kwtuple, 0);
+        pos = i = 0;
+        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
+            Py_INCREF(k[i]);
+            Py_INCREF(k[i+1]);
+            i += 2;
+        }
+        nk = i / 2;
+    }
+    else {
+        kwtuple = NULL;
+        k = NULL;
+    }
+    closure = PyFunction_GET_CLOSURE(func);
+#if PY_MAJOR_VERSION >= 3
+    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
+#endif
+    if (argdefs != NULL) {
+        d = &PyTuple_GET_ITEM(argdefs, 0);
+        nd = Py_SIZE(argdefs);
+    }
+    else {
+        d = NULL;
+        nd = 0;
+    }
+#if PY_MAJOR_VERSION >= 3
+    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
+                               args, (int)nargs,
+                               k, (int)nk,
+                               d, (int)nd, kwdefs, closure);
+#else
+    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
+                               args, (int)nargs,
+                               k, (int)nk,
+                               d, (int)nd, closure);
+#endif
+    Py_XDECREF(kwtuple);
+done:
+    Py_LeaveRecursiveCall();
+    return result;
+}
+#endif
+#endif
+
+/* PyObjectCall2Args */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+    PyObject *args, *result = NULL;
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyFunction_FastCall(function, args, 2);
+    }
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(function)) {
+        PyObject *args[2] = {arg1, arg2};
+        return __Pyx_PyCFunction_FastCall(function, args, 2);
+    }
+    #endif
+    args = PyTuple_New(2);
+    if (unlikely(!args)) goto done;
+    Py_INCREF(arg1);
+    PyTuple_SET_ITEM(args, 0, arg1);
+    Py_INCREF(arg2);
+    PyTuple_SET_ITEM(args, 1, arg2);
+    Py_INCREF(function);
+    result = __Pyx_PyObject_Call(function, args, NULL);
+    Py_DECREF(args);
+    Py_DECREF(function);
+done:
+    return result;
+}
+
+/* PyObjectCallMethO */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyObjectCallOneArg */
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, &arg, 1);
+    }
+#endif
+    if (likely(PyCFunction_Check(func))) {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+#if CYTHON_FAST_PYCCALL
+        } else if (PyCFunction_GET_FLAGS(func) & METH_FASTCALL) {
+            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
+#endif
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+#endif
+
+/* RaiseException */
+#if PY_MAJOR_VERSION < 3
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
+                        CYTHON_UNUSED PyObject *cause) {
+    __Pyx_PyThreadState_declare
+    Py_XINCREF(type);
+    if (!value || value == Py_None)
+        value = NULL;
+    else
+        Py_INCREF(value);
+    if (!tb || tb == Py_None)
+        tb = NULL;
+    else {
+        Py_INCREF(tb);
+        if (!PyTraceBack_Check(tb)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: arg 3 must be a traceback or None");
+            goto raise_error;
+        }
+    }
+    if (PyType_Check(type)) {
+#if CYTHON_COMPILING_IN_PYPY
+        if (!value) {
+            Py_INCREF(Py_None);
+            value = Py_None;
+        }
+#endif
+        PyErr_NormalizeException(&type, &value, &tb);
+    } else {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto raise_error;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(type);
+        Py_INCREF(type);
+        if (!PyType_IsSubtype((PyTypeObject *)type, (PyTypeObject *)PyExc_BaseException)) {
+            PyErr_SetString(PyExc_TypeError,
+                "raise: exception class must be a subclass of BaseException");
+            goto raise_error;
+        }
+    }
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrRestore(type, value, tb);
+    return;
+raise_error:
+    Py_XDECREF(value);
+    Py_XDECREF(type);
+    Py_XDECREF(tb);
+    return;
+}
+#else
+static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause) {
+    PyObject* owned_instance = NULL;
+    if (tb == Py_None) {
+        tb = 0;
+    } else if (tb && !PyTraceBack_Check(tb)) {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: arg 3 must be a traceback or None");
+        goto bad;
+    }
+    if (value == Py_None)
+        value = 0;
+    if (PyExceptionInstance_Check(type)) {
+        if (value) {
+            PyErr_SetString(PyExc_TypeError,
+                "instance exception may not have a separate value");
+            goto bad;
+        }
+        value = type;
+        type = (PyObject*) Py_TYPE(value);
+    } else if (PyExceptionClass_Check(type)) {
+        PyObject *instance_class = NULL;
+        if (value && PyExceptionInstance_Check(value)) {
+            instance_class = (PyObject*) Py_TYPE(value);
+            if (instance_class != type) {
+                int is_subclass = PyObject_IsSubclass(instance_class, type);
+                if (!is_subclass) {
+                    instance_class = NULL;
+                } else if (unlikely(is_subclass == -1)) {
+                    goto bad;
+                } else {
+                    type = instance_class;
+                }
+            }
+        }
+        if (!instance_class) {
+            PyObject *args;
+            if (!value)
+                args = PyTuple_New(0);
+            else if (PyTuple_Check(value)) {
+                Py_INCREF(value);
+                args = value;
+            } else
+                args = PyTuple_Pack(1, value);
+            if (!args)
+                goto bad;
+            owned_instance = PyObject_Call(type, args, NULL);
+            Py_DECREF(args);
+            if (!owned_instance)
+                goto bad;
+            value = owned_instance;
+            if (!PyExceptionInstance_Check(value)) {
+                PyErr_Format(PyExc_TypeError,
+                             "calling %R should have returned an instance of "
+                             "BaseException, not %R",
+                             type, Py_TYPE(value));
+                goto bad;
+            }
+        }
+    } else {
+        PyErr_SetString(PyExc_TypeError,
+            "raise: exception class must be a subclass of BaseException");
+        goto bad;
+    }
+    if (cause) {
+        PyObject *fixed_cause;
+        if (cause == Py_None) {
+            fixed_cause = NULL;
+        } else if (PyExceptionClass_Check(cause)) {
+            fixed_cause = PyObject_CallObject(cause, NULL);
+            if (fixed_cause == NULL)
+                goto bad;
+        } else if (PyExceptionInstance_Check(cause)) {
+            fixed_cause = cause;
+            Py_INCREF(fixed_cause);
+        } else {
+            PyErr_SetString(PyExc_TypeError,
+                            "exception causes must derive from "
+                            "BaseException");
+            goto bad;
+        }
+        PyException_SetCause(value, fixed_cause);
+    }
+    PyErr_SetObject(type, value);
+    if (tb) {
+#if CYTHON_COMPILING_IN_PYPY
+        PyObject *tmp_type, *tmp_value, *tmp_tb;
+        PyErr_Fetch(&tmp_type, &tmp_value, &tmp_tb);
+        Py_INCREF(tb);
+        PyErr_Restore(tmp_type, tmp_value, tb);
+        Py_XDECREF(tmp_tb);
+#else
+        PyThreadState *tstate = __Pyx_PyThreadState_Current;
+        PyObject* tmp_tb = tstate->curexc_traceback;
+        if (tb != tmp_tb) {
+            Py_INCREF(tb);
+            tstate->curexc_traceback = tb;
+            Py_XDECREF(tmp_tb);
+        }
+#endif
+    }
+bad:
+    Py_XDECREF(owned_instance);
+    return;
+}
+#endif
+
+/* HasAttr */
+static CYTHON_INLINE int __Pyx_HasAttr(PyObject *o, PyObject *n) {
+    PyObject *r;
+    if (unlikely(!__Pyx_PyBaseString_Check(n))) {
+        PyErr_SetString(PyExc_TypeError,
+                        "hasattr(): attribute name must be string");
+        return -1;
+    }
+    r = __Pyx_GetAttr(o, n);
+    if (unlikely(!r)) {
+        PyErr_Clear();
+        return 0;
+    } else {
+        Py_DECREF(r);
+        return 1;
+    }
+}
+
+/* PyObject_GenericGetAttrNoDict */
+#if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+static PyObject *__Pyx_RaiseGenericGetAttributeError(PyTypeObject *tp, PyObject *attr_name) {
+    PyErr_Format(PyExc_AttributeError,
+#if PY_MAJOR_VERSION >= 3
+                 "'%.50s' object has no attribute '%U'",
+                 tp->tp_name, attr_name);
+#else
+                 "'%.50s' object has no attribute '%.400s'",
+                 tp->tp_name, PyString_AS_STRING(attr_name));
+#endif
+    return NULL;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name) {
+    PyObject *descr;
+    PyTypeObject *tp = Py_TYPE(obj);
+    if (unlikely(!PyString_Check(attr_name))) {
+        return PyObject_GenericGetAttr(obj, attr_name);
+    }
+    assert(!tp->tp_dictoffset);
+    descr = _PyType_Lookup(tp, attr_name);
+    if (unlikely(!descr)) {
+        return __Pyx_RaiseGenericGetAttributeError(tp, attr_name);
+    }
+    Py_INCREF(descr);
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyType_HasFeature(Py_TYPE(descr), Py_TPFLAGS_HAVE_CLASS)))
+    #endif
+    {
+        descrgetfunc f = Py_TYPE(descr)->tp_descr_get;
+        if (unlikely(f)) {
+            PyObject *res = f(descr, obj, (PyObject *)tp);
+            Py_DECREF(descr);
+            return res;
+        }
+    }
+    return descr;
+}
+#endif
+
+/* PyObject_GenericGetAttr */
+#if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+static PyObject* __Pyx_PyObject_GenericGetAttr(PyObject* obj, PyObject* attr_name) {
+    if (unlikely(Py_TYPE(obj)->tp_dictoffset)) {
+        return PyObject_GenericGetAttr(obj, attr_name);
+    }
+    return __Pyx_PyObject_GenericGetAttrNoDict(obj, attr_name);
+}
+#endif
+
+/* SetVTable */
+static int __Pyx_SetVtable(PyObject *dict, void *vtable) {
+#if PY_VERSION_HEX >= 0x02070000
+    PyObject *ob = PyCapsule_New(vtable, 0, 0);
+#else
+    PyObject *ob = PyCObject_FromVoidPtr(vtable, 0);
+#endif
+    if (!ob)
+        goto bad;
+    if (PyDict_SetItem(dict, __pyx_n_s_pyx_vtable, ob) < 0)
+        goto bad;
+    Py_DECREF(ob);
+    return 0;
+bad:
+    Py_XDECREF(ob);
+    return -1;
+}
+
+/* SetupReduce */
+static int __Pyx_setup_reduce_is_named(PyObject* meth, PyObject* name) {
+  int ret;
+  PyObject *name_attr;
+  name_attr = __Pyx_PyObject_GetAttrStr(meth, __pyx_n_s_name);
+  if (likely(name_attr)) {
+      ret = PyObject_RichCompareBool(name_attr, name, Py_EQ);
+  } else {
+      ret = -1;
+  }
+  if (unlikely(ret < 0)) {
+      PyErr_Clear();
+      ret = 0;
+  }
+  Py_XDECREF(name_attr);
+  return ret;
+}
+static int __Pyx_setup_reduce(PyObject* type_obj) {
+    int ret = 0;
+    PyObject *object_reduce = NULL;
+    PyObject *object_reduce_ex = NULL;
+    PyObject *reduce = NULL;
+    PyObject *reduce_ex = NULL;
+    PyObject *reduce_cython = NULL;
+    PyObject *setstate = NULL;
+    PyObject *setstate_cython = NULL;
+#if CYTHON_USE_PYTYPE_LOOKUP
+    if (_PyType_Lookup((PyTypeObject*)type_obj, __pyx_n_s_getstate)) goto GOOD;
+#else
+    if (PyObject_HasAttr(type_obj, __pyx_n_s_getstate)) goto GOOD;
+#endif
+#if CYTHON_USE_PYTYPE_LOOKUP
+    object_reduce_ex = _PyType_Lookup(&PyBaseObject_Type, __pyx_n_s_reduce_ex); if (!object_reduce_ex) goto BAD;
+#else
+    object_reduce_ex = __Pyx_PyObject_GetAttrStr((PyObject*)&PyBaseObject_Type, __pyx_n_s_reduce_ex); if (!object_reduce_ex) goto BAD;
+#endif
+    reduce_ex = __Pyx_PyObject_GetAttrStr(type_obj, __pyx_n_s_reduce_ex); if (unlikely(!reduce_ex)) goto BAD;
+    if (reduce_ex == object_reduce_ex) {
+#if CYTHON_USE_PYTYPE_LOOKUP
+        object_reduce = _PyType_Lookup(&PyBaseObject_Type, __pyx_n_s_reduce); if (!object_reduce) goto BAD;
+#else
+        object_reduce = __Pyx_PyObject_GetAttrStr((PyObject*)&PyBaseObject_Type, __pyx_n_s_reduce); if (!object_reduce) goto BAD;
+#endif
+        reduce = __Pyx_PyObject_GetAttrStr(type_obj, __pyx_n_s_reduce); if (unlikely(!reduce)) goto BAD;
+        if (reduce == object_reduce || __Pyx_setup_reduce_is_named(reduce, __pyx_n_s_reduce_cython)) {
+            reduce_cython = __Pyx_PyObject_GetAttrStr(type_obj, __pyx_n_s_reduce_cython); if (unlikely(!reduce_cython)) goto BAD;
+            ret = PyDict_SetItem(((PyTypeObject*)type_obj)->tp_dict, __pyx_n_s_reduce, reduce_cython); if (unlikely(ret < 0)) goto BAD;
+            ret = PyDict_DelItem(((PyTypeObject*)type_obj)->tp_dict, __pyx_n_s_reduce_cython); if (unlikely(ret < 0)) goto BAD;
+            setstate = __Pyx_PyObject_GetAttrStr(type_obj, __pyx_n_s_setstate);
+            if (!setstate) PyErr_Clear();
+            if (!setstate || __Pyx_setup_reduce_is_named(setstate, __pyx_n_s_setstate_cython)) {
+                setstate_cython = __Pyx_PyObject_GetAttrStr(type_obj, __pyx_n_s_setstate_cython); if (unlikely(!setstate_cython)) goto BAD;
+                ret = PyDict_SetItem(((PyTypeObject*)type_obj)->tp_dict, __pyx_n_s_setstate, setstate_cython); if (unlikely(ret < 0)) goto BAD;
+                ret = PyDict_DelItem(((PyTypeObject*)type_obj)->tp_dict, __pyx_n_s_setstate_cython); if (unlikely(ret < 0)) goto BAD;
+            }
+            PyType_Modified((PyTypeObject*)type_obj);
+        }
+    }
+    goto GOOD;
+BAD:
+    if (!PyErr_Occurred())
+        PyErr_Format(PyExc_RuntimeError, "Unable to initialize pickling for %s", ((PyTypeObject*)type_obj)->tp_name);
+    ret = -1;
+GOOD:
+#if !CYTHON_USE_PYTYPE_LOOKUP
+    Py_XDECREF(object_reduce);
+    Py_XDECREF(object_reduce_ex);
+#endif
+    Py_XDECREF(reduce);
+    Py_XDECREF(reduce_ex);
+    Py_XDECREF(reduce_cython);
+    Py_XDECREF(setstate);
+    Py_XDECREF(setstate_cython);
+    return ret;
+}
+
 /* TypeImport */
 #ifndef __PYX_HAVE_RT_ImportType
 #define __PYX_HAVE_RT_ImportType
@@ -1814,32 +6886,6 @@ static PyTypeObject *__Pyx_ImportType(PyObject *module, const char *module_name,
 bad:
     Py_XDECREF(result);
     return NULL;
-}
-#endif
-
-/* PyDictVersioning */
-#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
-    PyObject **dictptr = NULL;
-    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
-    if (offset) {
-#if CYTHON_COMPILING_IN_CPYTHON
-        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
-#else
-        dictptr = _PyObject_GetDictPtr(obj);
-#endif
-    }
-    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
-}
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
-        return 0;
-    return obj_dict_version == __Pyx_get_object_dict_version(obj);
 }
 #endif
 
@@ -2050,6 +7096,59 @@ bad:
     Py_XDECREF(py_frame);
 }
 
+/* CIntToPy */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    const int neg_one = (int) ((int) 0 - (int) 1), const_zero = (int) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#endif
+        }
+    } else {
+        if (sizeof(int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
+}
+
+/* CIntFromPyVerify */
+#define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
+#define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
+    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
+#define __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, exc)\
+    {\
+        func_type value = func_value;\
+        if (sizeof(target_type) < sizeof(func_type)) {\
+            if (unlikely(value != (func_type) (target_type) value)) {\
+                func_type zero = 0;\
+                if (exc && unlikely(value == (func_type)-1 && PyErr_Occurred()))\
+                    return (target_type) -1;\
+                if (is_unsigned && unlikely(value < zero))\
+                    goto raise_neg_overflow;\
+                else\
+                    goto raise_overflow;\
+            }\
+        }\
+        return (target_type) value;\
+    }
+
 /* Print */
 #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
 static PyObject *__Pyx_GetStdout(void) {
@@ -2156,43 +7255,6 @@ bad:
 }
 #endif
 
-/* PrintOne */
-#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
-
 /* CIntToPy */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
@@ -2222,217 +7284,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
         return _PyLong_FromByteArray(bytes, sizeof(long),
                                      little, !is_unsigned);
     }
-}
-
-/* CIntFromPyVerify */
-#define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
-    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
-#define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
-    __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
-#define __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, exc)\
-    {\
-        func_type value = func_value;\
-        if (sizeof(target_type) < sizeof(func_type)) {\
-            if (unlikely(value != (func_type) (target_type) value)) {\
-                func_type zero = 0;\
-                if (exc && unlikely(value == (func_type)-1 && PyErr_Occurred()))\
-                    return (target_type) -1;\
-                if (is_unsigned && unlikely(value < zero))\
-                    goto raise_neg_overflow;\
-                else\
-                    goto raise_overflow;\
-            }\
-        }\
-        return (target_type) value;\
-    }
-
-/* CIntFromPy */
-static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
-    const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(long) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(long, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (long) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (long) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(long, digit, digits[0])
-                case 2:
-                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 2 * PyLong_SHIFT) {
-                            return (long) (((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 3 * PyLong_SHIFT) {
-                            return (long) (((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) >= 4 * PyLong_SHIFT) {
-                            return (long) (((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
-                        }
-                    }
-                    break;
-            }
-#endif
-#if CYTHON_COMPILING_IN_CPYTHON
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-#else
-            {
-                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
-                if (unlikely(result < 0))
-                    return (long) -1;
-                if (unlikely(result == 1))
-                    goto raise_neg_overflow;
-            }
-#endif
-            if (sizeof(long) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned long, PyLong_AsUnsignedLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
-#endif
-            }
-        } else {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (long) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(long, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(long,  digit, +digits[0])
-                case -2:
-                    if (8 * sizeof(long) - 1 > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 2:
-                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                            return (long) ((((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case -3:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                            return (long) ((((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case -4:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                            return (long) (((long)-1)*(((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                            return (long) ((((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
-                        }
-                    }
-                    break;
-            }
-#endif
-            if (sizeof(long) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, long, PyLong_AsLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(long, PY_LONG_LONG, PyLong_AsLongLong(x))
-#endif
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            long val;
-            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (long) -1;
-        }
-    } else {
-        long val;
-        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (long) -1;
-        val = __Pyx_PyInt_As_long(tmp);
-        Py_DECREF(tmp);
-        return val;
-    }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to long");
-    return (long) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to long");
-    return (long) -1;
 }
 
 /* CIntFromPy */
@@ -2623,6 +7474,232 @@ raise_neg_overflow:
         "can't convert negative value to int");
     return (int) -1;
 }
+
+/* CIntFromPy */
+static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+    const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(long) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(long, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (long) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (long) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(long, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 2 * PyLong_SHIFT) {
+                            return (long) (((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 3 * PyLong_SHIFT) {
+                            return (long) (((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) >= 4 * PyLong_SHIFT) {
+                            return (long) (((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (long) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(long) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned long, PyLong_AsUnsignedLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+#endif
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (long) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(long, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(long,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(long) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(long) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                            return (long) ((((((long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(long) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                            return (long) ((((((((long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                            return (long) (((long)-1)*(((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(long) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(long, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                            return (long) ((((((((((long)digits[3]) << PyLong_SHIFT) | (long)digits[2]) << PyLong_SHIFT) | (long)digits[1]) << PyLong_SHIFT) | (long)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(long) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, long, PyLong_AsLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(long, PY_LONG_LONG, PyLong_AsLongLong(x))
+#endif
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            long val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (long) -1;
+        }
+    } else {
+        long val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (long) -1;
+        val = __Pyx_PyInt_As_long(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to long");
+    return (long) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to long");
+    return (long) -1;
+}
+
+/* PrintOne */
+#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    if (PyFile_SoftSpace(f, 0)) {
+        if (PyFile_WriteString(" ", f) < 0)
+            goto error;
+    }
+    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
+        goto error;
+    if (PyFile_WriteString("\n", f) < 0)
+        goto error;
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+    /* the line below is just to avoid C compiler
+     * warnings about unused functions */
+    return __Pyx_Print(f, NULL, 0);
+}
+#else
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
+    int res;
+    PyObject* arg_tuple = PyTuple_Pack(1, o);
+    if (unlikely(!arg_tuple))
+        return -1;
+    res = __Pyx_Print(stream, arg_tuple, 1);
+    Py_DECREF(arg_tuple);
+    return res;
+}
+#endif
 
 /* FastTypeChecks */
 #if CYTHON_COMPILING_IN_CPYTHON
