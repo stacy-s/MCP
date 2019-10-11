@@ -2,8 +2,6 @@ cdef class Graph:
     """
     Class Graph
     """
-    cdef public int cnt_vertex
-    cdef public list adj
 
     def __init__(self, int cnt_vertex, list adj):
         """
@@ -19,7 +17,6 @@ cdef class GraphMCP(Graph):
     """
     Сlass contains graph with maximum click
     """
-    cdef public max_clique
 
     def __init__(self, int cnt_vertex, list adj, list max_clique=None):
         """
