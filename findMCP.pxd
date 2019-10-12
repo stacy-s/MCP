@@ -35,5 +35,5 @@ cdef class TrustCLQ:
 
     cpdef graph.GraphMCP find_max_clique(self)
     cdef list find_clique(self, int lower_bound)
-    cdef void update_candidates(self, int v)
+    cdef void update_candidates(self, int u)
     cdef double lost_trust(self, int v, int lower_bound)

@@ -11,7 +11,7 @@ cdef class GraphMCP(Graph):
 
 cdef class GraphTrustCLQ(Graph):
     cdef public double scale
-    cdef public dict trust
+    cdef public list trust
 
-    cdef void reduce_vertex(self, int v)
+    cpdef void reduce_vertex(self, int v)
     cdef void init_trust(self, int lower_bound)
