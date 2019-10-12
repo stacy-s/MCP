@@ -46,10 +46,8 @@ class DataDIMACS(Data):
                 if is_number_vertices_edges_line(line):
                     cnt_vertices, cnt_edges = get_number_verticies_edges(line)
                     edges = [[] for _ in range(cnt_vertices)]
-                    print(cnt_vertices, cnt_edges)
                 if is_edge_line(line):
                     v, to = get_edge(line)
-                    print(v + 1, to + 1)
                     if edges is None:
                         raise ValueError
                     edges[v].append(to)

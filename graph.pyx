@@ -36,15 +36,18 @@ cdef class GraphMCP(Graph):
         super().__init__(vertices, adj)
         self.max_clique = max_clique.copy()
 
-    cpdef bint is_right_max_clique(self):
+    cpdef list is_right_max_clique(self):
+        not_neighbor = []
         if self.max_clique is None:
             raise ValueError
         for i in range(len(self.max_clique)):
             for j in range(i + 1, len(self.max_clique)):
                 if self.adj[self.max_clique[i]].count(self.max_clique[j]) == 0:
-                    print(self.max_clique[i], self.max_clique[j])
-                    # return False
-        # return True
+                    not_neighbor.append((self.max_clique[i], self.max_clique[j]))
+        if len(not_neighbor) == 0:
+            return [True, not_neighbor]
+        return [False, not_neighbor]
+
 
 cdef class GraphTrustCLQ(Graph):
     def __init__(self, list vertices, list adj, double scale, list max_clique=None):

@@ -7,7 +7,7 @@ cdef class Graph:
 cdef class GraphMCP(Graph):
     cdef public max_clique      #vertices belonging to maximum clique
 
-    cpdef bint is_right_max_clique(self)
+    cpdef list is_right_max_clique(self)
 
 cdef class GraphTrustCLQ(Graph):
     cdef public double scale
