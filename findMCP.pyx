@@ -72,14 +72,13 @@ cdef class TrustCLQ:
     cdef list find_clique(self, int lower_bound):
         self.current_graph.init_trust(lower_bound=lower_bound)
         cnt_positive = 0
-        self.current_clique = []  #?
         if self.current_graph.scale > 0:
             cnt_positive = self.current_graph.cnt_vertices
-        while cnt_positive > 0:
+        for i in range(self.current_graph.cnt_vertices):
             for v in self.current_graph.vertices:
                 if self.current_graph.trust[v] > 0 and self.current_graph.vertices.count(v) > 0:
                     self.candidates = self.current_graph.adj[v]
-                    self.current_clique.append(v)
+                    self.current_clique = [v]
                     while True:
                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:
                             break
@@ -88,6 +87,10 @@ cdef class TrustCLQ:
                         self.update_candidates(u)
                     if len(self.current_clique) >= lower_bound:
                         return
+                    if len(self.current_graph.adj[v]) + 1 == lower_bound:
+                        self.current_graph.trust[v] = 0
+                        self.current_graph.reduce_vertex(v)
+                        cnt_positive -= 1
                     else:
                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)
                         if self.current_graph.trust[v] <= 0:
@@ -98,7 +101,7 @@ cdef class TrustCLQ:
     cpdef graph.GraphMCP find_max_clique(self):
         random.seed(1573)
         self.max_clique = []
-        i = 1
+        i = 0
         while i < self.current_graph.cnt_vertices:
             for v in self.current_graph.vertices:
                 if len(self.current_graph.adj[v]) + 1 < i:

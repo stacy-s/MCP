@@ -47,7 +47,7 @@ cdef class GraphTrustCLQ(Graph):
         self.scale = scale
 
     cdef void init_trust(self, int lower_bound):
-        self.trust = {v:self.scale for v in range(self.cnt_vertices) if len(self.adj[v]) + 1 >= lower_bound}
+        self.trust = {v:self.scale for v in range(max(self.vertices) + 1)}
 
     cdef void reduce_vertex(self, int v):
         self.cnt_vertices -= 1
