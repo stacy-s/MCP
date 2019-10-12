@@ -848,12 +848,13 @@ struct __pyx_obj_5graph_Graph {
  */
 struct __pyx_obj_5graph_GraphMCP {
   struct __pyx_obj_5graph_Graph __pyx_base;
+  struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtab;
   PyObject *max_clique;
 };
 
 
-/* "graph.pxd":11
- * 
+/* "graph.pxd":12
+ *     cpdef bint is_right_max_clique(self)
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
  *     cdef public double scale
@@ -914,8 +915,22 @@ struct __pyx_obj_7findMCP_TrustCLQ {
 
 
 
-/* "graph.pxd":11
+/* "graph.pxd":7
  * 
+ * 
+ * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
+ *     cdef public max_clique      #vertices belonging to maximum clique
+ * 
+ */
+
+struct __pyx_vtabstruct_5graph_GraphMCP {
+  int (*is_right_max_clique)(struct __pyx_obj_5graph_GraphMCP *, int __pyx_skip_dispatch);
+};
+static struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtabptr_5graph_GraphMCP;
+
+
+/* "graph.pxd":12
+ *     cpdef bint is_right_max_clique(self)
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
  *     cdef public double scale
@@ -8518,9 +8533,10 @@ static int __Pyx_modinit_type_import_code(void) {
    if (!__pyx_ptype_5graph_Graph) __PYX_ERR(3, 1, __pyx_L1_error)
   __pyx_ptype_5graph_GraphMCP = __Pyx_ImportType(__pyx_t_1, "graph", "GraphMCP", sizeof(struct __pyx_obj_5graph_GraphMCP), __Pyx_ImportType_CheckSize_Warn);
    if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 7, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphMCP = (struct __pyx_vtabstruct_5graph_GraphMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphMCP)) __PYX_ERR(3, 7, __pyx_L1_error)
   __pyx_ptype_5graph_GraphTrustCLQ = __Pyx_ImportType(__pyx_t_1, "graph", "GraphTrustCLQ", sizeof(struct __pyx_obj_5graph_GraphTrustCLQ), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 11, __pyx_L1_error)
-  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 11, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 12, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
