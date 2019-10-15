@@ -1,4 +1,5 @@
 import networkx as nx
+import copy
 
 cdef class Graph:
     """
@@ -12,8 +13,13 @@ cdef class Graph:
         :param adj: graph adjacency list
         """
         self.vertices = vertices.copy()
-        self.cnt_vertices = len(vertices)
-        self.adj = [x.copy() for x in adj]
+        self.recounting_cnt_vertices()
+        self.adj = copy.deepcopy(adj)
+
+    cdef void recounting_cnt_vertices(self):
+        self.cnt_vertices = 0
+        if len(self.vertices) > 0:
+            self.cnt_vertices = max(self.vertices) + 1
 
     def __copy__(self):
         return Graph(self.vertices, self.adj)
@@ -23,6 +29,27 @@ cdef class Graph:
         g_nx.add_nodes_from(self.vertices)
         g_nx.add_edges_from([(v, to) for v in self.vertices for to in self.adj[v]])
         return g_nx
+
+    cpdef list reduce_vertex(self, int v):
+        if self.vertices.count(v) == 0:
+            return
+        self.vertices.remove(v)
+        remove_edges = []
+        self.adj[v] = []
+        for u in self.vertices:
+            if self.adj[u].count(v) != 0:
+                self.adj[u].remove(v)
+                remove_edges.append((v, u))
+        return remove_edges
+
+    cpdef void expand(self, list vertices, list edges):
+        for v in vertices:
+            if self.vertices.count(v) == 0:
+                self.vertices.append(v)
+        self.recounting_cnt_vertices()
+        for (v, u) in edges:
+            self.adj[v].append(u)
+            self.adj[u].append(v)
 
 
 cdef class GraphMCP(Graph):
@@ -81,14 +108,6 @@ cdef class GraphTrustCLQ(Graph):
     cdef void init_trust(self, int lower_bound):
         self.trust = [self.scale for v in range(self.cnt_vertices)]
 
-    cpdef void reduce_vertex(self, int v):
-        if self.vertices.count(v) == 0:
-            return
-        self.vertices.remove(v)
-        self.adj[v] = []
-        for u in self.vertices:
-            if self.adj[u].count(v) != 0:
-                self.adj[u].remove(v)
 
 
 
