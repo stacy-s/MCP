@@ -11,7 +11,7 @@ cdef class MCSWithHeuristic:
         self.candidates = None
         self.candidates_init = None
         self.candidates_init_copy = None
-        self.current_cligue = None
+        self.current_clique = None
         self.largest_clique = None
         self.vertices_every_color = None
         self.neighbors_among_candidates = None

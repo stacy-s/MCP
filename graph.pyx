@@ -1,3 +1,5 @@
+import networkx as nx
+
 cdef class Graph:
     """
     Class Graph
@@ -16,9 +18,11 @@ cdef class Graph:
     def __copy__(self):
         return Graph(self.vertices, self.adj)
 
-
-
-
+    cpdef to_nx_graph(self):
+        g_nx = nx.Graph()
+        g_nx.add_nodes_from(self.vertices)
+        g_nx.add_edges_from([(v, to) for v in self.vertices for to in self.adj[v]])
+        return g_nx
 
 
 cdef class GraphMCP(Graph):
@@ -26,7 +30,7 @@ cdef class GraphMCP(Graph):
     Сlass contains graph with maximum click
     """
 
-    def __init__(self, list vertices, list adj, list max_clique=None):
+    def __init__(self, list vertices, list adj, list max_clique):
         """
         graph initialization
         :param cnt_vertex: number of vertices in a graph
@@ -47,6 +51,19 @@ cdef class GraphMCP(Graph):
         if len(not_neighbor) == 0:
             return [True, not_neighbor]
         return [False, not_neighbor]
+
+
+cdef class NxMCP(GraphMCP):
+    """
+    Сlass contains graph with maximum click
+    """
+    def __init__(self, g, list max_clique):
+        adj = [[] for _ in range(len(g.nodes()))]
+        for v, u in g.edges():
+            adj[v].append(u)
+            if u != v:
+                adj[u].append(v)
+        super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)
 
 
 cdef class GraphTrustCLQ(Graph):

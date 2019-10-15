@@ -822,24 +822,28 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_5graph_Graph;
 struct __pyx_obj_5graph_GraphMCP;
+struct __pyx_obj_5graph_NxMCP;
 struct __pyx_obj_5graph_GraphTrustCLQ;
 struct __pyx_obj_7findMCP_MCSWithHeuristic;
 struct __pyx_obj_7findMCP_TrustCLQ;
 
-/* "graph.pxd":1
+/* "graph.pxd":3
+ * import networkx as nx
+ * 
  * cdef class Graph:             # <<<<<<<<<<<<<<
  *     cdef public int cnt_vertices     #number of vertices in a graph
  *     cdef public list vertices
  */
 struct __pyx_obj_5graph_Graph {
   PyObject_HEAD
+  struct __pyx_vtabstruct_5graph_Graph *__pyx_vtab;
   int cnt_vertices;
   PyObject *vertices;
   PyObject *adj;
 };
 
 
-/* "graph.pxd":7
+/* "graph.pxd":10
  * 
  * 
  * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
@@ -848,13 +852,24 @@ struct __pyx_obj_5graph_Graph {
  */
 struct __pyx_obj_5graph_GraphMCP {
   struct __pyx_obj_5graph_Graph __pyx_base;
-  struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtab;
   PyObject *max_clique;
 };
 
 
-/* "graph.pxd":12
- *     cpdef list is_right_max_clique(self)
+/* "graph.pxd":16
+ * 
+ * 
+ * cdef class NxMCP(GraphMCP):             # <<<<<<<<<<<<<<
+ *     pass
+ * 
+ */
+struct __pyx_obj_5graph_NxMCP {
+  struct __pyx_obj_5graph_GraphMCP __pyx_base;
+};
+
+
+/* "graph.pxd":20
+ * 
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
  *     cdef public double scale
@@ -862,7 +877,6 @@ struct __pyx_obj_5graph_GraphMCP {
  */
 struct __pyx_obj_5graph_GraphTrustCLQ {
   struct __pyx_obj_5graph_Graph __pyx_base;
-  struct __pyx_vtabstruct_5graph_GraphTrustCLQ *__pyx_vtab;
   double scale;
   PyObject *trust;
 };
@@ -915,7 +929,21 @@ struct __pyx_obj_7findMCP_TrustCLQ {
 
 
 
-/* "graph.pxd":7
+/* "graph.pxd":3
+ * import networkx as nx
+ * 
+ * cdef class Graph:             # <<<<<<<<<<<<<<
+ *     cdef public int cnt_vertices     #number of vertices in a graph
+ *     cdef public list vertices
+ */
+
+struct __pyx_vtabstruct_5graph_Graph {
+  PyObject *(*to_nx_graph)(struct __pyx_obj_5graph_Graph *, int __pyx_skip_dispatch);
+};
+static struct __pyx_vtabstruct_5graph_Graph *__pyx_vtabptr_5graph_Graph;
+
+
+/* "graph.pxd":10
  * 
  * 
  * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
@@ -924,13 +952,28 @@ struct __pyx_obj_7findMCP_TrustCLQ {
  */
 
 struct __pyx_vtabstruct_5graph_GraphMCP {
+  struct __pyx_vtabstruct_5graph_Graph __pyx_base;
   PyObject *(*is_right_max_clique)(struct __pyx_obj_5graph_GraphMCP *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtabptr_5graph_GraphMCP;
 
 
-/* "graph.pxd":12
- *     cpdef list is_right_max_clique(self)
+/* "graph.pxd":16
+ * 
+ * 
+ * cdef class NxMCP(GraphMCP):             # <<<<<<<<<<<<<<
+ *     pass
+ * 
+ */
+
+struct __pyx_vtabstruct_5graph_NxMCP {
+  struct __pyx_vtabstruct_5graph_GraphMCP __pyx_base;
+};
+static struct __pyx_vtabstruct_5graph_NxMCP *__pyx_vtabptr_5graph_NxMCP;
+
+
+/* "graph.pxd":20
+ * 
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
  *     cdef public double scale
@@ -938,6 +981,7 @@ static struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtabptr_5graph_GraphMCP;
  */
 
 struct __pyx_vtabstruct_5graph_GraphTrustCLQ {
+  struct __pyx_vtabstruct_5graph_Graph __pyx_base;
   void (*reduce_vertex)(struct __pyx_obj_5graph_GraphTrustCLQ *, int, int __pyx_skip_dispatch);
   void (*init_trust)(struct __pyx_obj_5graph_GraphTrustCLQ *, int);
 };
@@ -1059,6 +1103,15 @@ static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
 
 /* KeywordStringCheck.proto */
 static int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
+
+/* PyObjectSetAttrStr.proto */
+#if CYTHON_USE_TYPE_SLOTS
+#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o, n, NULL)
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value);
+#else
+#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
+#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
+#endif
 
 /* ListCompAppend.proto */
 #if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
@@ -1461,6 +1514,7 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
 /* Module declarations from 'graph' */
 static PyTypeObject *__pyx_ptype_5graph_Graph = 0;
 static PyTypeObject *__pyx_ptype_5graph_GraphMCP = 0;
+static PyTypeObject *__pyx_ptype_5graph_NxMCP = 0;
 static PyTypeObject *__pyx_ptype_5graph_GraphTrustCLQ = 0;
 
 /* Module declarations from 'findMCP' */
@@ -1507,6 +1561,7 @@ static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
+static const char __pyx_k_current_clique[] = "current_clique";
 static const char __pyx_k_find_max_clique[] = "find_max_clique";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
@@ -1525,6 +1580,7 @@ static PyObject *__pyx_n_s_adj;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_count;
+static PyObject *__pyx_n_s_current_clique;
 static PyObject *__pyx_n_s_dict;
 static PyObject *__pyx_n_s_findMCP;
 static PyObject *__pyx_n_s_find_max_clique;
@@ -1747,7 +1803,7 @@ static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findM
  *         self.candidates = None
  *         self.candidates_init = None             # <<<<<<<<<<<<<<
  *         self.candidates_init_copy = None
- *         self.current_cligue = None
+ *         self.current_clique = None
  */
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
@@ -1759,7 +1815,7 @@ static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findM
  *         self.candidates = None
  *         self.candidates_init = None
  *         self.candidates_init_copy = None             # <<<<<<<<<<<<<<
- *         self.current_cligue = None
+ *         self.current_clique = None
  *         self.largest_clique = None
  */
   __Pyx_INCREF(Py_None);
@@ -1771,19 +1827,15 @@ static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findM
   /* "findMCP.pyx":14
  *         self.candidates_init = None
  *         self.candidates_init_copy = None
- *         self.current_cligue = None             # <<<<<<<<<<<<<<
+ *         self.current_clique = None             # <<<<<<<<<<<<<<
  *         self.largest_clique = None
  *         self.vertices_every_color = None
  */
-  __Pyx_INCREF(Py_None);
-  __Pyx_GIVEREF(Py_None);
-  __Pyx_GOTREF(__pyx_v_self->current_cligue);
-  __Pyx_DECREF(__pyx_v_self->current_cligue);
-  __pyx_v_self->current_cligue = ((PyObject*)Py_None);
+  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_current_clique, Py_None) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
 
   /* "findMCP.pyx":15
  *         self.candidates_init_copy = None
- *         self.current_cligue = None
+ *         self.current_clique = None
  *         self.largest_clique = None             # <<<<<<<<<<<<<<
  *         self.vertices_every_color = None
  *         self.neighbors_among_candidates = None
@@ -1795,7 +1847,7 @@ static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findM
   __pyx_v_self->largest_clique = ((PyObject*)Py_None);
 
   /* "findMCP.pyx":16
- *         self.current_cligue = None
+ *         self.current_clique = None
  *         self.largest_clique = None
  *         self.vertices_every_color = None             # <<<<<<<<<<<<<<
  *         self.neighbors_among_candidates = None
@@ -1856,6 +1908,11 @@ static int __pyx_pf_7findMCP_16MCSWithHeuristic___init__(struct __pyx_obj_7findM
 
   /* function exit code */
   __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("findMCP.MCSWithHeuristic.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -4701,7 +4758,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  *         have_positives = True
  *         while have_positives:
  */
-  ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_vtab)->init_trust(__pyx_v_self->current_graph, __pyx_v_lower_bound);
+  ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->init_trust(__pyx_v_self->current_graph, __pyx_v_lower_bound);
 
   /* "findMCP.pyx":74
  *     cdef list find_clique(self, int lower_bound):
@@ -5093,7 +5150,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 93, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
+          ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
 
           /* "findMCP.pyx":91
  *                     if len(self.current_clique) >= lower_bound:
@@ -5170,7 +5227,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  * 
  */
             __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_v); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-            ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
+            ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
 
             /* "findMCP.pyx":96
  *                     else:
@@ -5445,7 +5502,7 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_8, 0);
+        ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_8, 0);
 
         /* "findMCP.pyx":107
  *         while i < self.current_graph.cnt_vertices:
@@ -8295,6 +8352,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
+  {&__pyx_n_s_current_clique, __pyx_k_current_clique, sizeof(__pyx_k_current_clique), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
   {&__pyx_n_s_findMCP, __pyx_k_findMCP, sizeof(__pyx_k_findMCP), 0, 0, 1, 1},
   {&__pyx_n_s_find_max_clique, __pyx_k_find_max_clique, sizeof(__pyx_k_find_max_clique), 0, 0, 1, 1},
@@ -8456,16 +8514,20 @@ static int __Pyx_modinit_type_import_code(void) {
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("graph"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 1, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("graph"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_5graph_Graph = __Pyx_ImportType(__pyx_t_1, "graph", "Graph", sizeof(struct __pyx_obj_5graph_Graph), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_Graph) __PYX_ERR(3, 1, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_Graph) __PYX_ERR(3, 3, __pyx_L1_error)
+  __pyx_vtabptr_5graph_Graph = (struct __pyx_vtabstruct_5graph_Graph*)__Pyx_GetVtable(__pyx_ptype_5graph_Graph->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_Graph)) __PYX_ERR(3, 3, __pyx_L1_error)
   __pyx_ptype_5graph_GraphMCP = __Pyx_ImportType(__pyx_t_1, "graph", "GraphMCP", sizeof(struct __pyx_obj_5graph_GraphMCP), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 7, __pyx_L1_error)
-  __pyx_vtabptr_5graph_GraphMCP = (struct __pyx_vtabstruct_5graph_GraphMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphMCP)) __PYX_ERR(3, 7, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 10, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphMCP = (struct __pyx_vtabstruct_5graph_GraphMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphMCP)) __PYX_ERR(3, 10, __pyx_L1_error)
+  __pyx_ptype_5graph_NxMCP = __Pyx_ImportType(__pyx_t_1, "graph", "NxMCP", sizeof(struct __pyx_obj_5graph_NxMCP), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_5graph_NxMCP) __PYX_ERR(3, 16, __pyx_L1_error)
+  __pyx_vtabptr_5graph_NxMCP = (struct __pyx_vtabstruct_5graph_NxMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_NxMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_NxMCP)) __PYX_ERR(3, 16, __pyx_L1_error)
   __pyx_ptype_5graph_GraphTrustCLQ = __Pyx_ImportType(__pyx_t_1, "graph", "GraphTrustCLQ", sizeof(struct __pyx_obj_5graph_GraphTrustCLQ), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 12, __pyx_L1_error)
-  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 12, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 20, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -8866,6 +8928,20 @@ invalid_keyword:
     #endif
     return 0;
 }
+
+/* PyObjectSetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_setattro))
+        return tp->tp_setattro(obj, attr_name, value);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_setattr))
+        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
+#endif
+    return PyObject_SetAttr(obj, attr_name, value);
+}
+#endif
 
 /* SetItemInt */
 static int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v) {
