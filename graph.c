@@ -4123,7 +4123,7 @@ static int __pyx_pf_5graph_5NxMCP___init__(struct __pyx_obj_5graph_NxMCP *__pyx_
  *             adj[v].append(u)
  *             if u != v:             # <<<<<<<<<<<<<<
  *                 adj[u].append(v)
- *         super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)
+ *         super().__init__(vertices=list(g.nodes()), adj=adj, max_clique=max_clique)
  */
     __pyx_t_1 = PyObject_RichCompare(__pyx_v_u, __pyx_v_v, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
     __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
@@ -4134,7 +4134,7 @@ static int __pyx_pf_5graph_5NxMCP___init__(struct __pyx_obj_5graph_NxMCP *__pyx_
  *             adj[v].append(u)
  *             if u != v:
  *                 adj[u].append(v)             # <<<<<<<<<<<<<<
- *         super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)
+ *         super().__init__(vertices=list(g.nodes()), adj=adj, max_clique=max_clique)
  * 
  */
       __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_adj, __pyx_v_u); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
@@ -4147,7 +4147,7 @@ static int __pyx_pf_5graph_5NxMCP___init__(struct __pyx_obj_5graph_NxMCP *__pyx_
  *             adj[v].append(u)
  *             if u != v:             # <<<<<<<<<<<<<<
  *                 adj[u].append(v)
- *         super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)
+ *         super().__init__(vertices=list(g.nodes()), adj=adj, max_clique=max_clique)
  */
     }
 
@@ -4164,7 +4164,7 @@ static int __pyx_pf_5graph_5NxMCP___init__(struct __pyx_obj_5graph_NxMCP *__pyx_
   /* "graph.pyx":66
  *             if u != v:
  *                 adj[u].append(v)
- *         super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)             # <<<<<<<<<<<<<<
+ *         super().__init__(vertices=list(g.nodes()), adj=adj, max_clique=max_clique)             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -4201,15 +4201,18 @@ static int __pyx_pf_5graph_5NxMCP___init__(struct __pyx_obj_5graph_NxMCP *__pyx_
   if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_vertices, __pyx_t_4) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_3 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_vertices, __pyx_t_3) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_adj, __pyx_v_adj) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_max_clique, __pyx_v_max_clique) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "graph.pyx":60
  *     lass contains graph with maximum click

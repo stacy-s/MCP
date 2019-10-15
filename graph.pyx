@@ -63,7 +63,7 @@ cdef class NxMCP(GraphMCP):
             adj[v].append(u)
             if u != v:
                 adj[u].append(v)
-        super().__init__(vertices=g.nodes(), adj=adj, max_clique=max_clique)
+        super().__init__(vertices=list(g.nodes()), adj=adj, max_clique=max_clique)
 
 
 cdef class GraphTrustCLQ(Graph):

@@ -70,6 +70,7 @@ def save_result_data_type(path_folder, scale):
 @click.command()
 @click.option('--scale', default=0.1, help='scale value')
 def main(scale):
+    print('hello')
     save_result_data_type(path_folder="../DIMACS_all", scale=scale)
 
 
