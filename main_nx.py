@@ -1,4 +1,5 @@
 import graph
+import findMCP
 import data
 import time
 import pandas as pd
@@ -56,7 +57,6 @@ def save_result_for_1_file(filename):
 def save_result_data_type(path_folder):
     files = get_all_files_in_path(path_folder)
     files.sort()
-    print(files)
     for filename in files:
         try:
             save_result_for_1_file(path_folder + '/' + filename)
@@ -64,8 +64,6 @@ def save_result_data_type(path_folder):
             print(filename)
             result["name"][-1] = filename
         except ValueError:
-            print(filename)
-        except MemoryError:
             print(filename)
 
 

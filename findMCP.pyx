@@ -102,21 +102,17 @@ cdef class TrustCLQ:
         # random.seed(0)
         self.max_clique = []
         i = 0
-        ans = graph.GraphMCP(vertices=self.init_graph.vertices, adj=self.init_graph.adj, max_clique=[])
-        while i < len(self.init_graph.vertices):
-            for v in self.init_graph.vertices:
-                if len(self.init_graph.adj[v]) + 1 < i:
-                    self.init_graph.reduce_vertex(int(v))
-            self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,
-                                                 scale=self.scale)
+        while i < self.current_graph.cnt_vertices:
+            for v in self.current_graph.vertices:
+                if len(self.current_graph.adj[v]) + 1 < i:
+                    self.current_graph.reduce_vertex(int(v))
             self.find_clique(lower_bound=len(self.max_clique) + 1)
             if len(self.max_clique) < len(self.current_clique):
                 self.max_clique = self.current_clique.copy()
                 i = len(self.max_clique) + 1
             else:
                 i = i + 1
-        ans.max_clique = self.max_clique.copy()
-        return ans
+        return graph.GraphMCP(vertices=self.init_graph.vertices, adj=self.init_graph.adj, max_clique=self.max_clique)
 
 
 

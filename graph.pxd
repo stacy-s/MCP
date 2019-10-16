@@ -5,9 +5,6 @@ cdef class Graph:
     cdef public list vertices
     cdef public list adj        #graph adjacency list
     cpdef to_nx_graph(self)
-    cpdef list reduce_vertex(self, int v)
-    cpdef void expand(self, list vertices, list edges)
-    cdef void recounting_cnt_vertices(self)
 
 
 cdef class GraphMCP(Graph):
@@ -24,4 +21,5 @@ cdef class GraphTrustCLQ(Graph):
     cdef public double scale
     cdef public list trust
 
+    cpdef void reduce_vertex(self, int v)
     cdef void init_trust(self, int lower_bound)

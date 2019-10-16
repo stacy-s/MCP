@@ -65,8 +65,6 @@ def save_result_data_type(path_folder, scale):
             result["scale"][-1] = scale
         except ValueError:
             print(filename)
-        except MemoryError:
-            print(filename)
 
 
 @click.command()
