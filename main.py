@@ -31,7 +31,7 @@ def get_all_files_in_path(path):
 
 def save_result_for_1_file(filename, scale):
     logger.debug('start save')
-    g = data.DataDIMACS.load(filename)
+    g = data.DataFacebook.load(filename)
     for key in result.keys():
         result[key].append(None)
     logger.info(f'{filename} scale-{scale}')
@@ -50,13 +50,14 @@ def save_result_for_1_file(filename, scale):
     result["size_max_clique"][-1] = len(res.max_clique)
     result["wrong_vertices"][-1] = not_neighbor
     df = pd.DataFrame.from_dict(result)
-    df.to_csv('DIMACS_all_trust.csv', sep=';')
+    df.to_csv('facebook.csv', sep=';')
     logger.info(f'{filename} time-{finish_time - start_time} scale-{scale}')
 
 
 def save_result_data_type(path_folder, scale):
     files = get_all_files_in_path(path_folder)
     files.sort()
+    print(files)
     for filename in files:
         try:
             save_result_for_1_file(path_folder + '/' + filename, scale)
@@ -73,7 +74,7 @@ def save_result_data_type(path_folder, scale):
 @click.command()
 @click.option('--scale', default=0.1, help='scale value')
 def main(scale):
-    save_result_data_type(path_folder="../DIMACS_all", scale=scale)
+    save_result_data_type(path_folder="../facebook15", scale=scale)
 
 
 if __name__ == '__main__':
