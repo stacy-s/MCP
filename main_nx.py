@@ -1,5 +1,4 @@
 import graph
-import findMCP
 import data
 import time
 import pandas as pd
@@ -37,6 +36,7 @@ def save_result_for_1_file(filename):
         result[key].append(None)
     result["name"][-1] = filename
     result["num_vertices"][-1] = len(g.vertices)
+    logger.info(f'{filename}')
     g_nx = g.to_nx_graph()
     start_time = time.time()
     max_clique = list(clique.max_clique(g_nx))
@@ -64,6 +64,8 @@ def save_result_data_type(path_folder):
             print(filename)
             result["name"][-1] = filename
         except ValueError:
+            print(filename)
+        except MemoryError:
             print(filename)
 
 

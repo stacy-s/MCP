@@ -34,6 +34,7 @@ def save_result_for_1_file(filename, scale):
     g = data.DataDIMACS.load(filename)
     for key in result.keys():
         result[key].append(None)
+    logger.info(f'{filename} scale-{scale}')
     result["name"][-1] = filename
     result["num_vertices"][-1] = len(g.vertices)
     result["scale"][-1] = scale
@@ -65,12 +66,13 @@ def save_result_data_type(path_folder, scale):
             result["scale"][-1] = scale
         except ValueError:
             print(filename)
+        except MemoryError:
+            print(filename)
 
 
 @click.command()
 @click.option('--scale', default=0.1, help='scale value')
 def main(scale):
-    print('hello')
     save_result_data_type(path_folder="../DIMACS_all", scale=scale)
 
 
