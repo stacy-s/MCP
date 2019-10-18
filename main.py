@@ -72,9 +72,10 @@ def save_result_data_type(path_folder, scale):
 
 
 @click.command()
+@click.option('--file', default='../facebook', help='folder path')
 @click.option('--scale', default=0.1, help='scale value')
-def main(scale):
-    save_result_data_type(path_folder="../facebook15", scale=scale)
+def main(scale, file):
+    save_result_data_type(path_folder=file, scale=scale)
 
 
 if __name__ == '__main__':
