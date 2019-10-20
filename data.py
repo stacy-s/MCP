@@ -81,4 +81,5 @@ class DataFacebook(Data):
                     if edges is None:
                         raise ValueError
                     edges[v].append(to)
+                    edges[to].append(v)
         return graph.Graph(vertices = list(np.arange(0, cnt_vertices, 1)), adj=edges)
