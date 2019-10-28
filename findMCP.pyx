@@ -66,7 +66,7 @@ cdef class TrustCLQ:
         self.max_clique = []
         i = 0
         while i < self.current_graph.cnt_vertices:
-            logger.info(f'i-{i}')
+            logger.info(f'i-{i} max-clique-{len(self.max_clique)}')
             for v in self.current_graph.vertices:
                 if len(self.current_graph.adj[v]) + 1 < i:
                     self.current_graph.reduce_vertex(int(v))
