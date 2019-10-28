@@ -839,10 +839,11 @@ struct __pyx_obj_5graph_Graph {
   int cnt_vertices;
   PyObject *vertices;
   PyObject *adj;
+  int cnt_edges;
 };
 
 
-/* "graph.pxd":10
+/* "graph.pxd":12
  * 
  * 
  * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
@@ -855,7 +856,7 @@ struct __pyx_obj_5graph_GraphMCP {
 };
 
 
-/* "graph.pxd":16
+/* "graph.pxd":18
  * 
  * 
  * cdef class NxMCP(GraphMCP):             # <<<<<<<<<<<<<<
@@ -867,7 +868,7 @@ struct __pyx_obj_5graph_NxMCP {
 };
 
 
-/* "graph.pxd":20
+/* "graph.pxd":22
  * 
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
@@ -911,11 +912,12 @@ struct __pyx_obj_7findMCP_TrustCLQ {
 
 struct __pyx_vtabstruct_5graph_Graph {
   PyObject *(*to_nx_graph)(struct __pyx_obj_5graph_Graph *, int __pyx_skip_dispatch);
+  PyObject *(*count_edges)(struct __pyx_obj_5graph_Graph *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_5graph_Graph *__pyx_vtabptr_5graph_Graph;
 
 
-/* "graph.pxd":10
+/* "graph.pxd":12
  * 
  * 
  * cdef class GraphMCP(Graph):             # <<<<<<<<<<<<<<
@@ -930,7 +932,7 @@ struct __pyx_vtabstruct_5graph_GraphMCP {
 static struct __pyx_vtabstruct_5graph_GraphMCP *__pyx_vtabptr_5graph_GraphMCP;
 
 
-/* "graph.pxd":16
+/* "graph.pxd":18
  * 
  * 
  * cdef class NxMCP(GraphMCP):             # <<<<<<<<<<<<<<
@@ -944,7 +946,7 @@ struct __pyx_vtabstruct_5graph_NxMCP {
 static struct __pyx_vtabstruct_5graph_NxMCP *__pyx_vtabptr_5graph_NxMCP;
 
 
-/* "graph.pxd":20
+/* "graph.pxd":22
  * 
  * 
  * cdef class GraphTrustCLQ(Graph):             # <<<<<<<<<<<<<<
@@ -4779,14 +4781,14 @@ static int __Pyx_modinit_type_import_code(void) {
    if (!__pyx_ptype_5graph_Graph) __PYX_ERR(3, 3, __pyx_L1_error)
   __pyx_vtabptr_5graph_Graph = (struct __pyx_vtabstruct_5graph_Graph*)__Pyx_GetVtable(__pyx_ptype_5graph_Graph->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_Graph)) __PYX_ERR(3, 3, __pyx_L1_error)
   __pyx_ptype_5graph_GraphMCP = __Pyx_ImportType(__pyx_t_1, "graph", "GraphMCP", sizeof(struct __pyx_obj_5graph_GraphMCP), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 10, __pyx_L1_error)
-  __pyx_vtabptr_5graph_GraphMCP = (struct __pyx_vtabstruct_5graph_GraphMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphMCP)) __PYX_ERR(3, 10, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphMCP) __PYX_ERR(3, 12, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphMCP = (struct __pyx_vtabstruct_5graph_GraphMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphMCP)) __PYX_ERR(3, 12, __pyx_L1_error)
   __pyx_ptype_5graph_NxMCP = __Pyx_ImportType(__pyx_t_1, "graph", "NxMCP", sizeof(struct __pyx_obj_5graph_NxMCP), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_NxMCP) __PYX_ERR(3, 16, __pyx_L1_error)
-  __pyx_vtabptr_5graph_NxMCP = (struct __pyx_vtabstruct_5graph_NxMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_NxMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_NxMCP)) __PYX_ERR(3, 16, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_NxMCP) __PYX_ERR(3, 18, __pyx_L1_error)
+  __pyx_vtabptr_5graph_NxMCP = (struct __pyx_vtabstruct_5graph_NxMCP*)__Pyx_GetVtable(__pyx_ptype_5graph_NxMCP->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_NxMCP)) __PYX_ERR(3, 18, __pyx_L1_error)
   __pyx_ptype_5graph_GraphTrustCLQ = __Pyx_ImportType(__pyx_t_1, "graph", "GraphTrustCLQ", sizeof(struct __pyx_obj_5graph_GraphTrustCLQ), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 20, __pyx_L1_error)
-  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 20, __pyx_L1_error)
+   if (!__pyx_ptype_5graph_GraphTrustCLQ) __PYX_ERR(3, 22, __pyx_L1_error)
+  __pyx_vtabptr_5graph_GraphTrustCLQ = (struct __pyx_vtabstruct_5graph_GraphTrustCLQ*)__Pyx_GetVtable(__pyx_ptype_5graph_GraphTrustCLQ->tp_dict); if (unlikely(!__pyx_vtabptr_5graph_GraphTrustCLQ)) __PYX_ERR(3, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;

@@ -14,6 +14,13 @@ cdef class Graph:
         self.vertices = vertices.copy()
         self.cnt_vertices = len(vertices)
         self.adj = [x.copy() for x in adj]
+        self.cnt_edges = self.count_edges()
+
+    cpdef count_edges(self):
+        res = 0
+        for x in self.adj:
+            res += len(x)
+        return res // 2
 
     def __copy__(self):
         return Graph(self.vertices, self.adj)

@@ -18,7 +18,7 @@ logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger('clique.main')
 logger.setLevel('INFO')
 
-result = {"name": [], "num_vertices": [], "time": [],
+result = {"name": [], "num_vertices": [], "num_edges": [], "time": [],
               "scale":[], "max_clique": [], "size_max_clique": [], "is_right":[], "wrong_vertices":[]}
 
 
@@ -31,12 +31,13 @@ def get_all_files_in_path(path):
 
 def save_result_for_1_file(filename, scale):
     logger.debug('start save')
-    g = data.DataFacebook.load(filename)
+    g = data.DataSNAP.load(filename)
     for key in result.keys():
         result[key].append(None)
     logger.info(f'{filename} scale-{scale}')
     result["name"][-1] = filename
     result["num_vertices"][-1] = len(g.vertices)
+    result["num_edges"][-1] = g.cnt_edges
     result["scale"][-1] = scale
     c = findMCP.TrustCLQ(g=g, scale=scale)
     start_time = time.time()
@@ -50,7 +51,7 @@ def save_result_for_1_file(filename, scale):
     result["size_max_clique"][-1] = len(res.max_clique)
     result["wrong_vertices"][-1] = not_neighbor
     df = pd.DataFrame.from_dict(result)
-    df.to_csv('facebook.csv', sep=';')
+    df.to_csv('snap.csv', sep=';')
     logger.info(f'{filename} time-{finish_time - start_time} scale-{scale}')
 
 
@@ -72,7 +73,7 @@ def save_result_data_type(path_folder, scale):
 
 
 @click.command()
-@click.option('--folder_path', default='../facebook', help='folder path')
+@click.option('--folder_path', default='../data/stanford', help='folder path')
 @click.option('--scale', default=0.1, help='scale value')
 def main(scale, folder_path):
     save_result_data_type(path_folder=folder_path, scale=scale)

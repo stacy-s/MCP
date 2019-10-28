@@ -33,9 +33,6 @@ class Data:
 
 
 class DataDIMACS(Data):
-    def __init__(self):
-        pass
-
     @classmethod
     def load(cls, path):
         def is_start_char(line, c):
@@ -64,9 +61,6 @@ class DataDIMACS(Data):
 
 
 class DataFacebook(Data):
-    def __init__(self):
-        pass
-
     @classmethod
     def load(cls, path):
         with open(path) as file:
@@ -77,6 +71,25 @@ class DataFacebook(Data):
                     cnt_vertices, cnt_edges = get_number_verticies_edges(line, 0, 2)
                     edges = [[] for _ in range(cnt_vertices)]
                 if i > 1:
+                    v, to = get_edge(line, 0, 1)
+                    if edges is None:
+                        raise ValueError
+                    edges[v].append(to)
+                    edges[to].append(v)
+        return graph.Graph(vertices = list(np.arange(0, cnt_vertices, 1)), adj=edges)
+
+
+class DataSNAP(Data):
+    @classmethod
+    def load(cls, path):
+        with open(path) as file:
+            cnt_vertices = None
+            edges = None
+            for i, line in enumerate(file):
+                if i == 2:
+                    cnt_vertices, cnt_edges = get_number_verticies_edges(line, 2, 4)
+                    edges = [[] for _ in range(cnt_vertices)]
+                if i > 3:
                     v, to = get_edge(line, 0, 1)
                     if edges is None:
                         raise ValueError

@@ -4,7 +4,9 @@ cdef class Graph:
     cdef public int cnt_vertices     #number of vertices in a graph
     cdef public list vertices
     cdef public list adj        #graph adjacency list
+    cdef public int  cnt_edges
     cpdef to_nx_graph(self)
+    cpdef count_edges(self)
 
 
 cdef class GraphMCP(Graph):
