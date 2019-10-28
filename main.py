@@ -59,7 +59,7 @@ def save_result_data_type(path_folder, scale):
     files = get_all_files_in_path(path_folder)
     files.sort()
     print(files)
-    for filename in files:
+    for filename in files[1:]:
         try:
             save_result_for_1_file(path_folder + '/' + filename, scale)
         except TimeoutError:

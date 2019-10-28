@@ -962,8 +962,8 @@ struct __pyx_vtabstruct_5graph_GraphTrustCLQ {
 static struct __pyx_vtabstruct_5graph_GraphTrustCLQ *__pyx_vtabptr_5graph_GraphTrustCLQ;
 
 
-/* "findMCP.pyx":5
- * 
+/* "findMCP.pyx":16
+ * logger.setLevel('INFO')
  * 
  * cdef class TrustCLQ:             # <<<<<<<<<<<<<<
  *     def __init__(self, graph.Graph g, double scale):
@@ -1436,10 +1436,14 @@ int __pyx_module_is_main_findMCP = 0;
 
 /* Implementation of 'findMCP' */
 static const char __pyx_k_g[] = "g";
+static const char __pyx_k_fh[] = "fh";
 static const char __pyx_k_adj[] = "adj";
+static const char __pyx_k_i_i[] = "i-{i}";
 static const char __pyx_k_new[] = "__new__";
+static const char __pyx_k_INFO[] = "INFO";
 static const char __pyx_k_copy[] = "copy";
 static const char __pyx_k_dict[] = "__dict__";
+static const char __pyx_k_info[] = "info";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_seed[] = "seed";
@@ -1447,24 +1451,37 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_count[] = "count";
 static const char __pyx_k_scale[] = "scale";
 static const char __pyx_k_import[] = "__import__";
+static const char __pyx_k_logger[] = "logger";
 static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_update[] = "update";
+static const char __pyx_k_datefmt[] = "datefmt";
 static const char __pyx_k_findMCP[] = "findMCP";
+static const char __pyx_k_log_log[] = "log.log";
+static const char __pyx_k_logging[] = "logging";
 static const char __pyx_k_randint[] = "randint";
 static const char __pyx_k_TrustCLQ[] = "TrustCLQ";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
+static const char __pyx_k_setLevel[] = "setLevel";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_vertices[] = "vertices";
+static const char __pyx_k_Formatter[] = "Formatter";
+static const char __pyx_k_formatter[] = "formatter";
+static const char __pyx_k_getLogger[] = "getLogger";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
+static const char __pyx_k_addHandler[] = "addHandler";
 static const char __pyx_k_max_clique[] = "max_clique";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
+static const char __pyx_k_FileHandler[] = "FileHandler";
 static const char __pyx_k_PickleError[] = "PickleError";
+static const char __pyx_k_clique_main[] = "clique.main";
+static const char __pyx_k_m_d_Y_H_M_S[] = "%m/%d/%Y %H:%M:%S";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
+static const char __pyx_k_setFormatter[] = "setFormatter";
 static const char __pyx_k_stringsource[] = "stringsource";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_find_max_clique[] = "find_max_clique";
@@ -1472,20 +1489,37 @@ static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pyx_unpickle_TrustCLQ[] = "__pyx_unpickle_TrustCLQ";
+static const char __pyx_k_asctime_s_levelname_s_module_s[] = "%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s";
 static const char __pyx_k_Incompatible_checksums_s_vs_0x6b[] = "Incompatible checksums (%s vs 0x6bb2f14 = (candidates, current_clique, current_graph, init_graph, max_clique, scale))";
+static PyObject *__pyx_n_s_FileHandler;
+static PyObject *__pyx_n_s_Formatter;
+static PyObject *__pyx_n_s_INFO;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x6b;
 static PyObject *__pyx_n_s_PickleError;
 static PyObject *__pyx_n_s_TrustCLQ;
+static PyObject *__pyx_n_s_addHandler;
 static PyObject *__pyx_n_s_adj;
+static PyObject *__pyx_kp_s_asctime_s_levelname_s_module_s;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_kp_s_clique_main;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_count;
+static PyObject *__pyx_n_s_datefmt;
 static PyObject *__pyx_n_s_dict;
+static PyObject *__pyx_n_s_fh;
 static PyObject *__pyx_n_s_findMCP;
 static PyObject *__pyx_n_s_find_max_clique;
+static PyObject *__pyx_n_s_formatter;
 static PyObject *__pyx_n_s_g;
+static PyObject *__pyx_n_s_getLogger;
 static PyObject *__pyx_n_s_getstate;
+static PyObject *__pyx_kp_s_i_i;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_info;
+static PyObject *__pyx_kp_s_log_log;
+static PyObject *__pyx_n_s_logger;
+static PyObject *__pyx_n_s_logging;
+static PyObject *__pyx_kp_s_m_d_Y_H_M_S;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max_clique;
 static PyObject *__pyx_n_s_name;
@@ -1505,6 +1539,8 @@ static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
 static PyObject *__pyx_n_s_scale;
 static PyObject *__pyx_n_s_seed;
+static PyObject *__pyx_n_s_setFormatter;
+static PyObject *__pyx_n_s_setLevel;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_kp_s_stringsource;
@@ -1540,10 +1576,14 @@ static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_1573;
 static PyObject *__pyx_int_112930580;
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_codeobj__2;
+static PyObject *__pyx_tuple__2;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__5;
+static PyObject *__pyx_codeobj__6;
 /* Late includes */
 
-/* "findMCP.pyx":6
+/* "findMCP.pyx":17
  * 
  * cdef class TrustCLQ:
  *     def __init__(self, graph.Graph g, double scale):             # <<<<<<<<<<<<<<
@@ -1582,11 +1622,11 @@ static int __pyx_pw_7findMCP_8TrustCLQ_1__init__(PyObject *__pyx_v_self, PyObjec
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_scale)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 6, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 17, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 6, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 17, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1595,17 +1635,17 @@ static int __pyx_pw_7findMCP_8TrustCLQ_1__init__(PyObject *__pyx_v_self, PyObjec
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_g = ((struct __pyx_obj_5graph_Graph *)values[0]);
-    __pyx_v_scale = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_scale == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 6, __pyx_L3_error)
+    __pyx_v_scale = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_scale == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 17, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 6, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 17, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("findMCP.TrustCLQ.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_g), __pyx_ptype_5graph_Graph, 1, "g", 0))) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_g), __pyx_ptype_5graph_Graph, 1, "g", 0))) __PYX_ERR(0, 17, __pyx_L1_error)
   __pyx_r = __pyx_pf_7findMCP_8TrustCLQ___init__(((struct __pyx_obj_7findMCP_TrustCLQ *)__pyx_v_self), __pyx_v_g, __pyx_v_scale);
 
   /* function exit code */
@@ -1624,7 +1664,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "findMCP.pyx":7
+  /* "findMCP.pyx":18
  * cdef class TrustCLQ:
  *     def __init__(self, graph.Graph g, double scale):
  *         self.max_clique = None             # <<<<<<<<<<<<<<
@@ -1637,18 +1677,18 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   __Pyx_DECREF(__pyx_v_self->max_clique);
   __pyx_v_self->max_clique = ((PyObject*)Py_None);
 
-  /* "findMCP.pyx":8
+  /* "findMCP.pyx":19
  *     def __init__(self, graph.Graph g, double scale):
  *         self.max_clique = None
  *         self.init_graph = graph.Graph(vertices=g.vertices, adj=g.adj)             # <<<<<<<<<<<<<<
  *         self.scale = scale
  *         self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_vertices, __pyx_v_g->vertices) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_adj, __pyx_v_g->adj) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_Graph), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_vertices, __pyx_v_g->vertices) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_adj, __pyx_v_g->adj) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_Graph), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_GIVEREF(__pyx_t_2);
@@ -1657,7 +1697,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   __pyx_v_self->init_graph = ((struct __pyx_obj_5graph_Graph *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "findMCP.pyx":9
+  /* "findMCP.pyx":20
  *         self.max_clique = None
  *         self.init_graph = graph.Graph(vertices=g.vertices, adj=g.adj)
  *         self.scale = scale             # <<<<<<<<<<<<<<
@@ -1666,38 +1706,38 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
  */
   __pyx_v_self->scale = __pyx_v_scale;
 
-  /* "findMCP.pyx":10
+  /* "findMCP.pyx":21
  *         self.init_graph = graph.Graph(vertices=g.vertices, adj=g.adj)
  *         self.scale = scale
  *         self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,             # <<<<<<<<<<<<<<
  *                                                  scale=self.scale)
  *         self.candidates = None
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_vertices, __pyx_v_self->init_graph->vertices) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_adj, __pyx_v_self->init_graph->adj) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_vertices, __pyx_v_self->init_graph->vertices) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_adj, __pyx_v_self->init_graph->adj) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
 
-  /* "findMCP.pyx":11
+  /* "findMCP.pyx":22
  *         self.scale = scale
  *         self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,
  *                                                  scale=self.scale)             # <<<<<<<<<<<<<<
  *         self.candidates = None
  *         self.current_clique = None
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->scale); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->scale); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_scale, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_scale, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":10
+  /* "findMCP.pyx":21
  *         self.init_graph = graph.Graph(vertices=g.vertices, adj=g.adj)
  *         self.scale = scale
  *         self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,             # <<<<<<<<<<<<<<
  *                                                  scale=self.scale)
  *         self.candidates = None
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_GraphTrustCLQ), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_GraphTrustCLQ), __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
@@ -1706,7 +1746,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   __pyx_v_self->current_graph = ((struct __pyx_obj_5graph_GraphTrustCLQ *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":12
+  /* "findMCP.pyx":23
  *         self.current_graph = graph.GraphTrustCLQ(vertices=self.init_graph.vertices, adj=self.init_graph.adj,
  *                                                  scale=self.scale)
  *         self.candidates = None             # <<<<<<<<<<<<<<
@@ -1719,7 +1759,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   __Pyx_DECREF(__pyx_v_self->candidates);
   __pyx_v_self->candidates = ((PyObject*)Py_None);
 
-  /* "findMCP.pyx":13
+  /* "findMCP.pyx":24
  *                                                  scale=self.scale)
  *         self.candidates = None
  *         self.current_clique = None             # <<<<<<<<<<<<<<
@@ -1732,7 +1772,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   __Pyx_DECREF(__pyx_v_self->current_clique);
   __pyx_v_self->current_clique = ((PyObject*)Py_None);
 
-  /* "findMCP.pyx":6
+  /* "findMCP.pyx":17
  * 
  * cdef class TrustCLQ:
  *     def __init__(self, graph.Graph g, double scale):             # <<<<<<<<<<<<<<
@@ -1753,7 +1793,7 @@ static int __pyx_pf_7findMCP_8TrustCLQ___init__(struct __pyx_obj_7findMCP_TrustC
   return __pyx_r;
 }
 
-/* "findMCP.pyx":15
+/* "findMCP.pyx":26
  *         self.current_clique = None
  * 
  *     cdef void update_candidates(self, int u):             # <<<<<<<<<<<<<<
@@ -1774,19 +1814,19 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("update_candidates", 0);
 
-  /* "findMCP.pyx":16
+  /* "findMCP.pyx":27
  * 
  *     cdef void update_candidates(self, int u):
  *         new_candidates = []             # <<<<<<<<<<<<<<
  *         for v in self.candidates:
  *             if self.current_graph.adj[u].count(v) > 0:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_new_candidates = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":17
+  /* "findMCP.pyx":28
  *     cdef void update_candidates(self, int u):
  *         new_candidates = []
  *         for v in self.candidates:             # <<<<<<<<<<<<<<
@@ -1795,21 +1835,21 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
  */
   if (unlikely(__pyx_v_self->candidates == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 17, __pyx_L1_error)
+    __PYX_ERR(0, 28, __pyx_L1_error)
   }
   __pyx_t_1 = __pyx_v_self->candidates; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
   for (;;) {
     if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 17, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 28, __pyx_L1_error)
     #else
-    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "findMCP.pyx":18
+    /* "findMCP.pyx":29
  *         new_candidates = []
  *         for v in self.candidates:
  *             if self.current_graph.adj[u].count(v) > 0:             # <<<<<<<<<<<<<<
@@ -1818,11 +1858,11 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
  */
     if (unlikely(__pyx_v_self->current_graph->__pyx_base.adj == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 18, __pyx_L1_error)
+      __PYX_ERR(0, 29, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_u, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 18, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_u, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 18, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_count); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -1837,25 +1877,25 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
     }
     __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_v_v) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_v);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 18, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 18, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_6) {
 
-      /* "findMCP.pyx":19
+      /* "findMCP.pyx":30
  *         for v in self.candidates:
  *             if self.current_graph.adj[u].count(v) > 0:
  *                 new_candidates.append(v)             # <<<<<<<<<<<<<<
  *         self.candidates = new_candidates.copy()
  * 
  */
-      __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_new_candidates, __pyx_v_v); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 19, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_new_candidates, __pyx_v_v); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 30, __pyx_L1_error)
 
-      /* "findMCP.pyx":18
+      /* "findMCP.pyx":29
  *         new_candidates = []
  *         for v in self.candidates:
  *             if self.current_graph.adj[u].count(v) > 0:             # <<<<<<<<<<<<<<
@@ -1864,7 +1904,7 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
  */
     }
 
-    /* "findMCP.pyx":17
+    /* "findMCP.pyx":28
  *     cdef void update_candidates(self, int u):
  *         new_candidates = []
  *         for v in self.candidates:             # <<<<<<<<<<<<<<
@@ -1874,23 +1914,23 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":20
+  /* "findMCP.pyx":31
  *             if self.current_graph.adj[u].count(v) > 0:
  *                 new_candidates.append(v)
  *         self.candidates = new_candidates.copy()             # <<<<<<<<<<<<<<
  * 
  *     cdef double lost_trust(self, int v, int lower_bound):
  */
-  __pyx_t_1 = __Pyx_CallUnboundCMethod0(&__pyx_umethod_PyList_Type_copy, __pyx_v_new_candidates); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CallUnboundCMethod0(&__pyx_umethod_PyList_Type_copy, __pyx_v_new_candidates); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->candidates);
   __Pyx_DECREF(__pyx_v_self->candidates);
   __pyx_v_self->candidates = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":15
+  /* "findMCP.pyx":26
  *         self.current_clique = None
  * 
  *     cdef void update_candidates(self, int u):             # <<<<<<<<<<<<<<
@@ -1912,7 +1952,7 @@ static void __pyx_f_7findMCP_8TrustCLQ_update_candidates(struct __pyx_obj_7findM
   __Pyx_RefNannyFinishContext();
 }
 
-/* "findMCP.pyx":22
+/* "findMCP.pyx":33
  *         self.candidates = new_candidates.copy()
  * 
  *     cdef double lost_trust(self, int v, int lower_bound):             # <<<<<<<<<<<<<<
@@ -1928,7 +1968,7 @@ static double __pyx_f_7findMCP_8TrustCLQ_lost_trust(struct __pyx_obj_7findMCP_Tr
   Py_ssize_t __pyx_t_3;
   __Pyx_RefNannySetupContext("lost_trust", 0);
 
-  /* "findMCP.pyx":23
+  /* "findMCP.pyx":34
  * 
  *     cdef double lost_trust(self, int v, int lower_bound):
  *         return float(lower_bound * 1.0) / (len(self.current_graph.adj[v]) + 1)             # <<<<<<<<<<<<<<
@@ -1937,21 +1977,21 @@ static double __pyx_f_7findMCP_8TrustCLQ_lost_trust(struct __pyx_obj_7findMCP_Tr
  */
   if (unlikely(__pyx_v_self->current_graph->__pyx_base.adj == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 23, __pyx_L1_error)
+    __PYX_ERR(0, 34, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = (__pyx_t_2 + 1);
   if (unlikely(__pyx_t_3 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 23, __pyx_L1_error)
+    __PYX_ERR(0, 34, __pyx_L1_error)
   }
   __pyx_r = ((__pyx_v_lower_bound * 1.0) / __pyx_t_3);
   goto __pyx_L0;
 
-  /* "findMCP.pyx":22
+  /* "findMCP.pyx":33
  *         self.candidates = new_candidates.copy()
  * 
  *     cdef double lost_trust(self, int v, int lower_bound):             # <<<<<<<<<<<<<<
@@ -1969,7 +2009,7 @@ static double __pyx_f_7findMCP_8TrustCLQ_lost_trust(struct __pyx_obj_7findMCP_Tr
   return __pyx_r;
 }
 
-/* "findMCP.pyx":25
+/* "findMCP.pyx":36
  *         return float(lower_bound * 1.0) / (len(self.current_graph.adj[v]) + 1)
  * 
  *     cdef list find_clique(self, int lower_bound):             # <<<<<<<<<<<<<<
@@ -1999,7 +2039,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
   PyObject *__pyx_t_14 = NULL;
   __Pyx_RefNannySetupContext("find_clique", 0);
 
-  /* "findMCP.pyx":26
+  /* "findMCP.pyx":37
  * 
  *     cdef list find_clique(self, int lower_bound):
  *         self.current_graph.init_trust(lower_bound=lower_bound)             # <<<<<<<<<<<<<<
@@ -2008,7 +2048,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
   ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->init_trust(__pyx_v_self->current_graph, __pyx_v_lower_bound);
 
-  /* "findMCP.pyx":27
+  /* "findMCP.pyx":38
  *     cdef list find_clique(self, int lower_bound):
  *         self.current_graph.init_trust(lower_bound=lower_bound)
  *         have_positives = True             # <<<<<<<<<<<<<<
@@ -2017,7 +2057,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
   __pyx_v_have_positives = 1;
 
-  /* "findMCP.pyx":28
+  /* "findMCP.pyx":39
  *         self.current_graph.init_trust(lower_bound=lower_bound)
  *         have_positives = True
  *         while have_positives:             # <<<<<<<<<<<<<<
@@ -2028,7 +2068,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
     __pyx_t_1 = (__pyx_v_have_positives != 0);
     if (!__pyx_t_1) break;
 
-    /* "findMCP.pyx":29
+    /* "findMCP.pyx":40
  *         have_positives = True
  *         while have_positives:
  *             have_positives = False             # <<<<<<<<<<<<<<
@@ -2037,7 +2077,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
     __pyx_v_have_positives = 0;
 
-    /* "findMCP.pyx":30
+    /* "findMCP.pyx":41
  *         while have_positives:
  *             have_positives = False
  *             for v in self.current_graph.vertices:             # <<<<<<<<<<<<<<
@@ -2046,21 +2086,21 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
     if (unlikely(__pyx_v_self->current_graph->__pyx_base.vertices == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 30, __pyx_L1_error)
+      __PYX_ERR(0, 41, __pyx_L1_error)
     }
     __pyx_t_2 = __pyx_v_self->current_graph->__pyx_base.vertices; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     for (;;) {
       if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_4); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
       #else
-      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 30, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "findMCP.pyx":31
+      /* "findMCP.pyx":42
  *             have_positives = False
  *             for v in self.current_graph.vertices:
  *                 if self.current_graph.trust[v] > 0:             # <<<<<<<<<<<<<<
@@ -2069,17 +2109,17 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
       if (unlikely(__pyx_v_self->current_graph->trust == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 31, __pyx_L1_error)
+        __PYX_ERR(0, 42, __pyx_L1_error)
       }
-      __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->trust, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 31, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->trust, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 31, __pyx_L1_error)
+      __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 31, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_1) {
 
-        /* "findMCP.pyx":33
+        /* "findMCP.pyx":44
  *                 if self.current_graph.trust[v] > 0:
  *                         # and self.current_graph.vertices.count(v) > 0:
  *                     have_positives = True             # <<<<<<<<<<<<<<
@@ -2088,7 +2128,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
         __pyx_v_have_positives = 1;
 
-        /* "findMCP.pyx":34
+        /* "findMCP.pyx":45
  *                         # and self.current_graph.vertices.count(v) > 0:
  *                     have_positives = True
  *                     self.candidates = self.current_graph.adj[v].copy()             # <<<<<<<<<<<<<<
@@ -2097,11 +2137,11 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
         if (unlikely(__pyx_v_self->current_graph->__pyx_base.adj == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 34, __pyx_L1_error)
+          __PYX_ERR(0, 45, __pyx_L1_error)
         }
-        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 34, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 34, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_4 = NULL;
@@ -2116,24 +2156,24 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
         }
         __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
+        if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (!(likely(PyList_CheckExact(__pyx_t_5))||((__pyx_t_5) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_5)->tp_name), 0))) __PYX_ERR(0, 34, __pyx_L1_error)
+        if (!(likely(PyList_CheckExact(__pyx_t_5))||((__pyx_t_5) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_5)->tp_name), 0))) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GIVEREF(__pyx_t_5);
         __Pyx_GOTREF(__pyx_v_self->candidates);
         __Pyx_DECREF(__pyx_v_self->candidates);
         __pyx_v_self->candidates = ((PyObject*)__pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "findMCP.pyx":35
+        /* "findMCP.pyx":46
  *                     have_positives = True
  *                     self.candidates = self.current_graph.adj[v].copy()
  *                     self.current_clique = [v]             # <<<<<<<<<<<<<<
  *                     while True:
  *                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:
  */
-        __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
+        __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 46, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_v_v);
         __Pyx_GIVEREF(__pyx_v_v);
@@ -2144,7 +2184,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
         __pyx_v_self->current_clique = ((PyObject*)__pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "findMCP.pyx":36
+        /* "findMCP.pyx":47
  *                     self.candidates = self.current_graph.adj[v].copy()
  *                     self.current_clique = [v]
  *                     while True:             # <<<<<<<<<<<<<<
@@ -2153,7 +2193,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
         while (1) {
 
-          /* "findMCP.pyx":37
+          /* "findMCP.pyx":48
  *                     self.current_clique = [v]
  *                     while True:
  *                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:             # <<<<<<<<<<<<<<
@@ -2164,9 +2204,9 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           __Pyx_INCREF(__pyx_t_5);
           if (unlikely(__pyx_t_5 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-            __PYX_ERR(0, 37, __pyx_L1_error)
+            __PYX_ERR(0, 48, __pyx_L1_error)
           }
-          __pyx_t_7 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 37, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 48, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_8 = ((__pyx_t_7 <= 0) != 0);
           if (!__pyx_t_8) {
@@ -2178,24 +2218,24 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           __Pyx_INCREF(__pyx_t_5);
           if (unlikely(__pyx_t_5 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-            __PYX_ERR(0, 37, __pyx_L1_error)
+            __PYX_ERR(0, 48, __pyx_L1_error)
           }
-          __pyx_t_7 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 37, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 48, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_5 = __pyx_v_self->current_clique;
           __Pyx_INCREF(__pyx_t_5);
           if (unlikely(__pyx_t_5 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-            __PYX_ERR(0, 37, __pyx_L1_error)
+            __PYX_ERR(0, 48, __pyx_L1_error)
           }
-          __pyx_t_9 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 37, __pyx_L1_error)
+          __pyx_t_9 = PyList_GET_SIZE(__pyx_t_5); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 48, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __pyx_t_8 = (((__pyx_t_7 + __pyx_t_9) < __pyx_v_lower_bound) != 0);
           __pyx_t_1 = __pyx_t_8;
           __pyx_L11_bool_binop_done:;
           if (__pyx_t_1) {
 
-            /* "findMCP.pyx":38
+            /* "findMCP.pyx":49
  *                     while True:
  *                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:
  *                             break             # <<<<<<<<<<<<<<
@@ -2204,7 +2244,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
             goto __pyx_L9_break;
 
-            /* "findMCP.pyx":37
+            /* "findMCP.pyx":48
  *                     self.current_clique = [v]
  *                     while True:
  *                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:             # <<<<<<<<<<<<<<
@@ -2213,7 +2253,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
           }
 
-          /* "findMCP.pyx":39
+          /* "findMCP.pyx":50
  *                         if len(self.candidates) <= 0 or len(self.candidates) + len(self.current_clique) < lower_bound:
  *                             break
  *                         u = self.candidates[random.randint(0, len(self.candidates) - 1)]             # <<<<<<<<<<<<<<
@@ -2222,22 +2262,22 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
           if (unlikely(__pyx_v_self->candidates == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 39, __pyx_L1_error)
+            __PYX_ERR(0, 50, __pyx_L1_error)
           }
-          __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_randint); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_randint); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __pyx_t_6 = __pyx_v_self->candidates;
           __Pyx_INCREF(__pyx_t_6);
           if (unlikely(__pyx_t_6 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-            __PYX_ERR(0, 39, __pyx_L1_error)
+            __PYX_ERR(0, 50, __pyx_L1_error)
           }
-          __pyx_t_9 = PyList_GET_SIZE(__pyx_t_6); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_9 = PyList_GET_SIZE(__pyx_t_6); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = PyInt_FromSsize_t((__pyx_t_9 - 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_6 = PyInt_FromSsize_t((__pyx_t_9 - 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __pyx_t_10 = NULL;
           __pyx_t_11 = 0;
@@ -2254,7 +2294,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_int_0, __pyx_t_6};
-            __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2263,14 +2303,14 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
             PyObject *__pyx_temp[3] = {__pyx_t_10, __pyx_int_0, __pyx_t_6};
-            __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           } else
           #endif
           {
-            __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 50, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_12);
             if (__pyx_t_10) {
               __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -2281,18 +2321,18 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
             __Pyx_GIVEREF(__pyx_t_6);
             PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_t_6);
             __pyx_t_6 = 0;
-            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_12, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->candidates, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->candidates, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_XDECREF_SET(__pyx_v_u, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "findMCP.pyx":40
+          /* "findMCP.pyx":51
  *                             break
  *                         u = self.candidates[random.randint(0, len(self.candidates) - 1)]
  *                         self.current_clique.append(u)             # <<<<<<<<<<<<<<
@@ -2301,23 +2341,23 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
           if (unlikely(__pyx_v_self->current_clique == Py_None)) {
             PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "append");
-            __PYX_ERR(0, 40, __pyx_L1_error)
+            __PYX_ERR(0, 51, __pyx_L1_error)
           }
-          __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_self->current_clique, __pyx_v_u); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 40, __pyx_L1_error)
+          __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_self->current_clique, __pyx_v_u); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 51, __pyx_L1_error)
 
-          /* "findMCP.pyx":41
+          /* "findMCP.pyx":52
  *                         u = self.candidates[random.randint(0, len(self.candidates) - 1)]
  *                         self.current_clique.append(u)
  *                         self.update_candidates(u)             # <<<<<<<<<<<<<<
  *                     if len(self.current_clique) >= lower_bound:
  *                         return
  */
-          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_u); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_u); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
           ((struct __pyx_vtabstruct_7findMCP_TrustCLQ *)__pyx_v_self->__pyx_vtab)->update_candidates(__pyx_v_self, __pyx_t_11);
         }
         __pyx_L9_break:;
 
-        /* "findMCP.pyx":42
+        /* "findMCP.pyx":53
  *                         self.current_clique.append(u)
  *                         self.update_candidates(u)
  *                     if len(self.current_clique) >= lower_bound:             # <<<<<<<<<<<<<<
@@ -2328,14 +2368,14 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
         __Pyx_INCREF(__pyx_t_4);
         if (unlikely(__pyx_t_4 == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-          __PYX_ERR(0, 42, __pyx_L1_error)
+          __PYX_ERR(0, 53, __pyx_L1_error)
         }
-        __pyx_t_9 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_9 = PyList_GET_SIZE(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 53, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_1 = ((__pyx_t_9 >= __pyx_v_lower_bound) != 0);
         if (__pyx_t_1) {
 
-          /* "findMCP.pyx":43
+          /* "findMCP.pyx":54
  *                         self.update_candidates(u)
  *                     if len(self.current_clique) >= lower_bound:
  *                         return             # <<<<<<<<<<<<<<
@@ -2347,7 +2387,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           goto __pyx_L0;
 
-          /* "findMCP.pyx":42
+          /* "findMCP.pyx":53
  *                         self.current_clique.append(u)
  *                         self.update_candidates(u)
  *                     if len(self.current_clique) >= lower_bound:             # <<<<<<<<<<<<<<
@@ -2356,7 +2396,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
         }
 
-        /* "findMCP.pyx":44
+        /* "findMCP.pyx":55
  *                     if len(self.current_clique) >= lower_bound:
  *                         return
  *                     if len(self.current_graph.adj[v]) + 1 == lower_bound:             # <<<<<<<<<<<<<<
@@ -2365,16 +2405,16 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
         if (unlikely(__pyx_v_self->current_graph->__pyx_base.adj == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 44, __pyx_L1_error)
+          __PYX_ERR(0, 55, __pyx_L1_error)
         }
-        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_9 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 44, __pyx_L1_error)
+        __pyx_t_9 = PyObject_Length(__pyx_t_4); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_1 = (((__pyx_t_9 + 1) == __pyx_v_lower_bound) != 0);
         if (__pyx_t_1) {
 
-          /* "findMCP.pyx":45
+          /* "findMCP.pyx":56
  *                         return
  *                     if len(self.current_graph.adj[v]) + 1 == lower_bound:
  *                         self.current_graph.trust[v] = 0             # <<<<<<<<<<<<<<
@@ -2383,24 +2423,24 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
           if (unlikely(__pyx_v_self->current_graph->trust == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 45, __pyx_L1_error)
+            __PYX_ERR(0, 56, __pyx_L1_error)
           }
-          if (unlikely(PyObject_SetItem(__pyx_v_self->current_graph->trust, __pyx_v_v, __pyx_int_0) < 0)) __PYX_ERR(0, 45, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_v_self->current_graph->trust, __pyx_v_v, __pyx_int_0) < 0)) __PYX_ERR(0, 56, __pyx_L1_error)
 
-          /* "findMCP.pyx":46
+          /* "findMCP.pyx":57
  *                     if len(self.current_graph.adj[v]) + 1 == lower_bound:
  *                         self.current_graph.trust[v] = 0
  *                         self.current_graph.reduce_vertex(int(v))             # <<<<<<<<<<<<<<
  *                     else:
  *                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)
  */
-          __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 46, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 46, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
 
-          /* "findMCP.pyx":44
+          /* "findMCP.pyx":55
  *                     if len(self.current_clique) >= lower_bound:
  *                         return
  *                     if len(self.current_graph.adj[v]) + 1 == lower_bound:             # <<<<<<<<<<<<<<
@@ -2410,7 +2450,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           goto __pyx_L14;
         }
 
-        /* "findMCP.pyx":48
+        /* "findMCP.pyx":59
  *                         self.current_graph.reduce_vertex(int(v))
  *                     else:
  *                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)             # <<<<<<<<<<<<<<
@@ -2420,7 +2460,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
         /*else*/ {
           if (unlikely(__pyx_v_self->current_graph->trust == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 48, __pyx_L1_error)
+            __PYX_ERR(0, 59, __pyx_L1_error)
           }
           __Pyx_INCREF(__pyx_v_self->current_graph->trust);
           __pyx_t_14 = __pyx_v_self->current_graph->trust;
@@ -2428,27 +2468,27 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
           __pyx_t_4 = __pyx_v_v;
           if (unlikely(__pyx_t_14 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 48, __pyx_L1_error)
+            __PYX_ERR(0, 59, __pyx_L1_error)
           }
-          __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_14, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 48, __pyx_L1_error)
+          __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_14, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 59, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_v); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L1_error)
-          __pyx_t_12 = PyFloat_FromDouble(((struct __pyx_vtabstruct_7findMCP_TrustCLQ *)__pyx_v_self->__pyx_vtab)->lost_trust(__pyx_v_self, __pyx_t_11, __pyx_v_lower_bound)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 48, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_v); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L1_error)
+          __pyx_t_12 = PyFloat_FromDouble(((struct __pyx_vtabstruct_7findMCP_TrustCLQ *)__pyx_v_self->__pyx_vtab)->lost_trust(__pyx_v_self, __pyx_t_11, __pyx_v_lower_bound)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 59, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_6 = PyNumber_InPlaceSubtract(__pyx_t_5, __pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 48, __pyx_L1_error)
+          __pyx_t_6 = PyNumber_InPlaceSubtract(__pyx_t_5, __pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 59, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           if (unlikely(__pyx_t_14 == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 48, __pyx_L1_error)
+            __PYX_ERR(0, 59, __pyx_L1_error)
           }
-          if (unlikely(PyObject_SetItem(__pyx_t_14, __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_14, __pyx_t_4, __pyx_t_6) < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-          /* "findMCP.pyx":49
+          /* "findMCP.pyx":60
  *                     else:
  *                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)
  *                         if self.current_graph.trust[v] <= 0:             # <<<<<<<<<<<<<<
@@ -2457,27 +2497,27 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
           if (unlikely(__pyx_v_self->current_graph->trust == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 49, __pyx_L1_error)
+            __PYX_ERR(0, 60, __pyx_L1_error)
           }
-          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->trust, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+          __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->trust, __pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_6 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 49, __pyx_L1_error)
+          __pyx_t_6 = PyObject_RichCompare(__pyx_t_4, __pyx_int_0, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 49, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           if (__pyx_t_1) {
 
-            /* "findMCP.pyx":50
+            /* "findMCP.pyx":61
  *                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)
  *                         if self.current_graph.trust[v] <= 0:
  *                             self.current_graph.reduce_vertex(v)             # <<<<<<<<<<<<<<
  *         self.current_clique = []
  * 
  */
-            __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_v); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
+            __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_v); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
             ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_11, 0);
 
-            /* "findMCP.pyx":49
+            /* "findMCP.pyx":60
  *                     else:
  *                         self.current_graph.trust[v] -= self.lost_trust(v=v, lower_bound=lower_bound)
  *                         if self.current_graph.trust[v] <= 0:             # <<<<<<<<<<<<<<
@@ -2488,7 +2528,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
         }
         __pyx_L14:;
 
-        /* "findMCP.pyx":31
+        /* "findMCP.pyx":42
  *             have_positives = False
  *             for v in self.current_graph.vertices:
  *                 if self.current_graph.trust[v] > 0:             # <<<<<<<<<<<<<<
@@ -2497,7 +2537,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
  */
       }
 
-      /* "findMCP.pyx":30
+      /* "findMCP.pyx":41
  *         while have_positives:
  *             have_positives = False
  *             for v in self.current_graph.vertices:             # <<<<<<<<<<<<<<
@@ -2508,14 +2548,14 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "findMCP.pyx":51
+  /* "findMCP.pyx":62
  *                         if self.current_graph.trust[v] <= 0:
  *                             self.current_graph.reduce_vertex(v)
  *         self.current_clique = []             # <<<<<<<<<<<<<<
  * 
  *     cpdef graph.GraphMCP find_max_clique(self):
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->current_clique);
@@ -2523,7 +2563,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
   __pyx_v_self->current_clique = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "findMCP.pyx":25
+  /* "findMCP.pyx":36
  *         return float(lower_bound * 1.0) / (len(self.current_graph.adj[v]) + 1)
  * 
  *     cdef list find_clique(self, int lower_bound):             # <<<<<<<<<<<<<<
@@ -2552,7 +2592,7 @@ static PyObject *__pyx_f_7findMCP_8TrustCLQ_find_clique(struct __pyx_obj_7findMC
   return __pyx_r;
 }
 
-/* "findMCP.pyx":53
+/* "findMCP.pyx":64
  *         self.current_clique = []
  * 
  *     cpdef graph.GraphMCP find_max_clique(self):             # <<<<<<<<<<<<<<
@@ -2584,7 +2624,7 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_find_max_clique); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_find_max_clique); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_7findMCP_8TrustCLQ_3find_max_clique)) {
         __Pyx_XDECREF(((PyObject *)__pyx_r));
@@ -2601,10 +2641,10 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5graph_GraphMCP))))) __PYX_ERR(0, 53, __pyx_L1_error)
+        if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5graph_GraphMCP))))) __PYX_ERR(0, 64, __pyx_L1_error)
         __pyx_r = ((struct __pyx_obj_5graph_GraphMCP *)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2623,16 +2663,16 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     #endif
   }
 
-  /* "findMCP.pyx":54
+  /* "findMCP.pyx":65
  * 
  *     cpdef graph.GraphMCP find_max_clique(self):
  *         random.seed(1573)             # <<<<<<<<<<<<<<
  *         self.max_clique = []
  *         i = 0
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_seed); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_seed); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2647,19 +2687,19 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_int_1573) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_int_1573);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":55
+  /* "findMCP.pyx":66
  *     cpdef graph.GraphMCP find_max_clique(self):
  *         random.seed(1573)
  *         self.max_clique = []             # <<<<<<<<<<<<<<
  *         i = 0
  *         while i < self.current_graph.cnt_vertices:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->max_clique);
@@ -2667,57 +2707,86 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
   __pyx_v_self->max_clique = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "findMCP.pyx":56
+  /* "findMCP.pyx":67
  *         random.seed(1573)
  *         self.max_clique = []
  *         i = 0             # <<<<<<<<<<<<<<
  *         while i < self.current_graph.cnt_vertices:
- *             for v in self.current_graph.vertices:
+ *             logger.info('i-{i}')
  */
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_i = __pyx_int_0;
 
-  /* "findMCP.pyx":57
+  /* "findMCP.pyx":68
  *         self.max_clique = []
  *         i = 0
  *         while i < self.current_graph.cnt_vertices:             # <<<<<<<<<<<<<<
+ *             logger.info('i-{i}')
  *             for v in self.current_graph.vertices:
- *                 if len(self.current_graph.adj[v]) + 1 < i:
  */
   while (1) {
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->current_graph->__pyx_base.cnt_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->current_graph->__pyx_base.cnt_vertices); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_v_i, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_v_i, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (!__pyx_t_5) break;
 
-    /* "findMCP.pyx":58
+    /* "findMCP.pyx":69
  *         i = 0
  *         while i < self.current_graph.cnt_vertices:
+ *             logger.info('i-{i}')             # <<<<<<<<<<<<<<
+ *             for v in self.current_graph.vertices:
+ *                 if len(self.current_graph.adj[v]) + 1 < i:
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_info); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_1, __pyx_kp_s_i_i) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_i_i);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "findMCP.pyx":70
+ *         while i < self.current_graph.cnt_vertices:
+ *             logger.info('i-{i}')
  *             for v in self.current_graph.vertices:             # <<<<<<<<<<<<<<
  *                 if len(self.current_graph.adj[v]) + 1 < i:
  *                     self.current_graph.reduce_vertex(int(v))
  */
     if (unlikely(__pyx_v_self->current_graph->__pyx_base.vertices == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 58, __pyx_L1_error)
+      __PYX_ERR(0, 70, __pyx_L1_error)
     }
     __pyx_t_3 = __pyx_v_self->current_graph->__pyx_base.vertices; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
     for (;;) {
       if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 70, __pyx_L1_error)
       #else
-      __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       #endif
-      __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_1);
-      __pyx_t_1 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_2);
+      __pyx_t_2 = 0;
 
-      /* "findMCP.pyx":59
- *         while i < self.current_graph.cnt_vertices:
+      /* "findMCP.pyx":71
+ *             logger.info('i-{i}')
  *             for v in self.current_graph.vertices:
  *                 if len(self.current_graph.adj[v]) + 1 < i:             # <<<<<<<<<<<<<<
  *                     self.current_graph.reduce_vertex(int(v))
@@ -2725,35 +2794,35 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
  */
       if (unlikely(__pyx_v_self->current_graph->__pyx_base.adj == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 59, __pyx_L1_error)
+        __PYX_ERR(0, 71, __pyx_L1_error)
       }
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_7 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 59, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyInt_FromSsize_t((__pyx_t_7 + 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_v_i, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_self->current_graph->__pyx_base.adj, __pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_7 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 71, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyInt_FromSsize_t((__pyx_t_7 + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_v_i, Py_LT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 71, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_5) {
 
-        /* "findMCP.pyx":60
+        /* "findMCP.pyx":72
  *             for v in self.current_graph.vertices:
  *                 if len(self.current_graph.adj[v]) + 1 < i:
  *                     self.current_graph.reduce_vertex(int(v))             # <<<<<<<<<<<<<<
  *             self.find_clique(lower_bound=len(self.max_clique) + 1)
  *             if len(self.max_clique) < len(self.current_clique):
  */
-        __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         ((struct __pyx_vtabstruct_5graph_GraphTrustCLQ *)__pyx_v_self->current_graph->__pyx_base.__pyx_vtab)->reduce_vertex(__pyx_v_self->current_graph, __pyx_t_8, 0);
 
-        /* "findMCP.pyx":59
- *         while i < self.current_graph.cnt_vertices:
+        /* "findMCP.pyx":71
+ *             logger.info('i-{i}')
  *             for v in self.current_graph.vertices:
  *                 if len(self.current_graph.adj[v]) + 1 < i:             # <<<<<<<<<<<<<<
  *                     self.current_graph.reduce_vertex(int(v))
@@ -2761,9 +2830,9 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
  */
       }
 
-      /* "findMCP.pyx":58
- *         i = 0
+      /* "findMCP.pyx":70
  *         while i < self.current_graph.cnt_vertices:
+ *             logger.info('i-{i}')
  *             for v in self.current_graph.vertices:             # <<<<<<<<<<<<<<
  *                 if len(self.current_graph.adj[v]) + 1 < i:
  *                     self.current_graph.reduce_vertex(int(v))
@@ -2771,7 +2840,7 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "findMCP.pyx":61
+    /* "findMCP.pyx":73
  *                 if len(self.current_graph.adj[v]) + 1 < i:
  *                     self.current_graph.reduce_vertex(int(v))
  *             self.find_clique(lower_bound=len(self.max_clique) + 1)             # <<<<<<<<<<<<<<
@@ -2782,15 +2851,15 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     __Pyx_INCREF(__pyx_t_3);
     if (unlikely(__pyx_t_3 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 61, __pyx_L1_error)
+      __PYX_ERR(0, 73, __pyx_L1_error)
     }
-    __pyx_t_6 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_6 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 73, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = ((struct __pyx_vtabstruct_7findMCP_TrustCLQ *)__pyx_v_self->__pyx_vtab)->find_clique(__pyx_v_self, (__pyx_t_6 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+    __pyx_t_3 = ((struct __pyx_vtabstruct_7findMCP_TrustCLQ *)__pyx_v_self->__pyx_vtab)->find_clique(__pyx_v_self, (__pyx_t_6 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "findMCP.pyx":62
+    /* "findMCP.pyx":74
  *                     self.current_graph.reduce_vertex(int(v))
  *             self.find_clique(lower_bound=len(self.max_clique) + 1)
  *             if len(self.max_clique) < len(self.current_clique):             # <<<<<<<<<<<<<<
@@ -2801,53 +2870,53 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     __Pyx_INCREF(__pyx_t_3);
     if (unlikely(__pyx_t_3 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 62, __pyx_L1_error)
+      __PYX_ERR(0, 74, __pyx_L1_error)
     }
-    __pyx_t_6 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_6 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = __pyx_v_self->current_clique;
     __Pyx_INCREF(__pyx_t_3);
     if (unlikely(__pyx_t_3 == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 62, __pyx_L1_error)
+      __PYX_ERR(0, 74, __pyx_L1_error)
     }
-    __pyx_t_7 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_7 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_5 = ((__pyx_t_6 < __pyx_t_7) != 0);
     if (__pyx_t_5) {
 
-      /* "findMCP.pyx":63
+      /* "findMCP.pyx":75
  *             self.find_clique(lower_bound=len(self.max_clique) + 1)
  *             if len(self.max_clique) < len(self.current_clique):
  *                 self.max_clique = self.current_clique.copy()             # <<<<<<<<<<<<<<
  *                 i = len(self.max_clique) + 1
  *             else:
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->current_clique, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
-        if (likely(__pyx_t_1)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_1);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->current_clique, __pyx_n_s_copy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_2 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
+        if (likely(__pyx_t_2)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+          __Pyx_INCREF(__pyx_t_2);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
-      __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+      __pyx_t_3 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 63, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 75, __pyx_L1_error)
       __Pyx_GIVEREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_v_self->max_clique);
       __Pyx_DECREF(__pyx_v_self->max_clique);
       __pyx_v_self->max_clique = ((PyObject*)__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "findMCP.pyx":64
+      /* "findMCP.pyx":76
  *             if len(self.max_clique) < len(self.current_clique):
  *                 self.max_clique = self.current_clique.copy()
  *                 i = len(self.max_clique) + 1             # <<<<<<<<<<<<<<
@@ -2858,16 +2927,16 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
       __Pyx_INCREF(__pyx_t_3);
       if (unlikely(__pyx_t_3 == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-        __PYX_ERR(0, 64, __pyx_L1_error)
+        __PYX_ERR(0, 76, __pyx_L1_error)
       }
-      __pyx_t_7 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
+      __pyx_t_7 = PyList_GET_SIZE(__pyx_t_3); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 76, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyInt_FromSsize_t((__pyx_t_7 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+      __pyx_t_3 = PyInt_FromSsize_t((__pyx_t_7 + 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "findMCP.pyx":62
+      /* "findMCP.pyx":74
  *                     self.current_graph.reduce_vertex(int(v))
  *             self.find_clique(lower_bound=len(self.max_clique) + 1)
  *             if len(self.max_clique) < len(self.current_clique):             # <<<<<<<<<<<<<<
@@ -2877,14 +2946,14 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
       goto __pyx_L8;
     }
 
-    /* "findMCP.pyx":66
+    /* "findMCP.pyx":78
  *                 i = len(self.max_clique) + 1
  *             else:
  *                 i = i + 1             # <<<<<<<<<<<<<<
  *         return graph.GraphMCP(vertices=self.init_graph.vertices, adj=self.init_graph.adj, max_clique=self.max_clique)
  */
     /*else*/ {
-      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 78, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_3);
       __pyx_t_3 = 0;
@@ -2892,25 +2961,25 @@ static struct __pyx_obj_5graph_GraphMCP *__pyx_f_7findMCP_8TrustCLQ_find_max_cli
     __pyx_L8:;
   }
 
-  /* "findMCP.pyx":67
+  /* "findMCP.pyx":79
  *             else:
  *                 i = i + 1
  *         return graph.GraphMCP(vertices=self.init_graph.vertices, adj=self.init_graph.adj, max_clique=self.max_clique)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_vertices, __pyx_v_self->init_graph->vertices) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_adj, __pyx_v_self->init_graph->adj) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_max_clique, __pyx_v_self->max_clique) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_GraphMCP), __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_vertices, __pyx_v_self->init_graph->vertices) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_adj, __pyx_v_self->init_graph->adj) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_max_clique, __pyx_v_self->max_clique) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5graph_GraphMCP), __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_r = ((struct __pyx_obj_5graph_GraphMCP *)__pyx_t_2);
-  __pyx_t_2 = 0;
+  __pyx_r = ((struct __pyx_obj_5graph_GraphMCP *)__pyx_t_1);
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "findMCP.pyx":53
+  /* "findMCP.pyx":64
  *         self.current_clique = []
  * 
  *     cpdef graph.GraphMCP find_max_clique(self):             # <<<<<<<<<<<<<<
@@ -2953,7 +3022,7 @@ static PyObject *__pyx_pf_7findMCP_8TrustCLQ_2find_max_clique(struct __pyx_obj_7
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("find_max_clique", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((PyObject *)__pyx_f_7findMCP_8TrustCLQ_find_max_clique(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_7findMCP_8TrustCLQ_find_max_clique(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4635,19 +4704,35 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_n_s_FileHandler, __pyx_k_FileHandler, sizeof(__pyx_k_FileHandler), 0, 0, 1, 1},
+  {&__pyx_n_s_Formatter, __pyx_k_Formatter, sizeof(__pyx_k_Formatter), 0, 0, 1, 1},
+  {&__pyx_n_s_INFO, __pyx_k_INFO, sizeof(__pyx_k_INFO), 0, 0, 1, 1},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0x6b, __pyx_k_Incompatible_checksums_s_vs_0x6b, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x6b), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_TrustCLQ, __pyx_k_TrustCLQ, sizeof(__pyx_k_TrustCLQ), 0, 0, 1, 1},
+  {&__pyx_n_s_addHandler, __pyx_k_addHandler, sizeof(__pyx_k_addHandler), 0, 0, 1, 1},
   {&__pyx_n_s_adj, __pyx_k_adj, sizeof(__pyx_k_adj), 0, 0, 1, 1},
+  {&__pyx_kp_s_asctime_s_levelname_s_module_s, __pyx_k_asctime_s_levelname_s_module_s, sizeof(__pyx_k_asctime_s_levelname_s_module_s), 0, 0, 1, 0},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_kp_s_clique_main, __pyx_k_clique_main, sizeof(__pyx_k_clique_main), 0, 0, 1, 0},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_count, __pyx_k_count, sizeof(__pyx_k_count), 0, 0, 1, 1},
+  {&__pyx_n_s_datefmt, __pyx_k_datefmt, sizeof(__pyx_k_datefmt), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
+  {&__pyx_n_s_fh, __pyx_k_fh, sizeof(__pyx_k_fh), 0, 0, 1, 1},
   {&__pyx_n_s_findMCP, __pyx_k_findMCP, sizeof(__pyx_k_findMCP), 0, 0, 1, 1},
   {&__pyx_n_s_find_max_clique, __pyx_k_find_max_clique, sizeof(__pyx_k_find_max_clique), 0, 0, 1, 1},
+  {&__pyx_n_s_formatter, __pyx_k_formatter, sizeof(__pyx_k_formatter), 0, 0, 1, 1},
   {&__pyx_n_s_g, __pyx_k_g, sizeof(__pyx_k_g), 0, 0, 1, 1},
+  {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
+  {&__pyx_kp_s_i_i, __pyx_k_i_i, sizeof(__pyx_k_i_i), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_info, __pyx_k_info, sizeof(__pyx_k_info), 0, 0, 1, 1},
+  {&__pyx_kp_s_log_log, __pyx_k_log_log, sizeof(__pyx_k_log_log), 0, 0, 1, 0},
+  {&__pyx_n_s_logger, __pyx_k_logger, sizeof(__pyx_k_logger), 0, 0, 1, 1},
+  {&__pyx_n_s_logging, __pyx_k_logging, sizeof(__pyx_k_logging), 0, 0, 1, 1},
+  {&__pyx_kp_s_m_d_Y_H_M_S, __pyx_k_m_d_Y_H_M_S, sizeof(__pyx_k_m_d_Y_H_M_S), 0, 0, 1, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max_clique, __pyx_k_max_clique, sizeof(__pyx_k_max_clique), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -4667,6 +4752,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
   {&__pyx_n_s_scale, __pyx_k_scale, sizeof(__pyx_k_scale), 0, 0, 1, 1},
   {&__pyx_n_s_seed, __pyx_k_seed, sizeof(__pyx_k_seed), 0, 0, 1, 1},
+  {&__pyx_n_s_setFormatter, __pyx_k_setFormatter, sizeof(__pyx_k_setFormatter), 0, 0, 1, 1},
+  {&__pyx_n_s_setLevel, __pyx_k_setLevel, sizeof(__pyx_k_setLevel), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
@@ -4683,15 +4770,59 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
+  /* "findMCP.pyx":6
+ * 
+ * 
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',             # <<<<<<<<<<<<<<
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')
+ */
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_asctime_s_levelname_s_module_s); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "findMCP.pyx":8
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')             # <<<<<<<<<<<<<<
+ * fh.setFormatter(formatter)
+ * logging.getLogger().addHandler(fh)
+ */
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_log_log); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
+
+  /* "findMCP.pyx":13
+ * logging.getLogger().setLevel(logging.INFO)
+ * 
+ * logger = logging.getLogger('clique.main')             # <<<<<<<<<<<<<<
+ * logger.setLevel('INFO')
+ * 
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_clique_main); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "findMCP.pyx":14
+ * 
+ * logger = logging.getLogger('clique.main')
+ * logger.setLevel('INFO')             # <<<<<<<<<<<<<<
+ * 
+ * cdef class TrustCLQ:
+ */
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_INFO); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
+
   /* "(tree fragment)":1
  * def __pyx_unpickle_TrustCLQ(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple_ = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple_)) __PYX_ERR(2, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_TrustCLQ, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_TrustCLQ, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4752,16 +4883,16 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_7findMCP_TrustCLQ.find_clique = (PyObject *(*)(struct __pyx_obj_7findMCP_TrustCLQ *, int))__pyx_f_7findMCP_8TrustCLQ_find_clique;
   __pyx_vtable_7findMCP_TrustCLQ.update_candidates = (void (*)(struct __pyx_obj_7findMCP_TrustCLQ *, int))__pyx_f_7findMCP_8TrustCLQ_update_candidates;
   __pyx_vtable_7findMCP_TrustCLQ.lost_trust = (double (*)(struct __pyx_obj_7findMCP_TrustCLQ *, int, int))__pyx_f_7findMCP_8TrustCLQ_lost_trust;
-  if (PyType_Ready(&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_7findMCP_TrustCLQ.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_7findMCP_TrustCLQ.tp_dictoffset && __pyx_type_7findMCP_TrustCLQ.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_7findMCP_TrustCLQ.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_7findMCP_TrustCLQ.tp_dict, __pyx_vtabptr_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_TrustCLQ, (PyObject *)&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_7findMCP_TrustCLQ.tp_dict, __pyx_vtabptr_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_TrustCLQ, (PyObject *)&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_7findMCP_TrustCLQ) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __pyx_ptype_7findMCP_TrustCLQ = &__pyx_type_7findMCP_TrustCLQ;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -4907,6 +5038,8 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_findMCP(PyObject *__pyx_pyinit_mod
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
@@ -5014,12 +5147,190 @@ if (!__Pyx_RefNanny) {
   /* "findMCP.pyx":2
  * cimport graph
  * import random             # <<<<<<<<<<<<<<
- * 
+ * import logging
  * 
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":3
+ * cimport graph
+ * import random
+ * import logging             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_logging, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logging, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":6
+ * 
+ * 
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',             # <<<<<<<<<<<<<<
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Formatter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":7
+ * 
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )             # <<<<<<<<<<<<<<
+ * fh = logging.FileHandler('log.log')
+ * fh.setFormatter(formatter)
+ */
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_datefmt, __pyx_kp_s_m_d_Y_H_M_S) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+
+  /* "findMCP.pyx":6
+ * 
+ * 
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',             # <<<<<<<<<<<<<<
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')
+ */
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple_, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_formatter, __pyx_t_3) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "findMCP.pyx":8
+ * formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')             # <<<<<<<<<<<<<<
+ * fh.setFormatter(formatter)
+ * logging.getLogger().addHandler(fh)
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_logging); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_FileHandler); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fh, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "findMCP.pyx":9
+ *                                   datefmt='%m/%d/%Y %H:%M:%S'   )
+ * fh = logging.FileHandler('log.log')
+ * fh.setFormatter(formatter)             # <<<<<<<<<<<<<<
+ * logging.getLogger().addHandler(fh)
+ * logging.getLogger().setLevel(logging.INFO)
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_fh); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_setFormatter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_formatter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "findMCP.pyx":10
+ * fh = logging.FileHandler('log.log')
+ * fh.setFormatter(formatter)
+ * logging.getLogger().addHandler(fh)             # <<<<<<<<<<<<<<
+ * logging.getLogger().setLevel(logging.INFO)
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_logging); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_getLogger); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_addHandler); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_fh); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":11
+ * fh.setFormatter(formatter)
+ * logging.getLogger().addHandler(fh)
+ * logging.getLogger().setLevel(logging.INFO)             # <<<<<<<<<<<<<<
+ * 
+ * logger = logging.getLogger('clique.main')
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_getLogger); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_INFO); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":13
+ * logging.getLogger().setLevel(logging.INFO)
+ * 
+ * logger = logging.getLogger('clique.main')             # <<<<<<<<<<<<<<
+ * logger.setLevel('INFO')
+ * 
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_getLogger); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logger, __pyx_t_1) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "findMCP.pyx":14
+ * 
+ * logger = logging.getLogger('clique.main')
+ * logger.setLevel('INFO')             # <<<<<<<<<<<<<<
+ * 
+ * cdef class TrustCLQ:
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_setLevel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":1
@@ -5035,7 +5346,7 @@ if (!__Pyx_RefNanny) {
   /* "findMCP.pyx":1
  * cimport graph             # <<<<<<<<<<<<<<
  * import random
- * 
+ * import logging
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -5047,6 +5358,8 @@ if (!__Pyx_RefNanny) {
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init findMCP", __pyx_clineno, __pyx_lineno, __pyx_filename);

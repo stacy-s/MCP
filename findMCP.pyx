@@ -1,6 +1,17 @@
 cimport graph
 import random
+import logging
 
+
+formatter = logging.Formatter('%(asctime)s [%(levelname)s]%(module)s:%(lineno)s:%(message)s',
+                                  datefmt='%m/%d/%Y %H:%M:%S'   )
+fh = logging.FileHandler('log.log')
+fh.setFormatter(formatter)
+logging.getLogger().addHandler(fh)
+logging.getLogger().setLevel(logging.INFO)
+
+logger = logging.getLogger('clique.main')
+logger.setLevel('INFO')
 
 cdef class TrustCLQ:
     def __init__(self, graph.Graph g, double scale):
@@ -55,6 +66,7 @@ cdef class TrustCLQ:
         self.max_clique = []
         i = 0
         while i < self.current_graph.cnt_vertices:
+            logger.info('i-{i}')
             for v in self.current_graph.vertices:
                 if len(self.current_graph.adj[v]) + 1 < i:
                     self.current_graph.reduce_vertex(int(v))

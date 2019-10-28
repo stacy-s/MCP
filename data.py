@@ -85,14 +85,27 @@ class DataSNAP(Data):
         with open(path) as file:
             cnt_vertices = None
             edges = None
+            edges_list = []
+            vertices = set()
             for i, line in enumerate(file):
                 if i == 2:
                     cnt_vertices, cnt_edges = get_number_verticies_edges(line, 2, 4)
                     edges = [[] for _ in range(cnt_vertices)]
                 if i > 3:
                     v, to = get_edge(line, 0, 1)
-                    if edges is None:
-                        raise ValueError
-                    edges[v].append(to)
-                    edges[to].append(v)
+                    edges_list.append((v, to))
+                    vertices.add(v)
+                    vertices.add(to)
+            vertices = sorted(vertices)
+            num_of_vertex = dict()
+            for i in range(len(vertices)):
+                num_of_vertex[vertices[i]] = i
+            cnt_vertices = len(vertices)
+            for v, to in edges_list:
+                if edges is None:
+                    raise ValueError
+                v = num_of_vertex[v]
+                to = num_of_vertex[to]
+                edges[v].append(to)
+                edges[to].append(v)
         return graph.Graph(vertices = list(np.arange(0, cnt_vertices, 1)), adj=edges)
