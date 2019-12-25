@@ -76,7 +76,7 @@ class DataFacebook(Data):
                         raise ValueError
                     edges[v].append(to)
                     edges[to].append(v)
-        return graph.Graph(vertices = list(np.arange(0, cnt_vertices, 1)), adj=edges)
+        return graph.Graph(vertices = list(np.arange(0, cnt_vertices, 1)), adj=edges), cnt_vertices, cnt_edges
 
 
 class DataSNAP(Data):
