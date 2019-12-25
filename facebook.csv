@@ -1,2 +1,0 @@
-;name;num_vertices;time;scale;max_clique;size_max_clique;is_right;wrong_vertices
-0;../facebook15/socfb-USFCA72.mtx;2682;2.709506034851074;0.1;[1524, 1285, 1230, 962, 954];5;True;[]
