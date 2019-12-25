@@ -1,0 +1,4 @@
+name,num_edges,time_1.0,size_max_clique_1.0,size_max_clique_max,size_max_clique_heuristic
+email-Enron.txt,367662,542.29,20,20,18
+dictionary28.mtx,89038,577.58,26,26,26
+foldoc.mtx,120238,66.72,9,9,9
